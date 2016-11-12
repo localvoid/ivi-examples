@@ -106,6 +106,11 @@ const build02StatefulComponent = exports.build02StatefulComponent = series(
     compile("02_stateful_component")
 );
 
+const buildSnake = exports.buildSnake = series(
+    bundle("games/snake"),
+    compile("games/snake")
+);
+
 const buildBenchmarkUIBench = exports.buildUIBench = series(
     bundle("benchmarks/uibench"),
     compile("benchmarks/uibench", "src/benchmarks/uibench/externs/uibench.js")
@@ -128,6 +133,7 @@ exports.default = exports.build = series(
     compileTypescript,
     build01Introduction,
     build02StatefulComponent,
+    buildSnake,
     buildBenchmarkUIBench,
     buildBenchmarkDBMon,
     buildBenchmark10k

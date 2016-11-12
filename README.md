@@ -5,6 +5,10 @@
 - [Introduction](https://ivijs.github.io/examples/01_introduction/)
 - [Stateful Component](https://ivijs.github.io/examples/02_stateful_component/)
 
+## Games
+
+- [Snake](https://ivijs.github.io/examples/games/snake/)
+
 ## Benchmarks
 
 - [UIBench](https://ivijs.github.io/examples/benchmarks/uibench/)
