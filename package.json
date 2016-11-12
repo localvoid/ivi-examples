@@ -1,0 +1,27 @@
+{
+  "private": true,
+  "name": "ivi-examples",
+  "version": "1.0.0",
+  "description": "ivi examples",
+  "license": "MIT",
+  "author": {
+    "name": "Boris Kaul",
+    "email": "localvoid@gmail.com",
+    "url": "https://github.com/localvoid"
+  },
+  "devDependencies": {
+    "del": "^2.2.2",
+    "google-closure-compiler": "^20161024.3.0",
+    "gulp": "github:gulpjs/gulp#4.0",
+    "gulp-if": "^2.0.2",
+    "gulp-sourcemaps": "^2.2.0",
+    "perf-monitor": "^0.3.0",
+    "rollup": "^0.36.3",
+    "rollup-plugin-alias": "^1.2.0",
+    "rollup-plugin-node-resolve": "^2.0.0",
+    "rollup-plugin-replace": "^1.1.1",
+    "rollup-plugin-sourcemaps": "^0.4.1",
+    "tslib": "^1.0.0",
+    "typescript": "^2.1.0"
+  }
+}

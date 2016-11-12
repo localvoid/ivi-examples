@@ -1,0 +1,29 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "es6",
+        "moduleResolution": "node",
+        "rootDir": ".",
+        "outDir": "build/es6",
+        "inlineSourceMap": true,
+        "inlineSources": true,
+        "noEmitHelpers": true,
+        "removeComments": false,
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": false,
+        "forceConsistentCasingInFileNames": true,
+        "noImplicitAny": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "noUnusedLocals": true,
+        "strictNullChecks": true
+    },
+    "include": [
+        "src/**/*.ts"
+    ],
+    "compileOnSave": false
+}
