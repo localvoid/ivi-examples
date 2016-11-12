@@ -111,6 +111,11 @@ const buildSnake = exports.buildSnake = series(
     compile("games/snake")
 );
 
+const buildTodoMVC = exports.buildTodoMVC = series(
+    bundle("todomvc"),
+    compile("todomvc")
+);
+
 const buildBenchmarkUIBench = exports.buildUIBench = series(
     bundle("benchmarks/uibench"),
     compile("benchmarks/uibench", "src/benchmarks/uibench/externs/uibench.js")
@@ -134,6 +139,7 @@ exports.default = exports.build = series(
     build01Introduction,
     build02StatefulComponent,
     buildSnake,
+    buildTodoMVC,
     buildBenchmarkUIBench,
     buildBenchmarkDBMon,
     buildBenchmark10k

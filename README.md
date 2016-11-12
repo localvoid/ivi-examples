@@ -5,6 +5,10 @@
 - [Introduction](https://ivijs.github.io/examples/01_introduction/)
 - [Stateful Component](https://ivijs.github.io/examples/02_stateful_component/)
 
+## Apps
+
+- [TodoMVC](https://ivijs.github.io/examples/todomvc/)
+
 ## Games
 
 - [Snake](https://ivijs.github.io/examples/games/snake/)
