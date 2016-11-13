@@ -1,5 +1,92 @@
 import { render, Component, Events, VNode, $h, $c } from "ivi";
 
+class NativeBox extends Component<{
+    depth: number,
+    touch: boolean,
+    stopPropagation: boolean,
+    capture: boolean,
+}> {
+    private clickCounter = 0;
+    private isEntered = false;
+    private isTouched = false;
+
+    private onClick = (ev: MouseEvent) => {
+        this.clickCounter++;
+        this.invalidate();
+        if (this.props.stopPropagation) {
+            ev.stopPropagation();
+        }
+    };
+
+    private onMouseEnter = (ev: MouseEvent) => {
+        this.isEntered = true;
+        this.invalidate();
+        if (this.props.stopPropagation) {
+            ev.stopPropagation();
+        }
+    };
+
+    private onMouseLeave = (ev: MouseEvent) => {
+        this.isEntered = false;
+        this.invalidate();
+        if (this.props.stopPropagation) {
+            ev.stopPropagation();
+        }
+    };
+
+    private onTouchStart = (ev: TouchEvent) => {
+        this.isTouched = true;
+        this.invalidate();
+        if (this.props.stopPropagation) {
+            ev.stopPropagation();
+        }
+    };
+
+    private onTouchEnd = (ev: TouchEvent) => {
+        this.isTouched = false;
+        this.invalidate();
+        if (this.props.stopPropagation) {
+            ev.stopPropagation();
+        }
+    };
+
+    private events = this.props.touch ?
+        {
+            "click": this.onClick,
+            "mouseenter": this.onMouseEnter,
+            "mouseleave": this.onMouseLeave,
+            "touchstart": this.onTouchStart,
+            "touchend": this.onTouchEnd,
+        } :
+        {
+            "click": this.onClick,
+            "mouseenter": this.onMouseEnter,
+            "mouseleave": this.onMouseLeave,
+        };
+
+    render(): VNode<any> {
+        const { depth } = this.props;
+        return $h("div", "Box" + (this.isEntered ? " entered" : "") + (this.isTouched ? " touched" : ""))
+            .ref((n) => {
+                if (n) {
+                    const keys = Object.keys(this.events);
+                    for (let i = 0; i < keys.length; i++) {
+                        const key = keys[i];
+                        n.addEventListener(key, (this.events as any)[key], this.props.capture);
+                    }
+                }
+            })
+            .children([
+                $h("div", "ClickCounter").children(`Clicks: ${this.clickCounter}`),
+                (depth > 0) ? $c(NativeBox, {
+                    depth: depth - 1,
+                    touch: this.props.touch,
+                    stopPropagation: this.props.stopPropagation,
+                }) : null,
+            ]);
+    }
+}
+
 class Box extends Component<{
     depth: number,
     touch: boolean,
@@ -82,15 +169,27 @@ class Box extends Component<{
 
 render(
     $h("div").children([
-        $h("div").children("Touch disabled:"),
+        $h("h1").children("Native Events:"),
+        $h("h2").children("Touch disabled:"),
+        $c(NativeBox, { depth: 3, touch: false, stopPropagation: false, capture: false }),
+        $h("h2").children("Touch enabled:"),
+        $c(NativeBox, { depth: 3, touch: true, stopPropagation: false, capture: false }),
+        $h("h2").children("Touch enabled / Capture:"),
+        $c(NativeBox, { depth: 3, touch: true, stopPropagation: false, capture: true }),
+        $h("h2").children("Touch enabled / Stop propagation:"),
+        $c(NativeBox, { depth: 3, touch: true, stopPropagation: true, capture: false }),
+        $h("h2").children("Touch enabled / Stop propagation / Capture:"),
+        $c(NativeBox, { depth: 3, touch: true, stopPropagation: true, capture: true }),
+        $h("h1").children("Synthetic Events:"),
+        $h("h2").children("Touch disabled:"),
         $c(Box, { depth: 3, touch: false, stopPropagation: false, capture: false }),
-        $h("div").children("Touch enabled:"),
+        $h("h2").children("Touch enabled:"),
         $c(Box, { depth: 3, touch: true, stopPropagation: false, capture: false }),
-        $h("div").children("Touch enabled / Capture:"),
+        $h("h2").children("Touch enabled / Capture:"),
         $c(Box, { depth: 3, touch: true, stopPropagation: false, capture: true }),
-        $h("div").children("Touch enabled / Stop propagation:"),
+        $h("h2").children("Touch enabled / Stop propagation:"),
         $c(Box, { depth: 3, touch: true, stopPropagation: true, capture: false }),
-        $h("div").children("Touch enabled / Stop propagation / Capture:"),
+        $h("h2").children("Touch enabled / Stop propagation / Capture:"),
         $c(Box, { depth: 3, touch: true, stopPropagation: true, capture: true }),
     ]),
     document.getElementById("app") !);
