@@ -40,7 +40,7 @@ function copyAssets() {
 
 function compileTypescript(done) {
     exec("./node_modules/typescript/bin/tsc --importHelpers",
-        function (err, stdout, stderr) {
+        function(err, stdout, stderr) {
             if (stdout) {
                 console.log(stdout);
             }
@@ -52,7 +52,7 @@ function compileTypescript(done) {
 }
 
 function bundle(name) {
-    const fn = function () {
+    const fn = function() {
         return rollup.rollup({
             entry: "build/es6/src/" + name + "/main.js",
             context: "window",
@@ -81,7 +81,7 @@ function bundle(name) {
 }
 
 function compile(name, externs) {
-    const fn = function () {
+    const fn = function() {
         return gulp.src("build/" + name + ".js")
             .pipe(gulpIf(ENABLE_SOURCEMAPS, gulpSourcemaps.init({ loadMaps: true })))
             .pipe(closureCompiler(Object.assign({}, CLOSURE_OPTS, {
@@ -104,6 +104,11 @@ const build01Introduction = exports.build01Introduction = series(
 const build02StatefulComponent = exports.build02StatefulComponent = series(
     bundle("02_stateful_component"),
     compile("02_stateful_component")
+);
+
+const build03Events = exports.build03Events = series(
+    bundle("03_events"),
+    compile("03_events")
 );
 
 const buildSnake = exports.buildSnake = series(
@@ -131,6 +136,11 @@ const buildBenchmark10k = exports.build10k = series(
     compile("benchmarks/10k")
 );
 
+const buildPlaygroundPointerEvents = exports.buildPlaygroundPointerEvents = series(
+    bundle("playground/pointer-events"),
+    compile("playground/pointer-events")
+);
+
 exports.compileTypescript = compileTypescript;
 exports.default = exports.build = series(
     clean,
@@ -138,9 +148,11 @@ exports.default = exports.build = series(
     compileTypescript,
     build01Introduction,
     build02StatefulComponent,
+    build03Events,
     buildSnake,
     buildTodoMVC,
     buildBenchmarkUIBench,
     buildBenchmarkDBMon,
-    buildBenchmark10k
+    buildBenchmark10k,
+    buildPlaygroundPointerEvents
 );

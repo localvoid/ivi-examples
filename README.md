@@ -4,6 +4,7 @@
 
 - [Introduction](https://ivijs.github.io/examples/01_introduction/)
 - [Stateful Component](https://ivijs.github.io/examples/02_stateful_component/)
+- [Events](https://ivijs.github.io/examples/03_events/)
 
 ## Apps
 
@@ -18,3 +19,7 @@
 - [UIBench](https://ivijs.github.io/examples/benchmarks/uibench/)
 - [DBMon](https://ivijs.github.io/examples/benchmarks/dbmon/)
 - [10k Components](https://ivijs.github.io/examples/benchmarks/10k/)
+
+## Test Playground
+
+- [Pointer Events](https://ivijs.github.io/examples/playground/pointer-events/)
