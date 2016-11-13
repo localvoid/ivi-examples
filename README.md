@@ -6,6 +6,7 @@
 - [Stateful Component](https://ivijs.github.io/examples/02_stateful_component/)
 - [Events](https://ivijs.github.io/examples/03_events/)
 - [Forms](https://ivijs.github.io/examples/04_forms/)
+- [Collapsable](https://ivijs.github.io/examples/05_collapsable/)
 
 ## Apps
 
