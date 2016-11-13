@@ -5,6 +5,7 @@
 - [Introduction](https://ivijs.github.io/examples/01_introduction/)
 - [Stateful Component](https://ivijs.github.io/examples/02_stateful_component/)
 - [Events](https://ivijs.github.io/examples/03_events/)
+- [Forms](https://ivijs.github.io/examples/04_forms/)
 
 ## Apps
 

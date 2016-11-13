@@ -111,6 +111,11 @@ const build03Events = exports.build03Events = series(
     compile("03_events")
 );
 
+const build04Forms = exports.build04Forms = series(
+    bundle("04_forms"),
+    compile("04_forms")
+);
+
 const buildSnake = exports.buildSnake = series(
     bundle("games/snake"),
     compile("games/snake")
@@ -149,6 +154,7 @@ exports.default = exports.build = series(
     build01Introduction,
     build02StatefulComponent,
     build03Events,
+    build04Forms,
     buildSnake,
     buildTodoMVC,
     buildBenchmarkUIBench,
