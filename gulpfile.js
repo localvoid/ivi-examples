@@ -3,17 +3,19 @@ const gulp = require("gulp");
 const del = require("del");
 const gulpIf = require("gulp-if");
 const gulpSourcemaps = require("gulp-sourcemaps");
+const gulpRename = require("gulp-rename");
 const rollup = require("rollup");
 const rollupSourceMaps = require("rollup-plugin-sourcemaps");
 const rollupAlias = require("rollup-plugin-alias");
 const rollupNodeResolve = require("rollup-plugin-node-resolve");
 const rollupReplace = require("rollup-plugin-replace");
 const closureCompiler = require("google-closure-compiler").gulp();
+const browserSync = require("browser-sync").create();
 
 const series = gulp.series;
 const parallel = gulp.parallel;
 
-const ENABLE_SOURCEMAPS = false;
+const ENABLE_SOURCEMAPS = true;
 
 const CLOSURE_OPTS = {
     compilation_level: "ADVANCED",
@@ -26,7 +28,7 @@ const CLOSURE_OPTS = {
     output_wrapper: "(function(){%output%}).call(this);",
     summary_detail_level: 3,
     warning_level: "QUIET",
-    rewrite_polyfills: false,
+    rewrite_polyfills: true,
 };
 
 function clean() {
@@ -51,7 +53,7 @@ function compileTypescript(done) {
         });
 }
 
-function bundle(name) {
+function bundle(name, devMode) {
     const fn = function() {
         return rollup.rollup({
             entry: "build/es6/src/" + name + "/main.js",
@@ -64,7 +66,7 @@ function bundle(name) {
                 rollupNodeResolve({ jsnext: true }),
                 rollupReplace({
                     values: {
-                        "__IVI_DEV__": false,
+                        "__IVI_DEV__": !!devMode,
                     },
                 }),
             ],
@@ -78,6 +80,14 @@ function bundle(name) {
     };
     fn.displayName = "bundle: " + name;
     return fn;
+}
+
+function copyBundle(name) {
+    return function copyBundle() {
+        return gulp.src("build/" + name + ".js")
+            .pipe(gulpRename(name + "/bundle.js"))
+            .pipe(gulp.dest("docs/"));
+    }
 }
 
 function compile(name, externs) {
@@ -151,7 +161,55 @@ const buildPlaygroundPointerEvents = exports.buildPlaygroundPointerEvents = seri
     compile("playground/pointer-events")
 );
 
+function browserSyncReload(done) {
+    browserSync.reload();
+    done();
+}
+
+function watchProject(name) {
+    gulp.watch("src/" + name + "/**/*.ts", series(
+        compileTypescript,
+        bundle(name, true),
+        copyBundle(name),
+        browserSyncReload
+    ));
+}
+
+function watch() {
+    gulp.watch(["src/**/*.html", "src/**/*.css"],
+        series(
+            copyAssets,
+            browserSyncReload
+        ));
+
+    watchProject("01_introduction");
+    watchProject("02_stateful_component");
+    watchProject("03_events");
+    watchProject("04_forms");
+    watchProject("05_collapsable");
+    watchProject("games/snake");
+    watchProject("todomvc");
+    watchProject("benchmarks/uibench");
+    watchProject("benchmarks/dbmon");
+    watchProject("benchmarks/10k");
+    watchProject("playground/pointer-events");
+}
+
+function serve() {
+    browserSync.init({
+        server: {
+            baseDir: "./",
+            directory: true,
+        },
+        minify: false,
+    });
+
+    watch();
+}
+
 exports.compileTypescript = compileTypescript;
+exports.watch = watch;
+exports.serve = serve;
 exports.default = exports.build = series(
     clean,
     copyAssets,
