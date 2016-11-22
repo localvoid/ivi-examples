@@ -28,7 +28,7 @@ class Form extends Component<{
                 $i("text")
                     .props({ placeholder: "Entry" })
                     .value(this.entry),
-                $h("button").value("Submit"),
+                $h("button").children("Submit"),
             ]);
     }
 }

@@ -29,9 +29,10 @@ function updateData(data: string[], mutations: number): void {
     }
 }
 
-const Pixel = checkPropsIdentity((color: string) => {
-    return $h("span", "pixel").style(`background:${color}`);
-});
+checkPropsIdentity(Pixel);
+function Pixel(color: string) {
+    return $h("span", "pixel").style({ "background": color });
+}
 
 function Image(colors: string[]) {
     const children = new Array<VNode<any>>(100);

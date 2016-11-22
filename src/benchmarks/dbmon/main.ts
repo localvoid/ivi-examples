@@ -36,14 +36,16 @@ function queryClasses(elapsed: number): string {
     return "Query elapsed short";
 }
 
-const Popover = checkPropsIdentity(function (query: string) {
+checkPropsIdentity(Popover);
+function Popover(query: string) {
     return $h("div", "popover left").children([
         $h("div", "popover-content").children(query),
         $h("div", "arrow"),
     ]);
-});
+}
 
-const DatabaseView = checkPropsIdentity(function (db: DB) {
+checkPropsIdentity(DatabaseView);
+function DatabaseView(db: DB) {
     const topFiveQueries = db.getTopFiveQueries();
     const count = db.queries!.length;
 
@@ -71,7 +73,7 @@ const DatabaseView = checkPropsIdentity(function (db: DB) {
     }
 
     return $h("tr").children(children);
-});
+}
 
 function Main(props: DBList) {
     const dbs = props.dbs;

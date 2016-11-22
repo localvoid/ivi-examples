@@ -15,7 +15,8 @@ class TableCell extends Component<string> {
     }
 }
 
-const TableRow = checkPropsIdentity(function (data: TableItemState) {
+checkPropsIdentity(TableRow);
+function TableRow(data: TableItemState) {
     const { props, id, active } = data;
     const children = new Array<VNode<any>>(props.length + 1);
     children[0] = $c(TableCell, "#" + id);
@@ -26,9 +27,10 @@ const TableRow = checkPropsIdentity(function (data: TableItemState) {
     return $h("tr", active ? "TableRow active" : "TableRow")
         .props({ "data-id": id })
         .children(children);
-});
+}
 
-const Table = checkPropsIdentity(function (props: TableState) {
+checkPropsIdentity(Table);
+function Table(props: TableState) {
     const {items} = props;
 
     const children = new Array<VNode<any>>(items.length);
@@ -39,9 +41,10 @@ const Table = checkPropsIdentity(function (props: TableState) {
 
     return $h("table", "Table").children(
         $h("tbody").trackByKeyChildren(children));
-});
+}
 
-const AnimBox = checkPropsIdentity(function (props: AnimBoxState) {
+checkPropsIdentity(AnimBox);
+function AnimBox(props: AnimBoxState) {
     const { time } = props;
 
     return $h("div", "AnimBox")
@@ -50,9 +53,10 @@ const AnimBox = checkPropsIdentity(function (props: AnimBoxState) {
             background: "rgba(0,0,0," + (0.5 + ((time % 10) / 10)) + ")",
             borderRadius: (time % 10) + "px",
         });
-});
+}
 
-const Anim = checkPropsIdentity(function (props: AnimState) {
+checkPropsIdentity(Anim);
+function Anim(props: AnimState) {
     const items = props.items;
 
     const children = new Array<VNode<any>>(items.length);
@@ -62,13 +66,15 @@ const Anim = checkPropsIdentity(function (props: AnimState) {
     }
 
     return $h("div", "Anim").trackByKeyChildren(children);
-});
+}
 
-const TreeLeaf = checkPropsIdentity(function (props: TreeNodeState) {
+checkPropsIdentity(TreeLeaf);
+function TreeLeaf(props: TreeNodeState) {
     return $h("li", "TreeLeaf").children(props.id);
-});
+}
 
-const TreeNode = checkPropsIdentity(function (data: TreeNodeState) {
+checkPropsIdentity(TreeNode);
+function TreeNode(data: TreeNodeState) {
     const children = new Array<VNode<any>>(data.children.length);
     for (let i = 0; i < data.children.length; i++) {
         const n = data.children[i];
@@ -78,14 +84,16 @@ const TreeNode = checkPropsIdentity(function (data: TreeNodeState) {
 
     return $h("ul", "TreeNode")
         .trackByKeyChildren(children);
-});
+}
 
-const Tree = checkPropsIdentity(function (props: TreeState) {
+checkPropsIdentity(Tree);
+function Tree(props: TreeState) {
     return $h("div", "Tree")
         .children($c(TreeNode, props.root));
-});
+}
 
-const Main = checkPropsIdentity(function (props: AppState | undefined) {
+checkPropsIdentity(Main);
+function Main(props: AppState | undefined) {
     if (!props) {
         return $h("div", "Main");
     }
@@ -98,9 +106,9 @@ const Main = checkPropsIdentity(function (props: AppState | undefined) {
         default: // "tree"
             return $h("div", "Main").children($c(Tree, props.tree));
     }
-});
+}
 
-uibench.init("ivi", "0.1.0");
+uibench.init("ivi", "0.2.0");
 
 document.addEventListener("DOMContentLoaded", (e) => {
     const container = document.querySelector("#App") !;

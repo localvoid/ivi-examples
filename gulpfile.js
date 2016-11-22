@@ -40,9 +40,9 @@ function copyAssets() {
         .pipe(gulp.dest("docs"));
 }
 
-function compileTypescript(done) {
+function compileTypeScript(done) {
     exec("./node_modules/typescript/bin/tsc --importHelpers",
-        function(err, stdout, stderr) {
+        function (err, stdout, stderr) {
             if (stdout) {
                 console.log(stdout);
             }
@@ -54,7 +54,7 @@ function compileTypescript(done) {
 }
 
 function bundle(name, devMode) {
-    const fn = function() {
+    const fn = function () {
         return rollup.rollup({
             entry: "build/es6/src/" + name + "/main.js",
             context: "window",
@@ -66,15 +66,17 @@ function bundle(name, devMode) {
                 rollupNodeResolve({ jsnext: true }),
                 rollupReplace({
                     values: {
-                        "__IVI_DEV__": !!devMode,
+                        __IVI_DEV__: !!devMode,
+                        __IVI_BROWSER__: true,
                     },
                 }),
             ],
         }).then((bundle) => Promise.all([
             bundle.write({
-                format: "es",
+                format: devMode ? "iife" : "es",
+                moduleName: devMode ? "ivi" : undefined,
                 dest: "build/" + name + ".js",
-                sourceMap: true,
+                sourceMap: devMode ? "inline" : true,
             }),
         ]));
     };
@@ -91,7 +93,7 @@ function copyBundle(name) {
 }
 
 function compile(name, externs) {
-    const fn = function() {
+    const fn = function () {
         return gulp.src("build/" + name + ".js")
             .pipe(gulpIf(ENABLE_SOURCEMAPS, gulpSourcemaps.init({ loadMaps: true })))
             .pipe(closureCompiler(Object.assign({}, CLOSURE_OPTS, {
@@ -161,6 +163,11 @@ const buildPlaygroundPointerEvents = exports.buildPlaygroundPointerEvents = seri
     compile("playground/pointer-events")
 );
 
+const buildPlaygroundGestureEvents = exports.buildPlaygroundGestureEvents = series(
+    bundle("playground/pointer-events"),
+    compile("playground/pointer-events")
+);
+
 function browserSyncReload(done) {
     browserSync.reload();
     done();
@@ -168,7 +175,7 @@ function browserSyncReload(done) {
 
 function watchProject(name) {
     gulp.watch("src/" + name + "/**/*.ts", series(
-        compileTypescript,
+        compileTypeScript,
         bundle(name, true),
         copyBundle(name),
         browserSyncReload
@@ -193,6 +200,7 @@ function watch() {
     watchProject("benchmarks/dbmon");
     watchProject("benchmarks/10k");
     watchProject("playground/pointer-events");
+    watchProject("playground/gesture-events");
 }
 
 function serve() {
@@ -207,13 +215,13 @@ function serve() {
     watch();
 }
 
-exports.compileTypescript = compileTypescript;
+exports.compileTypeScript = compileTypeScript;
 exports.watch = watch;
 exports.serve = serve;
 exports.default = exports.build = series(
     clean,
     copyAssets,
-    compileTypescript,
+    compileTypeScript,
     build01Introduction,
     build02StatefulComponent,
     build03Events,
@@ -224,5 +232,6 @@ exports.default = exports.build = series(
     buildBenchmarkUIBench,
     buildBenchmarkDBMon,
     buildBenchmark10k,
-    buildPlaygroundPointerEvents
+    buildPlaygroundPointerEvents,
+    buildPlaygroundGestureEvents
 );
