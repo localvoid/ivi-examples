@@ -74,7 +74,7 @@ function bundle(name, devMode) {
         }).then((bundle) => Promise.all([
             bundle.write({
                 format: devMode ? "iife" : "es",
-                moduleName: devMode ? "ivi" : undefined,
+                moduleName: devMode ? "example" : undefined,
                 dest: "build/" + name + ".js",
                 sourceMap: devMode ? "inline" : true,
             }),

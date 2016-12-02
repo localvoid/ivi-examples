@@ -13,7 +13,14 @@ class EventsComponent extends Component<null> {
             .events({
                 click: this.onClick,
             })
-            .children(`Clicks: ${this.counter}`);
+            .style({
+                "display": "inline-block",
+                "border": "1px solid #333",
+                "padding": "20px",
+                "cursor": "pointer",
+                "userSelect": "none",
+            })
+            .children(`Click me: ${this.counter}`);
     }
 }
 

@@ -10,14 +10,15 @@
     "url": "https://github.com/localvoid"
   },
   "devDependencies": {
+    "@types/node": "0.0.2",
     "browser-sync": "^2.17.5",
     "del": "^2.2.2",
-    "ivi": "^0.2.0",
     "google-closure-compiler": "^20161024.3.0",
     "gulp": "github:gulpjs/gulp#4.0",
     "gulp-if": "^2.0.2",
     "gulp-rename": "^1.2.2",
     "gulp-sourcemaps": "^2.2.0",
+    "ivi": "^0.3.0",
     "perf-monitor": "^0.3.0",
     "rollup": "^0.36.3",
     "rollup-plugin-alias": "^1.2.0",

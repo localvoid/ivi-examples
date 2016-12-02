@@ -10,7 +10,7 @@ class StatefulComponent extends Component<null> {
         setTimeout(this.updateTime, 50);
     };
 
-    didMount() {
+    attached() {
         setTimeout(this.updateTime, 50);
     }
 
