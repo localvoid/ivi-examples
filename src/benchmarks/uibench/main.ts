@@ -108,7 +108,7 @@ function Main(props: AppState | undefined) {
     }
 }
 
-uibench.init("ivi", "0.2.0");
+uibench.init("ivi", "0.3.1");
 
 document.addEventListener("DOMContentLoaded", (e) => {
     const container = document.querySelector("#App") !;

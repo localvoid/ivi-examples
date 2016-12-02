@@ -1,3 +1,10 @@
+/**
+ * Commands:
+ *
+ * serve - launch a development http server and watch for changes
+ * build - production build
+ */
+
 const exec = require("child_process").exec;
 const gulp = require("gulp");
 const del = require("del");
@@ -104,65 +111,32 @@ function compile(name, externs) {
 
 exports.clean = clean;
 
-const build01Introduction = exports.build01Introduction = series(
-    bundle("01_introduction"),
-    compile("01_introduction")
-);
+const PROJECTS = [
+    // Basic
+    "01_introduction",
+    "02_stateful_component",
+    "03_events",
+    "04_forms",
+    "05_collapsable",
+    // Games
+    "games/snake",
+    // Apps
+    "todomvc",
+    // Benchmarks
+    "benchmarks/uibench",
+    "benchmarks/dbmon",
+    "benchmarks/10k",
+    // Test playground
+    "playground/pointer-events",
+    "playground/gesture-events",
+];
 
-const build02StatefulComponent = exports.build02StatefulComponent = series(
-    bundle("02_stateful_component"),
-    compile("02_stateful_component")
-);
+const EXTERNS = {
+    "benchmarks/uibench": "src/benchmarks/uibench/externs/uibench.js",
+};
 
-const build03Events = exports.build03Events = series(
-    bundle("03_events"),
-    compile("03_events")
-);
-
-const build04Forms = exports.build04Forms = series(
-    bundle("04_forms"),
-    compile("04_forms")
-);
-
-const build05Collapsable = exports.build05Collapsable = series(
-    bundle("05_collapsable"),
-    compile("05_collapsable")
-);
-
-const buildSnake = exports.buildSnake = series(
-    bundle("games/snake"),
-    compile("games/snake")
-);
-
-const buildTodoMVC = exports.buildTodoMVC = series(
-    bundle("todomvc"),
-    compile("todomvc")
-);
-
-const buildBenchmarkUIBench = exports.buildUIBench = series(
-    bundle("benchmarks/uibench"),
-    compile("benchmarks/uibench", "src/benchmarks/uibench/externs/uibench.js")
-);
-
-const buildBenchmarkDBMon = exports.buildDBMon = series(
-    bundle("benchmarks/dbmon"),
-    compile("benchmarks/dbmon")
-);
-
-const buildBenchmark10k = exports.build10k = series(
-    bundle("benchmarks/10k"),
-    compile("benchmarks/10k")
-);
-
-const buildPlaygroundPointerEvents = exports.buildPlaygroundPointerEvents = series(
-    bundle("playground/pointer-events"),
-    compile("playground/pointer-events")
-);
-
-const buildPlaygroundGestureEvents = exports.buildPlaygroundGestureEvents = series(
-    bundle("playground/pointer-events"),
-    compile("playground/pointer-events")
-);
+const buildDistTasks = PROJECTS.map((p) => series(bundle(p), compile(p, EXTERNS[p])));
+const buildDevTasks = PROJECTS.map((p) => series(bundle(p, true), copyBundle(p)));
 
 function browserSyncReload(done) {
     browserSync.reload();
@@ -185,18 +159,9 @@ function watch() {
             browserSyncReload
         ));
 
-    watchProject("01_introduction");
-    watchProject("02_stateful_component");
-    watchProject("03_events");
-    watchProject("04_forms");
-    watchProject("05_collapsable");
-    watchProject("games/snake");
-    watchProject("todomvc");
-    watchProject("benchmarks/uibench");
-    watchProject("benchmarks/dbmon");
-    watchProject("benchmarks/10k");
-    watchProject("playground/pointer-events");
-    watchProject("playground/gesture-events");
+    PROJECTS.forEach((p) => {
+        watchProject(p);
+    });
 }
 
 function serve() {
@@ -213,21 +178,18 @@ function serve() {
 
 exports.compileTypeScript = compileTypeScript;
 exports.watch = watch;
-exports.serve = serve;
+
+exports.serve = series(
+    clean,
+    copyAssets,
+    compileTypeScript,
+    buildDevTasks,
+    serve
+);
+
 exports.default = exports.build = series(
     clean,
     copyAssets,
     compileTypeScript,
-    build01Introduction,
-    build02StatefulComponent,
-    build03Events,
-    build04Forms,
-    build05Collapsable,
-    buildSnake,
-    buildTodoMVC,
-    buildBenchmarkUIBench,
-    buildBenchmarkDBMon,
-    buildBenchmark10k,
-    buildPlaygroundPointerEvents,
-    buildPlaygroundGestureEvents
+    buildDistTasks
 );
