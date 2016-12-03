@@ -15,96 +15,113 @@ class TableCell extends Component<string> {
     }
 }
 
-checkPropsIdentity(TableRow);
-function TableRow(data: TableItemState) {
-    const { props, id, active } = data;
-    const children = new Array<VNode<any>>(props.length + 1);
-    children[0] = $c(TableCell, "#" + id);
-    for (let i = 0; i < props.length; i++) {
-        children[i + 1] = $c(TableCell, props[i]);
+@checkPropsIdentity
+class TableRow extends Component<TableItemState> {
+    render() {
+        const { props, id, active } = this.props;
+        const children = new Array<VNode<any>>(props.length + 1);
+        children[0] = $c(TableCell, "#" + id);
+        for (let i = 0; i < props.length; i++) {
+            children[i + 1] = $c(TableCell, props[i]);
+        }
+
+        return $h("tr", active ? "TableRow active" : "TableRow")
+            .props({ "data-id": id })
+            .children(children);
     }
-
-    return $h("tr", active ? "TableRow active" : "TableRow")
-        .props({ "data-id": id })
-        .children(children);
 }
 
-checkPropsIdentity(Table);
-function Table(props: TableState) {
-    const {items} = props;
+@checkPropsIdentity
+class Table extends Component<TableState> {
+    render() {
+        const {items} = this.props;
 
-    const children = new Array<VNode<any>>(items.length);
-    for (let i = 0; i < items.length; i++) {
-        const item = items[i];
-        children[i] = $c(TableRow, item).key(item.id);
+        const children = new Array<VNode<any>>(items.length);
+        for (let i = 0; i < items.length; i++) {
+            const item = items[i];
+            children[i] = $c(TableRow, item).key(item.id);
+        }
+
+        return $h("table", "Table").children(
+            $h("tbody").trackByKeyChildren(children));
     }
-
-    return $h("table", "Table").children(
-        $h("tbody").trackByKeyChildren(children));
 }
 
-checkPropsIdentity(AnimBox);
-function AnimBox(props: AnimBoxState) {
-    const { time } = props;
+@checkPropsIdentity
+class AnimBox extends Component<AnimBoxState> {
+    render() {
+        const { time } = this.props;
 
-    return $h("div", "AnimBox")
-        .props({ "data-id": props.id })
-        .style({
-            background: "rgba(0,0,0," + (0.5 + ((time % 10) / 10)) + ")",
-            borderRadius: (time % 10) + "px",
-        });
-}
-
-checkPropsIdentity(Anim);
-function Anim(props: AnimState) {
-    const items = props.items;
-
-    const children = new Array<VNode<any>>(items.length);
-    for (let i = 0; i < items.length; i++) {
-        const item = items[i];
-        children[i] = $c(AnimBox, item).key(item.id);
+        return $h("div", "AnimBox")
+            .props({ "data-id": this.props.id })
+            .style({
+                background: "rgba(0,0,0," + (0.5 + ((time % 10) / 10)) + ")",
+                borderRadius: (time % 10) + "px",
+            });
     }
-
-    return $h("div", "Anim").trackByKeyChildren(children);
 }
 
-checkPropsIdentity(TreeLeaf);
-function TreeLeaf(props: TreeNodeState) {
-    return $h("li", "TreeLeaf").children(props.id);
-}
+@checkPropsIdentity
+class Anim extends Component<AnimState> {
+    render() {
+        const items = this.props.items;
 
-checkPropsIdentity(TreeNode);
-function TreeNode(data: TreeNodeState) {
-    const children = new Array<VNode<any>>(data.children.length);
-    for (let i = 0; i < data.children.length; i++) {
-        const n = data.children[i];
-        const child = n.container ? $c(TreeNode, n) : $c(TreeLeaf, n);
-        children[i] = child.key(n.id);
+        const children = new Array<VNode<any>>(items.length);
+        for (let i = 0; i < items.length; i++) {
+            const item = items[i];
+            children[i] = $c(AnimBox, item).key(item.id);
+        }
+
+        return $h("div", "Anim").trackByKeyChildren(children);
     }
-
-    return $h("ul", "TreeNode")
-        .trackByKeyChildren(children);
 }
 
-checkPropsIdentity(Tree);
-function Tree(props: TreeState) {
-    return $h("div", "Tree")
-        .children($c(TreeNode, props.root));
-}
-
-checkPropsIdentity(Main);
-function Main(props: AppState | undefined) {
-    if (!props) {
-        return $h("div", "Main");
+@checkPropsIdentity
+class TreeLeaf extends Component<TreeNodeState> {
+    render() {
+        return $h("li", "TreeLeaf").children(this.props.id);
     }
+}
 
-    switch (props.location) {
-        case "table":
-            return $h("div", "Main").children($c(Table, props.table));
-        case "anim":
-            return $h("div", "Main").children($c(Anim, props.anim));
-        default: // "tree"
-            return $h("div", "Main").children($c(Tree, props.tree));
+@checkPropsIdentity
+class TreeNode extends Component<TreeNodeState> {
+    render() {
+        const data = this.props;
+        const children = new Array<VNode<any>>(data.children.length);
+        for (let i = 0; i < data.children.length; i++) {
+            const n = data.children[i];
+            const child = n.container ? $c(TreeNode, n) : $c(TreeLeaf, n);
+            children[i] = child.key(n.id);
+        }
+
+        return $h("ul", "TreeNode")
+            .trackByKeyChildren(children);
+    }
+}
+
+@checkPropsIdentity
+class Tree extends Component<TreeState> {
+    render() {
+        return $h("div", "Tree")
+            .children($c(TreeNode, this.props.root));
+    }
+}
+
+@checkPropsIdentity
+class Main extends Component<AppState | undefined> {
+    render() {
+        if (!this.props) {
+            return $h("div", "Main");
+        }
+
+        switch (this.props.location) {
+            case "table":
+                return $h("div", "Main").children($c(Table, this.props.table));
+            case "anim":
+                return $h("div", "Main").children($c(Anim, this.props.anim));
+            default: // "tree"
+                return $h("div", "Main").children($c(Tree, this.props.tree));
+        }
     }
 }
 

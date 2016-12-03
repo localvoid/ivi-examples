@@ -18,12 +18,6 @@ export class Entry {
     }
 }
 
-export class EntryEdit {
-    editing: Entry | undefined = undefined;
-    title = "";
-}
-
-
 export class AppState {
     location = AppLocation.ShowAll;
     entries: Entry[] = [];

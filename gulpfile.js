@@ -66,7 +66,7 @@ function bundle(name, devMode) {
             context: "window",
             plugins: [
                 rollupSourceMaps(),
-                rollupNodeResolve({ jsnext: true }),
+                rollupNodeResolve(),
                 rollupReplace({
                     values: {
                         __IVI_DEV__: !!devMode,
