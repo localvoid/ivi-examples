@@ -1,20 +1,20 @@
 import { Component, $h, $c } from "ivi";
-import { AppState } from "../state";
+import { state, addEntry, clearCompleted } from "../state";
 import { Header } from "./header";
 import { Footer } from "./footer";
 import { Main } from "./main";
 
-export class App extends Component<AppState> {
+export class App extends Component<null> {
     onAddEntry = (text: string) => {
-        this.props.addEntry(text);
+        addEntry(text);
     };
 
     onClearCompleted = () => {
-        this.props.clearCompleted();
+        clearCompleted();
     };
 
     render() {
-        const { entries } = this.props;
+        const entries = state.entries;
         let completedEntries = 0;
         entries.forEach((e) => {
             if (e.completed) {
@@ -26,20 +26,16 @@ export class App extends Component<AppState> {
         return $h("section")
             .children((entries.length > 0) ?
                 [
-                    $c(Header, { addEntry: this.onAddEntry }),
+                    $c(Header),
                     $c(Main, {
-                        appState: this.props,
                         activeEntries: activeEntries,
                         completedEntries: completedEntries,
-                        entries: entries,
                     }),
                     $c(Footer, {
-                        location: this.props.location,
                         activeEntries: activeEntries,
                         completedEntries: completedEntries,
-                        onClearCompleted: this.onClearCompleted,
                     }),
                 ] :
-                [$c(Header, { addEntry: this.onAddEntry })]);
+                [$c(Header)]);
     }
 }

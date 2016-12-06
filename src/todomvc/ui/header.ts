@@ -1,13 +1,12 @@
-import { Component, Events, $h, $i } from "ivi";
+import { Component, Events, $h, $i, KeyCode } from "ivi";
+import { addEntry } from "../state";
 
-export class Header extends Component<{
-    addEntry: (text: string) => void,
-}> {
+export class Header extends Component<null> {
     private inputValue: string = "";
 
     private onKeyDown = Events.onKeyDown((ev) => {
-        if (ev.keyCode === 13) {
-            this.props.addEntry(this.inputValue);
+        if (ev.keyCode === KeyCode.Enter) {
+            addEntry(this.inputValue);
             this.inputValue = "";
             this.invalidate();
         }

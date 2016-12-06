@@ -1,6 +1,7 @@
-import { render, $c } from "ivi";
-import { AppLocation, AppState } from "./state";
+import { renderNextFrame, $c } from "ivi";
+import { AppLocation, setLocation } from "./state";
 import { App } from "./ui/app";
+import { setUpdateFunction } from "./xs";
 
 export type RouteHandler = (params?: string[]) => void;
 
@@ -76,21 +77,21 @@ export function initRouter(routes: Route[], defaultPath = "", notFound?: () => v
 }
 
 const container = document.getElementById("todoapp") !;
-const state = new AppState(update);
 
 initRouter([
     new Route("/completed", () => {
-        state.setLocation(AppLocation.ShowCompleted);
+        setLocation(AppLocation.ShowCompleted);
     }),
     new Route("/active", () => {
-        state.setLocation(AppLocation.ShowActive);
+        setLocation(AppLocation.ShowActive);
     }),
     new Route("/", () => {
-        state.setLocation(AppLocation.ShowAll);
+        setLocation(AppLocation.ShowAll);
     }),
 ]);
 
+setUpdateFunction(update);
 function update() {
-    render($c(App, state), container!);
+    renderNextFrame($c(App), container!);
 }
 update();

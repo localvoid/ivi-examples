@@ -1,4 +1,4 @@
-import { render, Component, $h, $c, Events } from "ivi";
+import { render, Component, $h, $c, Events, KeyCode } from "ivi";
 import { Game, CellFlags, LEFT, RIGHT, UP, DOWN } from "./state";
 
 function cellClasses(flags: CellFlags): string {
@@ -18,19 +18,19 @@ const CELL_SIZE = 30;
 class GameView extends Component<Game> {
     onKeyDown = Events.onKeyDown((ev) => {
         switch (ev.keyCode) {
-            case 37: // left
+            case KeyCode.ArrowLeft:
                 ev.preventDefault();
                 this.props.setNewDirection(LEFT);
                 break;
-            case 38: // up
+            case KeyCode.ArrowUp:
                 ev.preventDefault();
                 this.props.setNewDirection(UP);
                 break;
-            case 39: // right
+            case KeyCode.ArrowRight:
                 ev.preventDefault();
                 this.props.setNewDirection(RIGHT);
                 break;
-            case 40: // down
+            case KeyCode.ArrowDown:
                 ev.preventDefault();
                 this.props.setNewDirection(DOWN);
                 break;

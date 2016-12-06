@@ -43,7 +43,7 @@ class Table extends Component<TableState> {
         }
 
         return $h("table", "Table").children(
-            $h("tbody").trackByKeyChildren(children));
+            $h("tbody").children(children));
     }
 }
 
@@ -72,7 +72,7 @@ class Anim extends Component<AnimState> {
             children[i] = $c(AnimBox, item).key(item.id);
         }
 
-        return $h("div", "Anim").trackByKeyChildren(children);
+        return $h("div", "Anim").children(children);
     }
 }
 
@@ -95,7 +95,7 @@ class TreeNode extends Component<TreeNodeState> {
         }
 
         return $h("ul", "TreeNode")
-            .trackByKeyChildren(children);
+            .children(children);
     }
 }
 
@@ -125,7 +125,7 @@ class Main extends Component<AppState | undefined> {
     }
 }
 
-uibench.init("ivi", "0.3.1");
+uibench.init("ivi", "0.4.0");
 
 document.addEventListener("DOMContentLoaded", (e) => {
     const container = document.querySelector("#App") !;

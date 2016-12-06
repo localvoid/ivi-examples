@@ -1,25 +1,22 @@
-import { Component, Events, $h, $i, $c } from "ivi";
-import { AppState, Entry, AppLocation } from "../state";
+import { Component, Events, $h, $i, $c, KeyCode, currentFrame } from "ivi";
+import { Entry, AppLocation, state, removeEntry, toggleEntry, updateTitle } from "../state";
 
-class EntryView extends Component<{
-    appState: AppState,
-    entry: Entry,
-}> {
+class EntryView extends Component<Entry> {
     private editTitle: string = "";
     private editing: boolean = false;
 
     private onClickDestroy = Events.onClick((ev) => {
-        this.props.appState.removeEntry(this.props.entry);
+        removeEntry(this.props);
         ev.preventDefault();
     });
 
     private onChangeToggle = Events.onChange((ev) => {
-        this.props.appState.toggleEntry(this.props.entry);
+        toggleEntry(this.props);
         ev.preventDefault();
     });
 
     private onLabelDoubleClick = Events.onDoubleClick((ev) => {
-        this.editTitle = this.props.entry.title;
+        this.editTitle = this.props.title;
         this.editing = true;
         this.invalidate();
     });
@@ -35,20 +32,23 @@ class EntryView extends Component<{
     });
 
     private onKeyDown = Events.onKeyDown((ev) => {
-        if (ev.keyCode === 13) {
-            this.props.appState.updateTitle(this.props.entry, this.editTitle);
-            this.editTitle = "";
-            this.editing = false;
-            this.invalidate();
-        } else if (ev.keyCode === 27) {
-            this.editTitle = "";
-            this.editing = false;
-            this.invalidate();
+        switch (ev.keyCode) {
+            case (KeyCode.Enter):
+                updateTitle({ entry: this.props, newTitle: this.editTitle });
+                this.editTitle = "";
+                this.editing = false;
+                this.invalidate();
+                break;
+            case (KeyCode.Escape):
+                this.editTitle = "";
+                this.editing = false;
+                this.invalidate();
+                break;
         }
     });
 
     render() {
-        const { entry } = this.props;
+        const entry = this.props;
         const view = $h("div", "view").children([
             $i("checkbox", "toggle").events({ change: this.onChangeToggle }).checked(entry.completed),
             $h("label").events({ doubleClick: this.onLabelDoubleClick }).children(entry.title),
@@ -66,7 +66,9 @@ class EntryView extends Component<{
                 })
                 .ref((n) => {
                     if (n) {
-                        (n as HTMLElement).focus();
+                        currentFrame().after(() => {
+                            (n as HTMLElement).focus();
+                        });
                     }
                 })
                 .value(this.editTitle);
@@ -83,32 +85,31 @@ class EntryView extends Component<{
 }
 
 export class EntryList extends Component<{
-    appState: AppState,
     activeEntries: number,
     completedEntries: number,
-    entries: Entry[],
 }> {
     render() {
-        const { appState, activeEntries, completedEntries, entries } = this.props;
+        const entries = state.entries;
+        const { activeEntries, completedEntries } = this.props;
 
         let children;
-        switch (appState.location) {
+        switch (state.location) {
             case AppLocation.ShowActive:
                 children = activeEntries === 0 ?
                     null :
-                    entries.map((e) => !e.completed ? $c(EntryView, { appState: appState, entry: e }).key(e.id) : null);
+                    entries.map((e) => !e.completed ? $c(EntryView, e).key(e.id) : null);
                 break;
             case AppLocation.ShowCompleted:
                 children = completedEntries === 0 ?
                     null :
-                    entries.map((e) => e.completed ? $c(EntryView, { appState: appState, entry: e }).key(e.id) : null);
+                    entries.map((e) => e.completed ? $c(EntryView, e).key(e.id) : null);
                 break;
             default: // Location.ShowAll
-                children = entries.map((e) => $c(EntryView, { appState: appState, entry: e }).key(e.id));
+                children = entries.map((e) => $c(EntryView, e).key(e.id));
         }
 
         return $h("ul")
             .props({ "id": "todo-list" })
-            .trackByKeyChildren(children);
+            .children(children);
     }
 }

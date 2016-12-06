@@ -1,19 +1,18 @@
 import { Component, Events, $h } from "ivi";
-import { AppLocation } from "../state";
+import { AppLocation, state, clearCompleted } from "../state";
 
 export class Footer extends Component<{
-    location: AppLocation,
     activeEntries: number,
     completedEntries: number,
-    onClearCompleted: () => void,
 }> {
     onClickClearCompleted = Events.onClick((ev) => {
         ev.preventDefault();
-        this.props.onClearCompleted();
+        clearCompleted();
     });
 
     render() {
-        const { location, activeEntries, completedEntries } = this.props;
+        const location = state.location;
+        const { activeEntries, completedEntries } = this.props;
 
         return $h("footer").props({ id: "footer" })
             .children([
