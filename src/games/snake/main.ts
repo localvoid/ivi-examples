@@ -1,4 +1,4 @@
-import { render, Component, $h, $c, Events, KeyCode } from "ivi";
+import { render, Component, $h, $c, Events, KeyCode, Mutable, mut } from "ivi";
 import { Game, CellFlags, LEFT, RIGHT, UP, DOWN } from "./state";
 
 function cellClasses(flags: CellFlags): string {
@@ -15,32 +15,32 @@ function cellClasses(flags: CellFlags): string {
 
 const CELL_SIZE = 30;
 
-class GameView extends Component<Game> {
+class GameView extends Component<Mutable<Game>> {
     onKeyDown = Events.onKeyDown((ev) => {
         switch (ev.keyCode) {
             case KeyCode.ArrowLeft:
                 ev.preventDefault();
-                this.props.setNewDirection(LEFT);
+                this.props.ref.setNewDirection(LEFT);
                 break;
             case KeyCode.ArrowUp:
                 ev.preventDefault();
-                this.props.setNewDirection(UP);
+                this.props.ref.setNewDirection(UP);
                 break;
             case KeyCode.ArrowRight:
                 ev.preventDefault();
-                this.props.setNewDirection(RIGHT);
+                this.props.ref.setNewDirection(RIGHT);
                 break;
             case KeyCode.ArrowDown:
                 ev.preventDefault();
-                this.props.setNewDirection(DOWN);
+                this.props.ref.setNewDirection(DOWN);
                 break;
         }
     });
 
     render() {
-        const { grid } = this.props;
+        const { grid } = this.props.ref;
 
-        return $h("div", this.props.gameOver ? "SnakeGame gameOver" : "SnakeGame")
+        return $h("div", this.props.ref.gameOver ? "SnakeGame gameOver" : "SnakeGame")
             .children($h("div", "Grid")
                 .props({ "tabIndex": 0 })
                 .style({
@@ -50,22 +50,18 @@ class GameView extends Component<Game> {
                 .events({
                     keys: this.onKeyDown,
                 })
-                .ref((node) => {
-                    if (node) {
-                        (node as HTMLElement).focus();
-                    }
-                })
+                .autofocus(true)
                 .children(grid.cells.map((c) => $h("div", cellClasses(c))))
             );
     }
 }
 
-const container = document.getElementById("app") !;
+const container = document.getElementById("app")!;
 const game = new Game();
 
 function tick() {
     game.updateState();
-    render($c(GameView, game), container);
+    render($c(GameView, mut(game)), container);
     setTimeout(tick, 100);
 }
 tick();

@@ -29,8 +29,7 @@ const CLOSURE_OPTS = {
     language_out: "ECMASCRIPT5_STRICT",
     use_types_for_optimization: true,
     assume_function_wrapper: true,
-    // TODO: replace with --isolation-mode=IIFE in the next release
-    // https://github.com/google/closure-compiler/commit/51dd82730ec76874a8de15a4b6b6d856d901fdb2
+    // isolation_mode: "IIFE",
     output_wrapper: "(function(){%output%}).call(this);",
     summary_detail_level: 3,
     warning_level: "QUIET",
@@ -47,7 +46,7 @@ function copyAssets() {
 }
 
 function compileTypeScript(done) {
-    exec("./node_modules/typescript/bin/tsc --importHelpers",
+    exec("./node_modules/typescript/bin/tsc",
         function (err, stdout, stderr) {
             if (stdout) {
                 console.log(stdout);
@@ -120,10 +119,9 @@ const PROJECTS = [
     "05_collapsable",
     // Games
     "games/snake",
-    // Apps
-    "todomvc",
     // Benchmarks
     "benchmarks/uibench",
+    "benchmarks/uibench_fc",
     "benchmarks/dbmon",
     "benchmarks/10k",
     // Test playground
@@ -133,6 +131,7 @@ const PROJECTS = [
 
 const EXTERNS = {
     "benchmarks/uibench": "src/benchmarks/uibench/externs/uibench.js",
+    "benchmarks/uibench_fc": "src/benchmarks/uibench_fc/externs/uibench.js",
 };
 
 const buildDistTasks = PROJECTS.map((p) => series(bundle(p), compile(p, EXTERNS[p])));
@@ -144,8 +143,7 @@ function browserSyncReload(done) {
 }
 
 function watchProject(name) {
-    gulp.watch("src/" + name + "/**/*.ts", series(
-        compileTypeScript,
+    gulp.watch("build/es6/src/" + name + "/**/*.js", series(
         bundle(name, true),
         copyBundle(name),
         browserSyncReload

@@ -1,4 +1,4 @@
-import { render, checkPropsIdentity, VNode, $h, $c } from "ivi";
+import { render, update, VNode, $h, $c, $ctx, SelectorData, Context, connect } from "ivi";
 import { DBList, DB, EMPTY_QUERY } from "./db";
 import { startFPSMonitor, startMemMonitor, initProfiler, startProfile, endProfile } from "perf-monitor";
 
@@ -36,7 +36,6 @@ function queryClasses(elapsed: number): string {
     return "Query elapsed short";
 }
 
-checkPropsIdentity(Popover);
 function Popover(query: string) {
     return $h("div", "popover left").children([
         $h("div", "popover-content").children(query),
@@ -44,7 +43,6 @@ function Popover(query: string) {
     ]);
 }
 
-checkPropsIdentity(DatabaseView);
 function DatabaseView(db: DB) {
     const topFiveQueries = db.getTopFiveQueries();
     const count = db.queries!.length;
@@ -75,11 +73,24 @@ function DatabaseView(db: DB) {
     return $h("tr").children(children);
 }
 
+function selectDb(prev: SelectorData<DB, DB>, props: number, context: Context<{ data: DB[] }>) {
+    const db = context.data[props];
+    if (prev && prev.in === db) {
+        return prev;
+    }
+    return {
+        in: db,
+        out: db,
+    };
+}
+
+const $DBView = connect(selectDb, DatabaseView);
+
 function Main(props: DBList) {
     const dbs = props.dbs;
     const rows = new Array<VNode<any>>(dbs.length);
     for (let i = 0; i < dbs.length; i++) {
-        rows[i] = $c(DatabaseView, dbs[i]);
+        rows[i] = $DBView(i);
     }
 
     return $h("table")
@@ -120,6 +131,9 @@ document.addEventListener("DOMContentLoaded", () => {
     initProfiler("view update");
 
     const dbs = new DBList(N);
+    const context = {
+        data: dbs.dbs,
+    };
 
     const sliderContainer = document.createElement("div");
     sliderContainer.style.display = "flex";
@@ -138,18 +152,17 @@ document.addEventListener("DOMContentLoaded", () => {
     sliderContainer.appendChild(slider);
     document.body.insertBefore(sliderContainer, document.body.firstChild);
 
+    const container = document.getElementById("app")!;
+    render($ctx(context, $c(Main, dbs)), container);
 
-    const container = document.getElementById("app") !;
-    render($c(Main, dbs), container);
-
-    function update() {
+    function tick() {
         dbs.randomUpdate(mutations);
 
         startProfile("view update");
-        render($c(Main, dbs), container);
+        update();
         endProfile("view update");
 
-        setTimeout(update, 0);
+        setTimeout(tick, 0);
     }
-    setTimeout(update, 0);
+    setTimeout(tick, 0);
 });

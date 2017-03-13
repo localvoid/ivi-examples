@@ -1,4 +1,4 @@
-import { VNode, $h, $c, render, checkPropsIdentity } from "ivi";
+import { VNode, $h, $c, render, $ctx, Context, SelectorData, connect } from "ivi";
 import { startFPSMonitor, startMemMonitor, initProfiler, startProfile, endProfile } from "perf-monitor";
 
 function randomColor(): string {
@@ -29,20 +29,38 @@ function updateData(data: string[], mutations: number): void {
     }
 }
 
-checkPropsIdentity(Pixel);
 function Pixel(color: string) {
     return $h("span", "pixel").style({ "background": color });
 }
+
+function selectPixel(
+    prev: SelectorData<string, string> | null,
+    props: number,
+    context: Context<{ data: string[] }>,
+): SelectorData<string, string> {
+    const color = context.data[props];
+    if (prev && prev.in === color) {
+        return prev;
+    }
+
+    return {
+        in: color,
+        out: color,
+    };
+}
+
+const $pixel = connect(selectPixel, Pixel);
 
 function Image(colors: string[]) {
     const children = new Array<VNode<any>>(100);
     for (let i = 0; i < 100; i++) {
         const offset = i * 100;
         const rowChildren = new Array<VNode<any>>(100);
-        children[i] = $h("div", "row").children(rowChildren);
         for (let j = 0; j < 100; j++) {
-            rowChildren[j] = $c(Pixel, colors[offset + j]);
+            rowChildren[j] = $pixel(offset + j);
+            // rowChildren[j] = $c(Pixel, colors[offset + j]);
         }
+        children[i] = $h("div", "row").children(rowChildren);
     }
 
     return $h("div", "image").children(children);
@@ -70,8 +88,11 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.insertBefore(sliderContainer, document.body.firstChild);
 
     const data = generateData();
-    const container = document.getElementById("app") !;
-    render($c(Image, data), container);
+    const context = {
+        data: data,
+    };
+    const container = document.getElementById("app")!;
+    render($ctx(context, $c(Image, data)), container);
 
     function tick() {
         startProfile("data update");
@@ -79,7 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
         endProfile("data update");
 
         startProfile("view update");
-        render($c(Image, data), container);
+        render($ctx(context, $c(Image, data)), container);
         endProfile("view update");
 
         requestAnimationFrame(tick);

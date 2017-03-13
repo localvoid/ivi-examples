@@ -1,4 +1,4 @@
-import { render, Component, Events, VNode, $h, $c } from "ivi";
+import { render, Component, Events, VNode, $h, $c, getDOMInstanceFromVNode } from "ivi";
 
 class NativeBox extends Component<{
     depth: number,
@@ -9,6 +9,7 @@ class NativeBox extends Component<{
     private clickCounter = 0;
     private isEntered = false;
     private isTouched = false;
+    private root: VNode<any> | null = null;
 
     private onClick = (ev: MouseEvent) => {
         this.clickCounter++;
@@ -16,7 +17,7 @@ class NativeBox extends Component<{
         if (this.props.stopPropagation) {
             ev.stopPropagation();
         }
-    };
+    }
 
     private onMouseEnter = (ev: MouseEvent) => {
         this.isEntered = true;
@@ -24,7 +25,7 @@ class NativeBox extends Component<{
         if (this.props.stopPropagation) {
             ev.stopPropagation();
         }
-    };
+    }
 
     private onMouseLeave = (ev: MouseEvent) => {
         this.isEntered = false;
@@ -32,7 +33,7 @@ class NativeBox extends Component<{
         if (this.props.stopPropagation) {
             ev.stopPropagation();
         }
-    };
+    }
 
     private onTouchStart = (ev: TouchEvent) => {
         this.isTouched = true;
@@ -40,7 +41,7 @@ class NativeBox extends Component<{
         if (this.props.stopPropagation) {
             ev.stopPropagation();
         }
-    };
+    }
 
     private onTouchEnd = (ev: TouchEvent) => {
         this.isTouched = false;
@@ -48,7 +49,7 @@ class NativeBox extends Component<{
         if (this.props.stopPropagation) {
             ev.stopPropagation();
         }
-    };
+    }
 
     private events = this.props.touch ?
         {
@@ -66,24 +67,25 @@ class NativeBox extends Component<{
 
     render(): VNode<any> {
         const { depth } = this.props;
-        return $h("div", "Box" + (this.isEntered ? " entered" : "") + (this.isTouched ? " touched" : ""))
-            .ref((n) => {
-                if (n) {
-                    const keys = Object.keys(this.events);
-                    for (let i = 0; i < keys.length; i++) {
-                        const key = keys[i];
-                        n.addEventListener(key, (this.events as any)[key], this.props.capture);
-                    }
-                }
-            })
+        return this.root = $h("div", "Box" + (this.isEntered ? " entered" : "") + (this.isTouched ? " touched" : ""))
             .children([
                 $h("div", "ClickCounter").children(`Clicks: ${this.clickCounter}`),
                 (depth > 0) ? $c(NativeBox, {
                     depth: depth - 1,
                     touch: this.props.touch,
                     stopPropagation: this.props.stopPropagation,
+                    capture: this.props.capture,
                 }) : null,
             ]);
+    }
+
+    attached() {
+        const n = getDOMInstanceFromVNode(this.root!);
+        const keys = Object.keys(this.events);
+        for (let i = 0; i < keys.length; i++) {
+            const key = keys[i];
+            n!.addEventListener(key, (this.events as any)[key], this.props.capture);
+        }
     }
 }
 
@@ -192,4 +194,4 @@ render(
         $h("h2").children("Touch enabled / Stop propagation / Capture:"),
         $c(Box, { depth: 3, touch: true, stopPropagation: true, capture: true }),
     ]),
-    document.getElementById("app") !);
+    document.getElementById("app")!);

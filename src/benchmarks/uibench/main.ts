@@ -1,24 +1,23 @@
-import { Component, VNode, $h, $c, render, Events, checkPropsIdentity } from "ivi";
+import { Component, VNode, $h, $c, render, Events } from "ivi";
 
-@checkPropsIdentity
 class TableCell extends Component<string> {
     private onClick = Events.onClick((ev) => {
         console.log("Click", this.props);
     });
 
-    private cellEvents = { click: this.onClick };
-
     render() {
         return $h("td", "TableCell")
-            .events(this.cellEvents)
+            .events(this.onClick)
             .children(this.props);
     }
 }
 
-@checkPropsIdentity
 class TableRow extends Component<TableItemState> {
     render() {
-        const { props, id, active } = this.props;
+        const props = this.props["props"];
+
+        const id = this.props["id"];
+        const active = this.props["active"];
         const children = new Array<VNode<any>>(props.length + 1);
         children[0] = $c(TableCell, "#" + id);
         for (let i = 0; i < props.length; i++) {
@@ -31,29 +30,27 @@ class TableRow extends Component<TableItemState> {
     }
 }
 
-@checkPropsIdentity
 class Table extends Component<TableState> {
     render() {
-        const {items} = this.props;
+        const items = this.props["items"];
 
         const children = new Array<VNode<any>>(items.length);
         for (let i = 0; i < items.length; i++) {
             const item = items[i];
-            children[i] = $c(TableRow, item).key(item.id);
+            children[i] = $c(TableRow, item).key(item["id"]);
         }
 
         return $h("table", "Table").children(
-            $h("tbody").children(children));
+            $h("tbody").children([children]));
     }
 }
 
-@checkPropsIdentity
 class AnimBox extends Component<AnimBoxState> {
     render() {
-        const { time } = this.props;
+        const time = this.props["time"];
 
         return $h("div", "AnimBox")
-            .props({ "data-id": this.props.id })
+            .props({ "data-id": this.props["id"] })
             .style({
                 background: "rgba(0,0,0," + (0.5 + ((time % 10) / 10)) + ")",
                 borderRadius: (time % 10) + "px",
@@ -61,53 +58,48 @@ class AnimBox extends Component<AnimBoxState> {
     }
 }
 
-@checkPropsIdentity
 class Anim extends Component<AnimState> {
     render() {
-        const items = this.props.items;
+        const items = this.props["items"];
 
         const children = new Array<VNode<any>>(items.length);
         for (let i = 0; i < items.length; i++) {
             const item = items[i];
-            children[i] = $c(AnimBox, item).key(item.id);
+            children[i] = $c(AnimBox, item).key(item["id"]);
         }
 
-        return $h("div", "Anim").children(children);
+        return $h("div", "Anim").children([children]);
     }
 }
 
-@checkPropsIdentity
 class TreeLeaf extends Component<TreeNodeState> {
     render() {
-        return $h("li", "TreeLeaf").children(this.props.id);
+        return $h("li", "TreeLeaf").children(this.props["id"]);
     }
 }
 
-@checkPropsIdentity
 class TreeNode extends Component<TreeNodeState> {
     render() {
         const data = this.props;
-        const children = new Array<VNode<any>>(data.children.length);
-        for (let i = 0; i < data.children.length; i++) {
-            const n = data.children[i];
-            const child = n.container ? $c(TreeNode, n) : $c(TreeLeaf, n);
-            children[i] = child.key(n.id);
+        const children = new Array<VNode<any>>(data["children"].length);
+        for (let i = 0; i < data["children"].length; i++) {
+            const n = data["children"][i];
+            const child = n["container"] ? $c(TreeNode, n) : $c(TreeLeaf, n);
+            children[i] = child.key(n["id"]);
         }
 
         return $h("ul", "TreeNode")
-            .children(children);
+            .children([children]);
     }
 }
 
-@checkPropsIdentity
 class Tree extends Component<TreeState> {
     render() {
         return $h("div", "Tree")
-            .children($c(TreeNode, this.props.root));
+            .children($c(TreeNode, this.props["root"]));
     }
 }
 
-@checkPropsIdentity
 class Main extends Component<AppState | undefined> {
     render() {
         if (!this.props) {
@@ -116,19 +108,19 @@ class Main extends Component<AppState | undefined> {
 
         switch (this.props.location) {
             case "table":
-                return $h("div", "Main").children($c(Table, this.props.table));
+                return $h("div", "Main").children($c(Table, this.props["table"]));
             case "anim":
-                return $h("div", "Main").children($c(Anim, this.props.anim));
+                return $h("div", "Main").children($c(Anim, this.props["anim"]));
             default: // "tree"
-                return $h("div", "Main").children($c(Tree, this.props.tree));
+                return $h("div", "Main").children($c(Tree, this.props["tree"]));
         }
     }
 }
 
-uibench.init("ivi", "0.4.0");
+uibench.init("ivi", "0.5.0");
 
 document.addEventListener("DOMContentLoaded", (e) => {
-    const container = document.querySelector("#App") !;
+    const container = document.querySelector("#App")!;
     render($c(Main, undefined), container);
 
     uibench.run(
