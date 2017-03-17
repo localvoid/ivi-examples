@@ -131,7 +131,7 @@ class Box extends Component<{
     render(): VNode<any> {
         const { depth } = this.props;
         return $h("div", "Box")
-            .events({ gesture: this.onGesture })
+            .events(this.onGesture)
             .children([
                 $h("div", "ClickCounter").children(`Clicks: ${this.clickCounter}`),
                 (depth > 0) ? $c(Box, {
@@ -145,4 +145,4 @@ render(
     $h("div").children([
         $c(Box, { depth: 1 }),
     ]),
-    document.getElementById("app") !);
+    document.getElementById("app")!);

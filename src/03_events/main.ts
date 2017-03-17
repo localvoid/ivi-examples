@@ -10,9 +10,7 @@ class EventsComponent extends Component<null> {
 
     render() {
         return $h("div")
-            .events({
-                click: this.onClick,
-            })
+            .events(this.onClick)
             .style({
                 "display": "inline-block",
                 "border": "1px solid #333",
@@ -24,4 +22,4 @@ class EventsComponent extends Component<null> {
     }
 }
 
-render($c(EventsComponent), document.getElementById("app") !);
+render($c(EventsComponent), document.getElementById("app")!);

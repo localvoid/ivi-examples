@@ -47,9 +47,7 @@ class GameView extends Component<Mutable<Game>> {
                     width: `${CELL_SIZE * grid.cols}px`,
                     height: `${CELL_SIZE * grid.rows}px`,
                 })
-                .events({
-                    keys: this.onKeyDown,
-                })
+                .events(this.onKeyDown)
                 .autofocus(true)
                 .children(grid.cells.map((c) => $h("div", cellClasses(c))))
             );

@@ -140,18 +140,18 @@ class Box extends Component<{
     }, this.props.capture);
 
     private events = this.props.touch ?
-        {
-            click: this.onClick,
-            enter: this.onMouseEnter,
-            leave: this.onMouseLeave,
-            touchStart: this.onTouchStart,
-            touchEnd: this.onTouchEnd,
-        } :
-        {
-            click: this.onClick,
-            enter: this.onMouseEnter,
-            leave: this.onMouseLeave,
-        };
+        [
+            this.onClick,
+            this.onMouseEnter,
+            this.onMouseLeave,
+            this.onTouchStart,
+            this.onTouchEnd,
+        ] :
+        [
+            this.onClick,
+            this.onMouseEnter,
+            this.onMouseLeave,
+        ];
 
     render(): VNode<any> {
         const { depth } = this.props;

@@ -20,10 +20,10 @@ class Form extends Component<{
 
     render() {
         return $h("form")
-            .events({
-                submit: this.onSubmit,
-                input: this.onInput,
-            })
+            .events([
+                this.onSubmit,
+                this.onInput,
+            ])
             .children([
                 $i("text")
                     .props({ placeholder: "Entry" })
@@ -41,7 +41,7 @@ function update() {
             $c(Form, { onSubmit: onSubmit }),
             $h("ul").children(entries.map((e) => $h("li").children(e))),
         ]),
-        document.getElementById("app") !,
+        document.getElementById("app")!,
     );
 }
 

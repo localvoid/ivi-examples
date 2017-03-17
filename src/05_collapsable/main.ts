@@ -12,7 +12,7 @@ class Collapsable extends Component<{
 
     render() {
         return $h("div", this.collapsed ? "Collapsable close" : "Collapsable")
-            .events({ click: this.onClick })
+            .events(this.onClick)
             .children(this.props.child);
     }
 }
@@ -21,5 +21,5 @@ render(
     $c(Collapsable, {
         child: $h("div").children("Collapsable content"),
     }),
-    document.getElementById("app") !,
+    document.getElementById("app")!,
 );
