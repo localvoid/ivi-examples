@@ -1,6 +1,19 @@
-import { render, update, VNode, $h, $c, $ctx, SelectorData, Context, connect } from "ivi";
+import { render, update, VNode, $h, $c, SelectorData, connect } from "ivi";
 import { DBList, DB, EMPTY_QUERY } from "./db";
 import { startFPSMonitor, startMemMonitor, initProfiler, startProfile, endProfile } from "perf-monitor";
+
+let mutations = 0.5;
+let N = 50;
+
+const qs = parseQueryString(window.location.search.substr(1).split("&"));
+if (qs["n"] !== undefined) {
+    N = parseInt(qs["n"], 10);
+}
+if (qs["m"] !== undefined) {
+    mutations = parseFloat(qs["m"]);
+}
+
+const store = new DBList(N);
 
 function entryFormatElapsed(v: number): string {
     if (!v) {
@@ -73,8 +86,8 @@ function DatabaseView(db: DB) {
     return $h("tr").children(children);
 }
 
-function selectDb(prev: SelectorData<DB, DB>, props: number, context: Context<{ data: DB[] }>) {
-    const db = context.data[props];
+function selectDb(prev: SelectorData<DB, DB>, props: number) {
+    const db = store.dbs[props];
     if (prev && prev.in === db) {
         return prev;
     }
@@ -114,26 +127,10 @@ function parseQueryString(a: string[]): { [key: string]: string } {
     return b;
 }
 
-let mutations = 0.5;
-let N = 50;
-
-const qs = parseQueryString(window.location.search.substr(1).split("&"));
-if (qs["n"] !== undefined) {
-    N = parseInt(qs["n"], 10);
-}
-if (qs["m"] !== undefined) {
-    mutations = parseFloat(qs["m"]);
-}
-
 document.addEventListener("DOMContentLoaded", () => {
     startFPSMonitor();
     startMemMonitor();
     initProfiler("view update");
-
-    const dbs = new DBList(N);
-    const context = {
-        data: dbs.dbs,
-    };
 
     const sliderContainer = document.createElement("div");
     sliderContainer.style.display = "flex";
@@ -153,10 +150,10 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.insertBefore(sliderContainer, document.body.firstChild);
 
     const container = document.getElementById("app")!;
-    render($ctx(context, $c(Main, dbs)), container);
+    render($c(Main, store), container);
 
     function tick() {
-        dbs.randomUpdate(mutations);
+        store.randomUpdate(mutations);
 
         startProfile("view update");
         update();

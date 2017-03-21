@@ -1,4 +1,4 @@
-import { VNode, $h, $c, render, $ctx, Context, SelectorData, connect } from "ivi";
+import { VNode, $h, $c, render, $context, Context, SelectorData, connect } from "ivi";
 import { startFPSMonitor, startMemMonitor, initProfiler, startProfile, endProfile } from "perf-monitor";
 
 function randomColor(): string {
@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
         data: data,
     };
     const container = document.getElementById("app")!;
-    render($ctx(context, $c(Image, data)), container);
+    render($context(context, $c(Image, data)), container);
 
     function tick() {
         startProfile("data update");
@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
         endProfile("data update");
 
         startProfile("view update");
-        render($ctx(context, $c(Image, data)), container);
+        render($context(context, $c(Image, data)), container);
         endProfile("view update");
 
         requestAnimationFrame(tick);
