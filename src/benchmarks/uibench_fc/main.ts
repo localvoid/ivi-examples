@@ -37,7 +37,7 @@ function Table(p: TableState) {
     }
 
     return $h("table", "Table").children(
-        $h("tbody").children([children]));
+        $h("tbody").children(children));
 }
 
 function AnimBox(p: AnimBoxState) {
@@ -60,7 +60,7 @@ function Anim(p: AnimState) {
         children[i] = $c(AnimBox, item).key(item["id"]);
     }
 
-    return $h("div", "Anim").children([children]);
+    return $h("div", "Anim").children(children);
 }
 
 function TreeLeaf(p: TreeNodeState) {
@@ -77,7 +77,7 @@ function TreeNode(p: TreeNodeState) {
     }
 
     return $h("ul", "TreeNode")
-        .children([children]);
+        .children(children);
 }
 
 function Tree(p: TreeState) {
@@ -100,7 +100,7 @@ function Main(p: AppState | undefined) {
     }
 }
 
-uibench.init("ivi [fc]", "0.5.0");
+uibench.init("ivi [fc]", "0.7.0");
 
 document.addEventListener("DOMContentLoaded", (e) => {
     const container = document.querySelector("#App")!;

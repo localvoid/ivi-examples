@@ -68,15 +68,15 @@ class NativeBox extends Component<{
     render(): VNode<any> {
         const { depth } = this.props;
         return this.root = $h("div", "Box" + (this.isEntered ? " entered" : "") + (this.isTouched ? " touched" : ""))
-            .children([
-                $h("div", "ClickCounter").children(`Clicks: ${this.clickCounter}`),
-                (depth > 0) ? $c(NativeBox, {
-                    depth: depth - 1,
-                    touch: this.props.touch,
-                    stopPropagation: this.props.stopPropagation,
-                    capture: this.props.capture,
-                }) : null,
-            ]);
+            .children(
+            $h("div", "ClickCounter").children(`Clicks: ${this.clickCounter}`),
+            (depth > 0) ? $c(NativeBox, {
+                depth: depth - 1,
+                touch: this.props.touch,
+                stopPropagation: this.props.stopPropagation,
+                capture: this.props.capture,
+            }) : null,
+        );
     }
 
     attached() {
@@ -157,15 +157,15 @@ class Box extends Component<{
         const { depth } = this.props;
         return $h("div", "Box" + (this.isEntered ? " entered" : "") + (this.isTouched ? " touched" : ""))
             .events(this.events)
-            .children([
-                $h("div", "ClickCounter").children(`Clicks: ${this.clickCounter}`),
-                (depth > 0) ? $c(Box, {
-                    depth: depth - 1,
-                    touch: this.props.touch,
-                    stopPropagation: this.props.stopPropagation,
-                    capture: this.props.capture,
-                }) : null,
-            ]);
+            .children(
+            $h("div", "ClickCounter").children(`Clicks: ${this.clickCounter}`),
+            (depth > 0) ? $c(Box, {
+                depth: depth - 1,
+                touch: this.props.touch,
+                stopPropagation: this.props.stopPropagation,
+                capture: this.props.capture,
+            }) : null,
+        );
     }
 }
 

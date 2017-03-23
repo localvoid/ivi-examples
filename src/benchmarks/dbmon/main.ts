@@ -50,40 +50,42 @@ function queryClasses(elapsed: number): string {
 }
 
 function Popover(query: string) {
-    return $h("div", "popover left").children([
+    return $h("div", "popover left").children(
         $h("div", "popover-content").children(query),
         $h("div", "arrow"),
-    ]);
+    );
 }
 
 function DatabaseView(db: DB) {
     const topFiveQueries = db.getTopFiveQueries();
     const count = db.queries!.length;
 
-    const children = new Array<VNode<any>>(7);
-    children[0] = $h("td", "dbname").children(db.name);
-    children[1] = $h("td", "query-count").children(
-        $h("span", counterClasses(count)).children(count),
-    );
+    const children = new Array<VNode<any>>(5);
 
     for (let i = 0; i < 5; i++) {
         const q = topFiveQueries[i];
         const elapsed = q.elapsed;
 
         if (q !== EMPTY_QUERY) {
-            children[i + 2] = $h("td", queryClasses(elapsed)).children([
+            children[i] = $h("td", queryClasses(elapsed)).children(
                 entryFormatElapsed(elapsed),
                 $c(Popover, q.query),
-            ]);
+            ).key(i);
         } else {
-            children[i + 2] = $h("td", "").children([
+            children[i] = $h("td", "").children(
                 "",
                 $c(Popover, q.query),
-            ]);
+            ).key(i);
         }
     }
 
-    return $h("tr").children(children);
+    return $h("tr").children(
+        $h("td", "dbname").children(db.name),
+        $h("td", "query-count").children(
+            $h("span", counterClasses(count)).children(count),
+        ),
+        children,
+    );
 }
 
 function selectDb(prev: SelectorData<DB, DB>, props: number) {

@@ -111,22 +111,22 @@ function compile(name, externs) {
 exports.clean = clean;
 
 const PROJECTS = [
-    // // Basic
-    // "01_introduction",
-    // "02_stateful_component",
-    // "03_events",
-    // "04_forms",
-    // "05_collapsable",
-    // // Games
-    // "games/snake",
-    // // Benchmarks
+    // Basic
+    "01_introduction",
+    "02_stateful_component",
+    "03_events",
+    "04_forms",
+    "05_collapsable",
+    // Games
+    "games/snake",
+    // Benchmarks
     "benchmarks/uibench",
     "benchmarks/uibench_fc",
     "benchmarks/dbmon",
     "benchmarks/10k",
-    // // Test playground
-    // "playground/pointer-events",
-    // "playground/gesture-events",
+    // Test playground
+    "playground/pointer-events",
+    "playground/gesture-events",
 ];
 
 const EXTERNS = {

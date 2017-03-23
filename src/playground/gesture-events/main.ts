@@ -132,12 +132,12 @@ class Box extends Component<{
         const { depth } = this.props;
         return $h("div", "Box")
             .events(this.onGesture)
-            .children([
-                $h("div", "ClickCounter").children(`Clicks: ${this.clickCounter}`),
-                (depth > 0) ? $c(Box, {
-                    depth: depth - 1,
-                }) : null,
-            ]);
+            .children(
+            $h("div", "ClickCounter").children(`Clicks: ${this.clickCounter}`),
+            (depth > 0) ? $c(Box, {
+                depth: depth - 1,
+            }) : null,
+        );
     }
 }
 
