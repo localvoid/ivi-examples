@@ -26,7 +26,7 @@ export class Query {
     }
 };
 
-export const EMPTY_QUERY = new Query(0.0, "***");
+const EMPTY_QUERY = new Query(0, "***");
 
 /**
  * @final

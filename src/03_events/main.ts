@@ -16,7 +16,7 @@ class EventsComponent extends Component<null> {
                 "border": "1px solid #333",
                 "padding": "20px",
                 "cursor": "pointer",
-                "userSelect": "none",
+                "user-select": "none",
             })
             .children(`Click me: ${this.counter}`);
     }

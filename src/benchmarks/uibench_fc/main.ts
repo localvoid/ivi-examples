@@ -46,8 +46,8 @@ function AnimBox(p: AnimBoxState) {
     return $h("div", "AnimBox")
         .props({ "data-id": p["id"] })
         .style({
-            background: "rgba(0,0,0," + (0.5 + ((time % 10) / 10)) + ")",
-            borderRadius: (time % 10) + "px",
+            "background": "rgba(0,0,0," + (0.5 + ((time % 10) / 10)) + ")",
+            "border-radius": (time % 10) + "px",
         });
 }
 

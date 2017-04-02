@@ -124,9 +124,6 @@ const PROJECTS = [
     "benchmarks/uibench_fc",
     "benchmarks/dbmon",
     "benchmarks/10k",
-    // Test playground
-    "playground/pointer-events",
-    "playground/gesture-events",
 ];
 
 const EXTERNS = {

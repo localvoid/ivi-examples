@@ -52,8 +52,8 @@ class AnimBox extends Component<AnimBoxState> {
         return $h("div", "AnimBox")
             .props({ "data-id": this.props["id"] })
             .style({
-                background: "rgba(0,0,0," + (0.5 + ((time % 10) / 10)) + ")",
-                borderRadius: (time % 10) + "px",
+                "background": "rgba(0,0,0," + (0.5 + ((time % 10) / 10)) + ")",
+                "border-radius": (time % 10) + "px",
             });
     }
 }

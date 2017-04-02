@@ -44,8 +44,8 @@ class GameView extends Component<Mutable<Game>> {
             .children($h("div", "Grid")
                 .props({ "tabIndex": 0 })
                 .style({
-                    width: `${CELL_SIZE * grid.cols}px`,
-                    height: `${CELL_SIZE * grid.rows}px`,
+                    "width": `${CELL_SIZE * grid.cols}px`,
+                    "height": `${CELL_SIZE * grid.rows}px`,
                 })
                 .events(this.onKeyDown)
                 .autofocus(true)
