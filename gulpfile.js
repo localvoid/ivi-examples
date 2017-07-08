@@ -25,12 +25,11 @@ const ENABLE_SOURCEMAPS = true;
 
 const CLOSURE_OPTS = {
     compilation_level: "ADVANCED",
-    language_in: "ECMASCRIPT6_STRICT",
+    language_in: "ECMASCRIPT_2017",
     language_out: "ECMASCRIPT5_STRICT",
     use_types_for_optimization: true,
     assume_function_wrapper: true,
-    // isolation_mode: "IIFE",
-    output_wrapper: "(function(){%output%}).call(this);",
+    isolation_mode: "IIFE",
     summary_detail_level: 3,
     warning_level: "QUIET",
     rewrite_polyfills: true,

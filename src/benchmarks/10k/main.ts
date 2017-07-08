@@ -1,4 +1,5 @@
-import { VNode, $h, $c, render, $context, Context, SelectorData, connect } from "ivi";
+import { Context, SelectorData, componentFactory, VNode, render, context, connect } from "ivi";
+import * as h from "ivi-html";
 import { startFPSMonitor, startMemMonitor, initProfiler, startProfile, endProfile } from "perf-monitor";
 
 function randomColor(): string {
@@ -30,7 +31,7 @@ function updateData(data: string[], mutations: number): void {
 }
 
 function Pixel(color: string) {
-    return $h("span", "pixel").style({ "background": color });
+    return h.span("pixel").style({ "background": color });
 }
 
 function selectPixel(
@@ -49,22 +50,23 @@ function selectPixel(
     };
 }
 
-const $pixel = connect(selectPixel, Pixel);
+const pixel = connect(selectPixel, Pixel);
 
-function Image(colors: string[]) {
+function PixelImage(colors: string[]) {
     const children = new Array<VNode<any>>(100);
     for (let i = 0; i < 100; i++) {
         const offset = i * 100;
         const rowChildren = new Array<VNode<any>>(100);
         for (let j = 0; j < 100; j++) {
-            rowChildren[j] = $pixel(offset + j);
+            rowChildren[j] = pixel(offset + j);
             // rowChildren[j] = $c(Pixel, colors[offset + j]);
         }
-        children[i] = $h("div", "row").children(rowChildren);
+        children[i] = h.div("row").children(rowChildren);
     }
 
-    return $h("div", "image").children(children);
+    return h.div("image").children(children);
 }
+const image = componentFactory(PixelImage);
 
 document.addEventListener("DOMContentLoaded", () => {
     startFPSMonitor();
@@ -88,11 +90,11 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.insertBefore(sliderContainer, document.body.firstChild);
 
     const data = generateData();
-    const context = {
+    const ctx = {
         data: data,
     };
     const container = document.getElementById("app")!;
-    render($context(context, $c(Image, data)), container);
+    render(context(ctx, image(data)), container);
 
     function tick() {
         startProfile("data update");
@@ -100,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
         endProfile("data update");
 
         startProfile("view update");
-        render($context(context, $c(Image, data)), container);
+        render(context(ctx, image(data)), container);
         endProfile("view update");
 
         requestAnimationFrame(tick);

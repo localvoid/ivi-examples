@@ -1,4 +1,7 @@
-import { render, Component, $h, $c, Events, KeyCode, Mutable, mut } from "ivi";
+import { render, Component, componentFactory, KeyCode } from "ivi";
+import { Mutable, mut } from "ivi-state";
+import * as Events from "ivi-events";
+import * as h from "ivi-html";
 import { Game, CellFlags, LEFT, RIGHT, UP, DOWN } from "./state";
 
 function cellClasses(flags: CellFlags): string {
@@ -40,8 +43,8 @@ class GameView extends Component<Mutable<Game>> {
     render() {
         const { grid } = this.props.ref;
 
-        return $h("div", this.props.ref.gameOver ? "SnakeGame gameOver" : "SnakeGame")
-            .children($h("div", "Grid")
+        return h.div(this.props.ref.gameOver ? "SnakeGame gameOver" : "SnakeGame")
+            .children(h.div("Grid")
                 .props({ "tabIndex": 0 })
                 .style({
                     "width": `${CELL_SIZE * grid.cols}px`,
@@ -49,17 +52,18 @@ class GameView extends Component<Mutable<Game>> {
                 })
                 .events(this.onKeyDown)
                 .autofocus(true)
-                .children(grid.cells.map((c) => $h("div", cellClasses(c))))
-            );
+                .children(grid.cells.map((c) => h.div(cellClasses(c)))),
+        );
     }
 }
+const gameView = componentFactory(GameView);
 
 const container = document.getElementById("app")!;
 const game = new Game();
 
 function tick() {
     game.updateState();
-    render($c(GameView, mut(game)), container);
+    render(gameView(mut(game)), container);
     setTimeout(tick, 100);
 }
 tick();

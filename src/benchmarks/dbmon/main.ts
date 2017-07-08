@@ -1,4 +1,5 @@
-import { render, update, $h, $c, SelectorData, connect } from "ivi";
+import { SelectorData, componentFactory, render, update, connect, map } from "ivi";
+import * as h from "ivi-html";
 import { DBList, DB } from "./db";
 import { startFPSMonitor, startMemMonitor, initProfiler, startProfile, endProfile } from "perf-monitor";
 
@@ -64,35 +65,37 @@ function queryClasses(elapsed: number): string {
 }
 
 function Popover(query: string) {
-    return $h("div", "popover left").children(
-        $h("div", "popover-content").children(query),
-        $h("div", "arrow"),
+    return h.div("popover left").children(
+        h.div("popover-content").children(query),
+        h.div("arrow"),
     );
 }
+const popover = componentFactory(Popover);
 
 function DatabaseView(db: DB) {
     const topFiveQueries = db.getTopFiveQueries();
     const count = db.queries!.length;
 
-    return $h("tr").children(
-        $h("td", "dbname").children(db.name),
-        $h("td", "query-count").children(
-            $h("span", counterClasses(count)).children(count),
+    return h.tr().children(
+        h.td("dbname").children(db.name),
+        h.td("query-count").children(
+            h.span(counterClasses(count)).children(count),
         ),
-        topFiveQueries.map((q, i) => $h("td", queryClasses(q.elapsed)).children(
+        map(topFiveQueries, (q, i) => h.td(queryClasses(q.elapsed)).children(
             entryFormatElapsed(q.elapsed),
-            $c(Popover, q.query),
+            popover(q.query),
         ).key(i)),
     );
 }
 
-const $DBView = connect(selectDb, DatabaseView);
+const databaseView = connect(selectDb, DatabaseView);
 
 function Main(props: DBList) {
-    return $h("table")
+    return h.table()
         .className("table table-striped latest-data")
-        .children($h("tbody").children(props.dbs.map((db, i) => $DBView(i))));
+        .children(h.tbody().children(map(props.dbs, (db, i) => databaseView(i))));
 }
+const main = componentFactory(Main);
 
 function parseQueryString(a: string[]): { [key: string]: string } {
     if (a.length === 0) {
@@ -133,7 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.insertBefore(sliderContainer, document.body.firstChild);
 
     const container = document.getElementById("app")!;
-    render($c(Main, store), container);
+    render(main(store), container);
 
     function tick() {
         store.randomUpdate(mutations);

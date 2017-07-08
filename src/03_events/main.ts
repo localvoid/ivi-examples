@@ -1,6 +1,8 @@
-import { render, Component, Events, $h, $c } from "ivi";
+import { render, Component, componentFactory } from "ivi";
+import * as Events from "ivi-events";
+import * as h from "ivi-html";
 
-class EventsComponent extends Component<null> {
+class EventsComponent extends Component {
     private counter = 0;
 
     private onClick = Events.onClick((ev) => {
@@ -9,7 +11,7 @@ class EventsComponent extends Component<null> {
     });
 
     render() {
-        return $h("div")
+        return h.div()
             .events(this.onClick)
             .style({
                 "display": "inline-block",
@@ -21,5 +23,6 @@ class EventsComponent extends Component<null> {
             .children(`Click me: ${this.counter}`);
     }
 }
+const eventsComponent = componentFactory(EventsComponent);
 
-render($c(EventsComponent), document.getElementById("app")!);
+render(eventsComponent(), document.getElementById("app")!);

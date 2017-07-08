@@ -1,4 +1,6 @@
-import { render, Component, Events, $h, $i, $c } from "ivi";
+import { render, Component, componentFactory } from "ivi";
+import * as Events from "ivi-events";
+import * as h from "ivi-html";
 
 class Form extends Component<{
     onSubmit: (entry: string) => void,
@@ -19,27 +21,28 @@ class Form extends Component<{
     });
 
     render() {
-        return $h("form")
+        return h.form()
             .events([
                 this.onSubmit,
                 this.onInput,
             ])
             .children([
-                $i("text")
-                    .props({ placeholder: "Entry" })
+                h.inputText()
+                    .props({ "placeholder": "Entry" })
                     .value(this.entry),
-                $h("button").children("Submit"),
+                h.button().children("Submit"),
             ]);
     }
 }
+const form = componentFactory(Form);
 
 const entries: string[] = [];
 
 function update() {
     render(
-        $h("div").children([
-            $c(Form, { onSubmit: onSubmit }),
-            $h("ul").children(entries.map((e) => $h("li").children(e))),
+        h.div().children([
+            form({ onSubmit: onSubmit }),
+            h.ul().children(entries.map((e) => h.li().children(e))),
         ]),
         document.getElementById("app")!,
     );

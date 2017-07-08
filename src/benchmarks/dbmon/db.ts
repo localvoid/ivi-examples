@@ -24,7 +24,7 @@ export class Query {
 
         return new Query(elapsed, query);
     }
-};
+}
 
 const EMPTY_QUERY = new Query(0, "***");
 

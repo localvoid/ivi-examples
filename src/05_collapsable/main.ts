@@ -1,4 +1,6 @@
-import { render, Component, VNode, Events, $h, $c } from "ivi";
+import { render, Component, componentFactory, VNode } from "ivi";
+import * as Events from "ivi-events";
+import * as h from "ivi-html";
 
 class Collapsable extends Component<{
     child: VNode<any>,
@@ -11,15 +13,16 @@ class Collapsable extends Component<{
     });
 
     render() {
-        return $h("div", this.collapsed ? "Collapsable close" : "Collapsable")
+        return h.div(this.collapsed ? "Collapsable close" : "Collapsable")
             .events(this.onClick)
             .children(this.props.child);
     }
 }
+const collapsable = componentFactory(Collapsable);
 
 render(
-    $c(Collapsable, {
-        child: $h("div").children("Collapsable content"),
+    collapsable({
+        child: h.div().children("Collapsable content"),
     }),
     document.getElementById("app")!,
 );

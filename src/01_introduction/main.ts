@@ -1,7 +1,9 @@
-import { render, $h, $c } from "ivi";
+import { render, componentFactory } from "ivi";
+import * as h from "ivi-html";
 
 function HelloComponent(text: string) {
-    return $h("div").children(`Hello ${text}!`);
+    return h.div().children(`Hello ${text}!`);
 }
+const helloComponent = componentFactory(HelloComponent);
 
-render($c(HelloComponent, "World"), document.getElementById("app") !);
+render(helloComponent("World"), document.getElementById("app")!);
