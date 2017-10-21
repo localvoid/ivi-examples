@@ -3,25 +3,25 @@ import * as Events from "ivi-events";
 import * as h from "ivi-html";
 
 class EventsComponent extends Component {
-    private counter = 0;
+  private counter = 0;
 
-    private onClick = Events.onClick((ev) => {
-        this.counter++;
-        this.invalidate();
-    });
+  private onClick = Events.onClick((ev) => {
+    this.counter++;
+    this.invalidate();
+  });
 
-    render() {
-        return h.div()
-            .events(this.onClick)
-            .style({
-                "display": "inline-block",
-                "border": "1px solid #333",
-                "padding": "20px",
-                "cursor": "pointer",
-                "user-select": "none",
-            })
-            .children(`Click me: ${this.counter}`);
-    }
+  render() {
+    return h.div()
+      .events(this.onClick)
+      .style({
+        "display": "inline-block",
+        "border": "1px solid #333",
+        "padding": "20px",
+        "cursor": "pointer",
+        "user-select": "none",
+      })
+      .children(`Click me: ${this.counter}`);
+  }
 }
 const eventsComponent = componentFactory(EventsComponent);
 
