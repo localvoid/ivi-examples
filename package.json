@@ -10,31 +10,29 @@
     "url": "https://github.com/localvoid"
   },
   "dependencies": {
-    "ivi": "^0.9.1",
-    "ivi-core": "^0.2.0",
-    "ivi-dom": "^0.2.0",
-    "ivi-events": "^0.2.0",
-    "ivi-html": "^0.2.0",
-    "ivi-scheduler": "^0.2.0",
-    "ivi-state": "^0.2.0",
-    "ivi-vars": "^0.1.1"
+    "ivi": "^0.10.0",
+    "ivi-core": "^0.10.0",
+    "ivi-events": "^0.10.0",
+    "ivi-html": "^0.10.0",
+    "ivi-scheduler": "^0.10.0",
+    "ivi-state": "^0.10.0"
   },
   "devDependencies": {
-    "@types/node": "^8.0.46",
-    "browser-sync": "^2.18.13",
+    "@types/node": "^9.6.6",
+    "browser-sync": "^2.24.4",
     "del": "^3.0.0",
-    "google-closure-compiler": "^20170910.0.0",
-    "gulp": "github:gulpjs/gulp#4.0",
+    "google-closure-compiler": "^20180402.0.0",
+    "gulp": "next",
     "gulp-if": "^2.0.2",
     "gulp-rename": "^1.2.2",
-    "gulp-sourcemaps": "^2.6.1",
+    "gulp-sourcemaps": "^2.6.4",
     "perf-monitor": "^0.4.1",
-    "rollup": "^0.50.0",
+    "rollup": "^0.58.2",
     "rollup-plugin-alias": "^1.4.0",
-    "rollup-plugin-node-resolve": "^3.0.0",
-    "rollup-plugin-replace": "^2.0.0",
+    "rollup-plugin-node-resolve-main-fields": "^3.3.0",
     "rollup-plugin-sourcemaps": "^0.4.2",
-    "tslib": "^1.8.0",
-    "typescript": "^2.5.3"
+    "tslib": "^1.9.0",
+    "typescript": "^2.8.3",
+    "ivi-tslint-rules": "^0.1.3"
   }
 }

@@ -1,9 +1,8 @@
-import { render, componentFactory } from "ivi";
+import { render, statelessComponent } from "ivi";
 import * as h from "ivi-html";
 
-function HelloComponent(text: string) {
-  return h.div().children(`Hello ${text}!`);
-}
-const helloComponent = componentFactory(HelloComponent);
+const Hello = statelessComponent((text: string) => (
+  h.div().c(`Hello ${text}!`)
+));
 
-render(helloComponent("World"), document.getElementById("app")!);
+render(Hello("World"), document.getElementById("app")!);

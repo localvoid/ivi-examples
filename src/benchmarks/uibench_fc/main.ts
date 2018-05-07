@@ -1,129 +1,89 @@
-import { Component, VNode, componentFactory, render } from "ivi";
+import { Component, VNode, component, statelessComponent, render, map } from "ivi";
 import * as h from "ivi-html";
 import * as Events from "ivi-events";
 
-class TableCell extends Component<string> {
+const TableCell = component(class extends Component<string> {
   private onClick = Events.onClick((ev) => {
     console.log("Click", this.props);
   });
 
   render() {
     return h.td("TableCell")
-      .events(this.onClick)
-      .children(this.props);
+      .e(this.onClick)
+      .c(this.props);
   }
-}
-const tableCell = componentFactory(TableCell);
+});
 
-function TableRow(p: TableItemState) {
-  const props = p["props"];
+const TableRow = statelessComponent((p: TableItemState) => {
   const id = p["id"];
-  const active = p["active"];
-  const children = new Array<VNode<any>>(props.length + 1);
-  children[0] = tableCell("#" + id);
-  for (let i = 0; i < props.length; i++) {
-    children[i + 1] = tableCell(props[i]);
-  }
 
-  return h.tr(active ? "TableRow active" : "TableRow")
-    .attrs({ "data-id": id })
-    .children(children);
-}
-const tableRow = componentFactory(TableRow);
-
-function Table(p: TableState) {
-  const items = p["items"];
-
-  const children = new Array<VNode<any>>(items.length);
-  for (let i = 0; i < items.length; i++) {
-    const item = items[i];
-    children[i] = tableRow(item).key(item["id"]);
-  }
-
-  return h.table("Table").children(
-    h.tbody().children(children),
+  return h.tr(p["active"] ? "TableRow active" : "TableRow")
+    .a({ "data-id": id })
+    .c(
+      TableCell("#" + id),
+      map(p["props"], (item) => TableCell(item)),
   );
-}
-const table = componentFactory(Table);
+});
 
-function AnimBox(p: AnimBoxState) {
+const Table = statelessComponent<TableState>((p) => (
+  h.table("Table").c(
+    h.tbody().c(
+      map(p["items"], (item) => TableRow(item).k(item["id"])),
+    ),
+  )
+));
+
+const AnimBox = statelessComponent<AnimBoxState>((p) => {
   const time = p["time"];
 
   return h.div("AnimBox")
-    .attrs({ "data-id": p["id"] })
-    .style({
+    .a({ "data-id": p["id"] })
+    .s({
       "background": "rgba(0,0,0," + (0.5 + ((time % 10) / 10)) + ")",
       "border-radius": (time % 10) + "px",
     });
-}
-const animBox = componentFactory(AnimBox);
+});
 
-function Anim(p: AnimState) {
-  const items = p["items"];
+const Anim = statelessComponent<AnimState>((p) => (
+  h.div("Anim").c(map(p["items"], (item) => AnimBox(item).k(item["id"])))
+));
 
-  const children = new Array<VNode<any>>(items.length);
-  for (let i = 0; i < items.length; i++) {
-    const item = items[i];
-    children[i] = animBox(item).key(item["id"]);
-  }
+const TreeLeaf = statelessComponent<TreeNodeState>((p) => (
+  h.li("TreeLeaf").c(p["id"])
+));
 
-  return h.div("Anim").children(children);
-}
-const anim = componentFactory(Anim);
+const TreeNode: any = statelessComponent<TreeNodeState>((p: TreeNodeState) => (
+  h.ul("TreeNode").c(
+    map(p["children"], (n) => (n["container"] ? TreeNode(n) : TreeLeaf(n)).k(n["id"]))
+  )
+));
 
-function TreeLeaf(p: TreeNodeState) {
-  return h.li("TreeLeaf").children(p["id"]);
-}
-const treeLeaf = componentFactory(TreeLeaf);
+const Tree = statelessComponent<TreeState>((p: TreeState) => (
+  h.div("Tree").c(TreeNode(p["root"]))
+));
 
-function TreeNode(p: TreeNodeState) {
-  const data = p;
-  const children = new Array<VNode<any>>(data["children"].length);
-  for (let i = 0; i < data["children"].length; i++) {
-    const n = data["children"][i];
-    const child = n["container"] ? treeNode(n) : treeLeaf(n);
-    children[i] = child.key(n["id"]);
-  }
-
-  return h.ul("TreeNode")
-    .children(children);
-}
-const treeNode = componentFactory(TreeNode);
-
-function Tree(p: TreeState) {
-  return h.div("Tree")
-    .children(treeNode(p["root"]));
-}
-const tree = componentFactory(Tree);
-
-function Main(p: AppState | undefined) {
-  if (!p) {
-    return h.div("Main");
-  }
-
-  switch (p["location"]) {
+function route(state: AppState): VNode {
+  switch (state["location"]) {
     case "table":
-      return h.div("Main").children(table(p["table"]));
+      return Table(state["table"]);
     case "anim":
-      return h.div("Main").children(anim(p["anim"]));
-    default: // "tree"
-      return h.div("Main").children(tree(p["tree"]));
+      return Anim(state["anim"]);
   }
+  return Tree(state["tree"]);
 }
-const main = componentFactory(Main);
 
-uibench.init("ivi [fc]", "0.8.0");
+const Main = statelessComponent<AppState | undefined>((state) => (
+  h.div("Main").c(state ? route(state) : null)
+));
+
+uibench.init("ivi [fc]", "0.10.0");
 
 document.addEventListener("DOMContentLoaded", (e) => {
   const container = document.querySelector("#App")!;
-  render(main(undefined), container);
+  render(Main(), container);
 
   uibench.run(
-    (state) => {
-      render(main(state), container);
-    },
-    (samples) => {
-      render(h.pre().children(JSON.stringify(samples, undefined, 2)), container);
-    },
+    (state) => render(Main(state), container),
+    (samples) => render(h.pre().c(JSON.stringify(samples, undefined, 2)), container),
   );
 });

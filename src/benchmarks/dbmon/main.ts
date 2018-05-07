@@ -1,4 +1,4 @@
-import { SelectorData, componentFactory, render, update, connect, map } from "ivi";
+import { statelessComponent, render, update, connect, map } from "ivi";
 import * as h from "ivi-html";
 import { DBList, DB } from "./db";
 import { startFPSMonitor, startMemMonitor, initProfiler, startProfile, endProfile } from "perf-monitor";
@@ -15,17 +15,6 @@ if (qs["m"] !== undefined) {
 }
 
 const store = new DBList(N);
-
-function selectDb(prev: SelectorData<DB, DB>, props: number) {
-  const db = store.dbs[props];
-  if (prev && prev.in === db) {
-    return prev;
-  }
-  return {
-    in: db,
-    out: db,
-  };
-}
 
 function entryFormatElapsed(v: number): string {
   if (v === 0) {
@@ -64,37 +53,50 @@ function queryClasses(elapsed: number): string {
   return "";
 }
 
-function Popover(query: string) {
-  return h.div("popover left").children(
-    h.div("popover-content").children(query),
+const Popover = statelessComponent((query: string) => (
+  h.div("popover left").c(
+    h.div("popover-content").c(query),
     h.div("arrow"),
-  );
-}
-const popover = componentFactory(Popover);
+  )
+));
 
-function DatabaseView(db: DB) {
-  const topFiveQueries = db.getTopFiveQueries();
-  const count = db.queries!.length;
+const DatabaseList = connect<{ db: DB }, number>(
+  (prev, props) => {
+    const db = store.dbs[props];
+    if (prev && prev.db === db) {
+      return prev;
+    }
+    return { db };
+  },
+  (props) => {
+    const db = props.db;
+    const topFiveQueries = db.getTopFiveQueries();
+    const count = db.queries!.length;
 
-  return h.tr().children(
-    h.td("dbname").children(db.name),
-    h.td("query-count").children(
-      h.span(counterClasses(count)).children(count),
+    return h.tr().c(
+      h.td("dbname").c(db.name),
+      h.td("query-count").c(
+        h.span(counterClasses(count)).c(count),
+      ),
+      map(topFiveQueries,
+        (q, i) => (
+          h.td(queryClasses(q.elapsed)).k(i).c(
+            entryFormatElapsed(q.elapsed),
+            Popover(q.query),
+          )
+        ),
+      ),
+    );
+  },
+);
+
+const Main = statelessComponent((props: DBList) => (
+  h.table("table table-striped latest-data").c(
+    h.tbody().c(
+      map(props.dbs, (db, i) => DatabaseList(i)),
     ),
-    map(topFiveQueries, (q, i) => h.td(queryClasses(q.elapsed)).children(
-      entryFormatElapsed(q.elapsed),
-      popover(q.query),
-    ).key(i)),
-  );
-}
-
-const databaseView = connect(selectDb, DatabaseView);
-
-function Main(props: DBList) {
-  return h.table("table table-striped latest-data")
-    .children(h.tbody().children(map(props.dbs, (db, i) => databaseView(i))));
-}
-const main = componentFactory(Main);
+  )
+));
 
 function parseQueryString(a: string[]): { [key: string]: string } {
   if (a.length === 0) {
@@ -135,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.body.insertBefore(sliderContainer, document.body.firstChild);
 
   const container = document.getElementById("app")!;
-  render(main(store), container);
+  render(Main(store), container);
 
   function tick() {
     store.randomUpdate(mutations);

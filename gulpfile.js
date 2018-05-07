@@ -13,7 +13,7 @@ const gulpSourcemaps = require("gulp-sourcemaps");
 const gulpRename = require("gulp-rename");
 const rollup = require("rollup");
 const rollupSourceMaps = require("rollup-plugin-sourcemaps");
-const rollupNodeResolve = require("rollup-plugin-node-resolve");
+const rollupNodeResolve = require("rollup-plugin-node-resolve-main-fields");
 const rollupAlias = require("rollup-plugin-alias");
 const closureCompiler = require("google-closure-compiler").gulp();
 const browserSync = require("browser-sync").create();
@@ -32,7 +32,7 @@ const CLOSURE_OPTS = {
   isolation_mode: "IIFE",
   summary_detail_level: 3,
   warning_level: "QUIET",
-  rewrite_polyfills: true,
+  rewrite_polyfills: false,
   new_type_inf: true
 };
 
@@ -68,7 +68,9 @@ function bundle(name, devMode) {
           "ivi-vars": __dirname + "/node_modules/ivi-vars/browser",
         }),
         rollupSourceMaps(),
-        rollupNodeResolve(),
+        rollupNodeResolve({
+          mainFields: ["es2016", "module", "main"],
+        }),
       ],
     }).then((bundle) => Promise.all([
       bundle.write({
@@ -93,7 +95,7 @@ function copyBundle(name) {
 
 function compile(name, externs) {
   const fn = function () {
-    return gulp.src("build/" + name + ".js")
+    return gulp.src(["src/production.js", "build/" + name + ".js"])
       .pipe(gulpIf(ENABLE_SOURCEMAPS, gulpSourcemaps.init({ loadMaps: true })))
       .pipe(closureCompiler(Object.assign({}, CLOSURE_OPTS, {
         js_output_file: name + "/bundle.js",

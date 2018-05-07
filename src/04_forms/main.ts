@@ -1,49 +1,42 @@
-import { render, Component, componentFactory } from "ivi";
+import { render, Component, component, map } from "ivi";
 import * as Events from "ivi-events";
 import * as h from "ivi-html";
 
-class Form extends Component<{
-  onSubmit: (entry: string) => void,
-}> {
+const Form = component(class extends Component<{ onSubmit: (entry: string) => void }> {
   private entry = "";
 
-  private onSubmit = Events.onSubmit((ev) => {
-    if (this.entry) {
-      this.props.onSubmit(this.entry);
-      this.entry = "";
-      this.invalidate();
-    }
-    ev.preventDefault();
-  });
-
-  private onInput = Events.onInput((ev) => {
-    this.entry = (ev.target as HTMLInputElement).value;
-  });
+  private formEvents = [
+    Events.onSubmit((ev) => {
+      if (this.entry) {
+        this.props.onSubmit(this.entry);
+        this.entry = "";
+        this.invalidate();
+      }
+      return Events.EventFlags.PreventDefault;
+    }),
+    Events.onInput((ev) => {
+      this.entry = (ev.target as HTMLInputElement).value;
+    }),
+  ];
 
   render() {
-    return h.form()
-      .events([
-        this.onSubmit,
-        this.onInput,
-      ])
-      .children([
-        h.input()
-          .attrs({ "placeholder": "Entry" })
-          .value(this.entry),
-        h.buttonSubmit().children("Submit"),
-      ]);
+    return h.form().e(this.formEvents).c(
+      h.input()
+        .a({ "placeholder": "Entry" })
+        .value(this.entry),
+      h.buttonSubmit().c("Submit"),
+    );
   }
-}
-const form = componentFactory(Form);
+});
 
 const entries: string[] = [];
 
 function update() {
   render(
-    h.div().children([
-      form({ onSubmit: onSubmit }),
-      h.ul().children(entries.map((e) => h.li().children(e))),
-    ]),
+    h.div().c(
+      Form({ onSubmit: onSubmit }),
+      h.ul().c(map(entries, (e, i) => h.li().k(i).c(e))),
+    ),
     document.getElementById("app")!,
   );
 }

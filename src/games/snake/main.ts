@@ -1,5 +1,5 @@
-import { render, Component, componentFactory, KeyCode } from "ivi";
-import { Mutable, mut } from "ivi-state";
+import { render, Component, component, KeyCode, map } from "ivi";
+import { Box, createBox } from "ivi-state";
 import * as Events from "ivi-events";
 import * as h from "ivi-html";
 import { Game, CellFlags, LEFT, RIGHT, UP, DOWN } from "./state";
@@ -18,52 +18,47 @@ function cellClasses(flags: CellFlags): string {
 
 const CELL_SIZE = 30;
 
-class GameView extends Component<Mutable<Game>> {
+const GameView = component(class extends Component<Box<Game>> {
   onKeyDown = Events.onKeyDown((ev) => {
-    switch (ev.keyCode) {
+    switch (ev.native.keyCode) {
       case KeyCode.ArrowLeft:
-        ev.preventDefault();
-        this.props.ref.setNewDirection(LEFT);
-        break;
+        this.props.value.setNewDirection(LEFT);
+        return Events.EventFlags.PreventDefault;
       case KeyCode.ArrowUp:
-        ev.preventDefault();
-        this.props.ref.setNewDirection(UP);
-        break;
+        this.props.value.setNewDirection(UP);
+        return Events.EventFlags.PreventDefault;
       case KeyCode.ArrowRight:
-        ev.preventDefault();
-        this.props.ref.setNewDirection(RIGHT);
-        break;
+        this.props.value.setNewDirection(RIGHT);
+        return Events.EventFlags.PreventDefault;
       case KeyCode.ArrowDown:
-        ev.preventDefault();
-        this.props.ref.setNewDirection(DOWN);
-        break;
+        this.props.value.setNewDirection(DOWN);
+        return Events.EventFlags.PreventDefault;
     }
   });
 
   render() {
-    const { grid } = this.props.ref;
+    const { grid } = this.props.value;
 
-    return h.div(this.props.ref.gameOver ? "SnakeGame gameOver" : "SnakeGame")
-      .children(h.div("Grid")
-        .attrs({ "tabIndex": 0 })
-        .style({
+    return h.div(this.props.value.gameOver ? "SnakeGame gameOver" : "SnakeGame")
+      .c(h.div("Grid")
+        .a({ "tabIndex": 0 })
+        .s({
           "width": `${CELL_SIZE * grid.cols}px`,
           "height": `${CELL_SIZE * grid.rows}px`,
         })
-        .events(this.onKeyDown)
+        .e(this.onKeyDown)
         .autofocus(true)
-        .children(grid.cells.map((c) => h.div(cellClasses(c)))),
+        .c(map(grid.cells, (c) => h.div(cellClasses(c)))),
     );
   }
-}
-const gameView = componentFactory(GameView);
+});
 
 const container = document.getElementById("app")!;
 const game = new Game();
 
 function tick() {
   game.updateState();
-  render(gameView(mut(game)), container);
+  render(GameView(createBox(game)), container);
   setTimeout(tick, 100);
 }
 tick();

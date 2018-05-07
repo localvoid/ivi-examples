@@ -1,10 +1,8 @@
-import { render, Component, componentFactory, VNode } from "ivi";
+import { render, Component, component, VNode } from "ivi";
 import * as Events from "ivi-events";
 import * as h from "ivi-html";
 
-class Collapsable extends Component<{
-  child: VNode<any>,
-}> {
+const Collapsable = component(class extends Component<{ child: VNode<any> }> {
   private collapsed = false;
 
   private onClick = Events.onClick((ev) => {
@@ -14,15 +12,14 @@ class Collapsable extends Component<{
 
   render() {
     return h.div(this.collapsed ? "Collapsable close" : "Collapsable")
-      .events(this.onClick)
-      .children(this.props.child);
+      .e(this.onClick)
+      .c(this.props.child);
   }
-}
-const collapsable = componentFactory(Collapsable);
+});
 
 render(
-  collapsable({
-    child: h.div().children("Collapsable content"),
+  Collapsable({
+    child: h.div().c("Collapsable content"),
   }),
   document.getElementById("app")!,
 );

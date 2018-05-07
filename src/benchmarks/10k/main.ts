@@ -1,4 +1,4 @@
-import { Context, SelectorData, componentFactory, VNode, render, context, connect } from "ivi";
+import { statelessComponent, render, context, connect, mapRange } from "ivi";
 import * as h from "ivi-html";
 import { startFPSMonitor, startMemMonitor, initProfiler, startProfile, endProfile } from "perf-monitor";
 
@@ -30,43 +30,28 @@ function updateData(data: string[], mutations: number): void {
   }
 }
 
-function Pixel(color: string) {
-  return h.span("pixel").style({ "background": color });
-}
-
-function selectPixel(
-  prev: SelectorData<string, string> | null,
-  props: number,
-  context: Context<{ data: string[] }>,
-): SelectorData<string, string> {
-  const color = context.data[props];
-  if (prev && prev.in === color) {
-    return prev;
-  }
-
-  return {
-    in: color,
-    out: color,
-  };
-}
-
-const pixel = connect(selectPixel, Pixel);
-
-function PixelImage(colors: string[]) {
-  const children = new Array<VNode<any>>(100);
-  for (let i = 0; i < 100; i++) {
-    const offset = i * 100;
-    const rowChildren = new Array<VNode<any>>(100);
-    for (let j = 0; j < 100; j++) {
-      rowChildren[j] = pixel(offset + j);
-      // rowChildren[j] = $c(Pixel, colors[offset + j]);
+const Pixel = connect<{ color: string }, number, { data: string[] }>(
+  (prev, props, context) => {
+    const color = context.data[props];
+    if (prev && prev.color === color) {
+      return prev;
     }
-    children[i] = h.div("row").children(rowChildren);
-  }
 
-  return h.div("image").children(children);
-}
-const image = componentFactory(PixelImage);
+    return { color };
+  },
+  (props) => {
+    return h.span("pixel").s({ "background": props.color });
+  },
+);
+
+const PixelImage = statelessComponent((colors: string[]) => (
+  h.div("image").c(mapRange(0, 100, (i) => {
+    const offset = i * 100;
+    return h.div("row").c(
+      mapRange(0, 100, (j) => Pixel(offset + j))
+    );
+  }))
+));
 
 document.addEventListener("DOMContentLoaded", () => {
   startFPSMonitor();
@@ -94,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
     data: data,
   };
   const container = document.getElementById("app")!;
-  render(context(ctx, image(data)), container);
+  render(context(ctx, PixelImage(data)), container);
 
   function tick() {
     startProfile("data update");
@@ -102,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
     endProfile("data update");
 
     startProfile("view update");
-    render(context(ctx, image(data)), container);
+    render(context(ctx, PixelImage(data)), container);
     endProfile("view update");
 
     requestAnimationFrame(tick);
