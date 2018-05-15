@@ -1,12 +1,12 @@
 {
+  "extends": "./tools/tsconfig.checks.json",
   "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "build/es6",
     "target": "es2016",
     "module": "es2015",
     "moduleResolution": "node",
-    "rootDir": ".",
-    "outDir": "build/es6",
-    "inlineSourceMap": true,
-    "inlineSources": true,
+    "declaration": false,
     "importHelpers": true,
     "noEmitHelpers": true,
     "removeComments": false,
@@ -14,18 +14,9 @@
       "es2015",
       "es2016",
       "dom"
-    ],
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": false,
-    "forceConsistentCasingInFileNames": true,
-    "noImplicitAny": true,
-    "noImplicitReturns": false,
-    "noImplicitThis": true,
-    "noUnusedLocals": true,
-    "strictNullChecks": true
+    ]
   },
   "include": [
-    "src/**/*.ts"
+    "packages/**/*.ts"
   ],
-  "compileOnSave": false
 }

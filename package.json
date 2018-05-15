@@ -1,38 +1,34 @@
 {
   "private": true,
-  "name": "ivi-examples",
   "version": "1.0.0",
-  "description": "ivi examples",
-  "license": "MIT",
-  "author": {
-    "name": "Boris Kaul",
-    "email": "localvoid@gmail.com",
-    "url": "https://github.com/localvoid"
-  },
+  "workspaces": [
+    "packages/apps/*",
+    "packages/benchmarks/*",
+    "packages/tutorial/*"
+  ],
   "dependencies": {
-    "ivi": "^0.10.0",
-    "ivi-core": "^0.10.0",
-    "ivi-events": "^0.10.0",
-    "ivi-html": "^0.10.0",
-    "ivi-scheduler": "^0.10.0",
-    "ivi-state": "^0.10.0"
+    "ivi": "^0.11.0",
+    "ivi-core": "^0.11.0",
+    "ivi-events": "^0.11.0",
+    "ivi-html": "^0.11.0",
+    "ivi-scheduler": "^0.11.0",
+    "ivi-state": "^0.11.0"
   },
   "devDependencies": {
-    "@types/node": "^9.6.6",
-    "browser-sync": "^2.24.4",
-    "del": "^3.0.0",
-    "google-closure-compiler": "^20180402.0.0",
-    "gulp": "next",
-    "gulp-if": "^2.0.2",
-    "gulp-rename": "^1.2.2",
-    "gulp-sourcemaps": "^2.6.4",
+    "@types/node": "^10.0.9",
+    "cache-loader": "^1.2.2",
+    "copy-webpack-plugin": "^4.5.1",
+    "html-webpack-plugin": "^3.2.0",
+    "ivi-tslint-rules": "^0.1.4",
     "perf-monitor": "^0.4.1",
-    "rollup": "^0.58.2",
-    "rollup-plugin-alias": "^1.4.0",
-    "rollup-plugin-node-resolve-main-fields": "^3.3.0",
-    "rollup-plugin-sourcemaps": "^0.4.2",
+    "source-map-loader": "^0.2.3",
+    "ts-loader": "^4.2.0",
     "tslib": "^1.9.0",
+    "tslint": "^5.10.0",
     "typescript": "^2.8.3",
-    "ivi-tslint-rules": "^0.1.3"
+    "webpack": "^4.8.3",
+    "webpack-cli": "^2.1.3",
+    "webpack-merge": "^4.1.2",
+    "webpack-serve": "^1.0.2"
   }
 }

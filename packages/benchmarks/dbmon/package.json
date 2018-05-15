@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "name": "10k",
+  "version": "1.0.0",
+  "scripts": {
+    "serve": "../../../node_modules/.bin/webpack-serve --open --config webpack.dev.js",
+    "dist": "../../../node_modules/.bin/webpack --config webpack.prod.js",
+    "gh-publish": "mkdir -p ../../../docs/benchmarks/dbmon && cp dist/* ../../../docs/benchmarks/dbmon/"
+  }
+}

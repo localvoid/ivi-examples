@@ -2,26 +2,19 @@
 
 ## Basic
 
-- [Introduction](https://ivijs.github.io/examples/01_introduction/)
-- [Stateful Component](https://ivijs.github.io/examples/02_stateful_component/)
-- [Events](https://ivijs.github.io/examples/03_events/)
-- [Forms](https://ivijs.github.io/examples/04_forms/)
-- [Collapsable](https://ivijs.github.io/examples/05_collapsable/)
-
-## Apps
-
-- [TodoMVC](https://ivijs.github.io/examples/todomvc/)
+- [Introduction](https://localvoid.github.io/ivi-examples/tutorial/01_introduction/)
+- [Stateful Component](https://localvoid.github.io/ivi-examples/tutorial/02_stateful_component/)
+- [Events](https://localvoid.github.io/ivi-examples/tutorial/03_events/)
+- [Forms](https://localvoid.github.io/ivi-examples/tutorial/04_forms/)
+- [Collapsable](https://localvoid.github.io/ivi-examples/tutorial/05_collapsable/)
 
 ## Games
 
-- [Snake](https://ivijs.github.io/examples/games/snake/)
+- [Snake](https://localvoid.github.io/ivi-examples/apps/snake/)
 
 ## Benchmarks
 
-- [UIBench](https://ivijs.github.io/examples/benchmarks/uibench/)
-- [DBMon](https://ivijs.github.io/examples/benchmarks/dbmon/)
-- [10k Components](https://ivijs.github.io/examples/benchmarks/10k/)
-
-## Test Playground
-
-- [Pointer Events](https://ivijs.github.io/examples/playground/pointer-events/)
+- [UIBench](https://localvoid.github.io/ivi-examples/benchmarks/uibench/)
+- [UIBench (FC)](https://localvoid.github.io/ivi-examples/benchmarks/uibench_fc/)
+- [DBMon](https://localvoid.github.io/ivi-examples/benchmarks/dbmon/)
+- [10k Components](https://localvoid.github.io/ivi-examples/benchmarks/10k/)
