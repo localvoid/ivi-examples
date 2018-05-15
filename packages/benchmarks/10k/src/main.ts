@@ -1,5 +1,5 @@
 import { statelessComponent, render, context, connect, mapRange } from "ivi";
-import * as h from "ivi-html";
+import { span, div } from "ivi-html";
 import { startFPSMonitor, startMemMonitor, initProfiler, startProfile, endProfile } from "perf-monitor";
 
 function randomColor(): string {
@@ -40,14 +40,14 @@ const Pixel = connect<{ color: string }, number, { data: string[] }>(
     return { color };
   },
   (props) => {
-    return h.span("pixel").s({ "background": props.color });
+    return span("pixel").s({ "background": props.color });
   },
 );
 
 const PixelImage = statelessComponent<string[]>((colors) => (
-  h.div("image").c(mapRange(0, 100, (i) => {
+  div("image").c(mapRange(0, 100, (i) => {
     const offset = i * 100;
-    return h.div("row").k(i).c(
+    return div("row").k(i).c(
       mapRange(0, 100, (j) => Pixel(offset + j).k(j)),
     );
   }))

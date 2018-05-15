@@ -1,17 +1,17 @@
 import { render, Component, statefulComponent } from "ivi";
-import * as Events from "ivi-events";
-import * as h from "ivi-html";
+import { onClick } from "ivi-events";
+import { div } from "ivi-html";
 
 const ClickMe = statefulComponent(class extends Component {
   private counter = 0;
 
-  private onClick = Events.onClick((ev) => {
+  private onClick = onClick((ev) => {
     this.counter++;
     this.invalidate();
   });
 
   render() {
-    return h.div()
+    return div()
       .e(this.onClick)
       .s({
         "display": "inline-block",

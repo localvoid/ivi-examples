@@ -1,5 +1,5 @@
 import { statelessComponent, render, update, connect, map } from "ivi";
-import * as h from "ivi-html";
+import { div, tr, td, span, table, tbody } from "ivi-html";
 import { DBList, DB } from "./db";
 import { startFPSMonitor, startMemMonitor, initProfiler, startProfile, endProfile } from "perf-monitor";
 
@@ -54,9 +54,9 @@ function queryClasses(elapsed: number): string {
 }
 
 const Popover = statelessComponent<string>((query) => (
-  h.div("popover left").c(
-    h.div("popover-content").c(query),
-    h.div("arrow"),
+  div("popover left").c(
+    div("popover-content").c(query),
+    div("arrow"),
   )
 ));
 
@@ -73,14 +73,14 @@ const DatabaseList = connect<{ db: DB }, number>(
     const topFiveQueries = db.getTopFiveQueries();
     const count = db.queries!.length;
 
-    return h.tr().c(
-      h.td("dbname").c(db.name),
-      h.td("query-count").c(
-        h.span(counterClasses(count)).c(count),
+    return tr().c(
+      td("dbname").c(db.name),
+      td("query-count").c(
+        span(counterClasses(count)).c(count),
       ),
       map(topFiveQueries,
         (q, i) => (
-          h.td(queryClasses(q.elapsed)).k(i).c(
+          td(queryClasses(q.elapsed)).k(i).c(
             entryFormatElapsed(q.elapsed),
             Popover(q.query),
           )
@@ -91,8 +91,8 @@ const DatabaseList = connect<{ db: DB }, number>(
 );
 
 const Main = statelessComponent<DBList>((props) => (
-  h.table("table table-striped latest-data").c(
-    h.tbody().c(
+  table("table table-striped latest-data").c(
+    tbody().c(
       map(props.dbs, (db, i) => DatabaseList(i).k(db.id)),
     ),
   )

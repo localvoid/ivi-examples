@@ -1,5 +1,5 @@
 import { render, Component, statefulComponent } from "ivi";
-import * as h from "ivi-html";
+import { div } from "ivi-html";
 
 const ElapsedTime = statefulComponent(class extends Component {
   startTime = Date.now();
@@ -16,7 +16,7 @@ const ElapsedTime = statefulComponent(class extends Component {
   }
 
   render() {
-    return h.div().c(`Elapsed seconds: ${(this.elapsedSeconds / 1000).toFixed(1)}`);
+    return div().c(`Elapsed seconds: ${(this.elapsedSeconds / 1000).toFixed(1)}`);
   }
 });
 

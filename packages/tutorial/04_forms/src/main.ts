@@ -1,30 +1,30 @@
 import { render, Component, statefulComponent, map } from "ivi";
-import * as Events from "ivi-events";
-import * as h from "ivi-html";
+import { EventFlags, onSubmit, onInput } from "ivi-events";
+import { div, button, input, form, ul, li } from "ivi-html";
 
 const Form = statefulComponent(class extends Component<{ onSubmit: (entry: string) => void }> {
   private entry = "";
 
   private formEvents = [
-    Events.onSubmit((ev) => {
+    onSubmit((ev) => {
       if (this.entry) {
         this.props.onSubmit(this.entry);
         this.entry = "";
         this.invalidate();
       }
-      return Events.EventFlags.PreventDefault;
+      return EventFlags.PreventDefault;
     }),
-    Events.onInput((ev) => {
+    onInput((ev) => {
       this.entry = (ev.target as HTMLInputElement).value;
     }),
   ];
 
   render() {
-    return h.form().e(this.formEvents).c(
-      h.input()
+    return form().e(this.formEvents).c(
+      input()
         .a({ "placeholder": "Entry" })
         .value(this.entry),
-      h.button().c("Submit"),
+      button().c("Submit"),
     );
   }
 });
@@ -33,15 +33,15 @@ const entries: string[] = [];
 
 function update() {
   render(
-    h.div().c(
-      Form({ onSubmit: onSubmit }),
-      h.ul().c(map(entries, (e, i) => h.li().k(i).c(e))),
+    div().c(
+      Form({ onSubmit: handleSubmit }),
+      ul().c(map(entries, (e, i) => li().k(i).c(e))),
     ),
     document.getElementById("app")!,
   );
 }
 
-function onSubmit(entry: string): void {
+function handleSubmit(entry: string): void {
   entries.push(entry);
   update();
 }

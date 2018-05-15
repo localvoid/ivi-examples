@@ -1,14 +1,14 @@
 import { Component, statefulComponent, VNode, render, map } from "ivi";
-import * as Events from "ivi-events";
-import * as h from "ivi-html";
+import { onClick } from "ivi-events";
+import { td, tr, table, tbody, div, li, ul, pre } from "ivi-html";
 
 const TableCell = statefulComponent(class extends Component<string> {
-  private onClick = Events.onClick((ev) => {
+  private onClick = onClick((ev) => {
     console.log("Click", this.props);
   });
 
   render() {
-    return h.td("TableCell")
+    return td("TableCell")
       .e(this.onClick)
       .c(this.props);
   }
@@ -19,7 +19,7 @@ const TableRow = statefulComponent(class extends Component<TableItemState> {
     const p = this.props;
     const id = p["id"];
     let i = 0;
-    return h.tr(p["active"] ? "TableRow active" : "TableRow")
+    return tr(p["active"] ? "TableRow active" : "TableRow")
       .a({ "data-id": id })
       .c(
         TableCell("#" + id),
@@ -30,8 +30,8 @@ const TableRow = statefulComponent(class extends Component<TableItemState> {
 
 const Table = statefulComponent(class extends Component<TableState> {
   render() {
-    return h.table("Table").c(
-      h.tbody().c(
+    return table("Table").c(
+      tbody().c(
         map(this.props["items"], (item) => TableRow(item).k(item["id"])),
       ));
   }
@@ -41,7 +41,7 @@ const AnimBox = statefulComponent(class extends Component<AnimBoxState> {
   render() {
     const time = this.props["time"];
 
-    return h.div("AnimBox")
+    return div("AnimBox")
       .a({ "data-id": this.props["id"] })
       .s({
         "background": "rgba(0,0,0," + (0.5 + ((time % 10) / 10)) + ")",
@@ -52,19 +52,19 @@ const AnimBox = statefulComponent(class extends Component<AnimBoxState> {
 
 const Anim = statefulComponent(class extends Component<AnimState> {
   render() {
-    return h.div("Anim").c(map(this.props["items"], (item) => AnimBox(item).k(item["id"])));
+    return div("Anim").c(map(this.props["items"], (item) => AnimBox(item).k(item["id"])));
   }
 });
 
 const TreeLeaf = statefulComponent(class extends Component<TreeNodeState> {
   render() {
-    return h.li("TreeLeaf").c(this.props["id"]);
+    return li("TreeLeaf").c(this.props["id"]);
   }
 });
 
 const TreeNode: any = statefulComponent(class extends Component<TreeNodeState> {
   render() {
-    return h.ul("TreeNode").c(
+    return ul("TreeNode").c(
       map(this.props["children"], (n) => (n["container"] ? TreeNode(n) : TreeLeaf(n)).k(n["id"])),
     );
   }
@@ -72,7 +72,7 @@ const TreeNode: any = statefulComponent(class extends Component<TreeNodeState> {
 
 const Tree = statefulComponent(class extends Component<TreeState> {
   render() {
-    return h.div("Tree")
+    return div("Tree")
       .c(TreeNode(this.props["root"]));
   }
 });
@@ -90,7 +90,7 @@ function route(state: AppState): VNode {
 const Main = statefulComponent(class extends Component<AppState | undefined> {
   render() {
     const state = this.props;
-    return h.div("Main").c(state ? route(state) : null);
+    return div("Main").c(state ? route(state) : null);
   }
 });
 
@@ -102,6 +102,6 @@ document.addEventListener("DOMContentLoaded", (e) => {
 
   uibench.run(
     (state) => render(Main(state), container),
-    (samples) => render(h.pre().c(JSON.stringify(samples, undefined, 2)), container),
+    (samples) => render(pre().c(JSON.stringify(samples, undefined, 2)), container),
   );
 });
