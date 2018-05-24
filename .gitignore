@@ -6,3 +6,4 @@ node_modules
 .vscode
 .npm-debug
 npm-debug.log
+yarn-error.log

@@ -77,7 +77,7 @@ const Main = statelessComponent<AppState | undefined>((state) => (
   div("Main").c(state ? route(state) : null)
 ));
 
-uibench.init("ivi [fc]", "0.10.0");
+uibench.init("ivi [fc]", "0.12.0");
 
 document.addEventListener("DOMContentLoaded", (e) => {
   const container = document.querySelector("#App")!;

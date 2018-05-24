@@ -94,7 +94,7 @@ const Main = statefulComponent(class extends Component<AppState | undefined> {
   }
 });
 
-uibench.init("ivi", "0.10.0");
+uibench.init("ivi", "0.12.0");
 
 document.addEventListener("DOMContentLoaded", (e) => {
   const container = document.querySelector("#App")!;
