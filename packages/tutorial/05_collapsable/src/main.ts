@@ -1,5 +1,4 @@
-import { render, Component, statefulComponent, VNode } from "ivi";
-import { onClick } from "ivi-events";
+import { render, Component, statefulComponent, VNode, onClick } from "ivi";
 import { div } from "ivi-html";
 
 const Collapsable = statefulComponent(class extends Component<{ child: VNode<any> }> {

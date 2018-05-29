@@ -1,5 +1,4 @@
-import { Component, statefulComponent, VNode, render, map } from "ivi";
-import { onClick } from "ivi-events";
+import { Component, statefulComponent, VNode, render, map, onClick } from "ivi";
 import { td, tr, table, tbody, div, li, ul, pre } from "ivi-html";
 
 const TableCell = statefulComponent(class extends Component<string> {
@@ -94,7 +93,7 @@ const Main = statefulComponent(class extends Component<AppState | undefined> {
   }
 });
 
-uibench.init("ivi", "0.12.0");
+uibench.init("ivi", "0.13.0");
 
 document.addEventListener("DOMContentLoaded", (e) => {
   const container = document.querySelector("#App")!;

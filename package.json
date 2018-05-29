@@ -7,12 +7,11 @@
     "packages/tutorial/*"
   ],
   "dependencies": {
-    "ivi": "^0.12.0",
-    "ivi-core": "^0.12.0",
-    "ivi-events": "^0.12.0",
-    "ivi-html": "^0.12.0",
-    "ivi-scheduler": "^0.12.0",
-    "ivi-state": "^0.12.0"
+    "ivi": "^0.13.0",
+    "ivi-core": "^0.13.0",
+    "ivi-html": "^0.13.0",
+    "ivi-scheduler": "^0.13.0",
+    "ivi-state": "^0.13.0"
   },
   "devDependencies": {
     "@types/node": "^10.1.2",

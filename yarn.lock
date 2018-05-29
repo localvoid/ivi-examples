@@ -3057,33 +3057,29 @@ isurl@^1.0.0-alpha5:
     has-to-string-tag-x "^1.2.0"
     is-object "^1.0.1"
 
-ivi-core@^0.12.0:
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/ivi-core/-/ivi-core-0.12.0.tgz#22b0d258ea12b5da4fcbd087a581f20814865fbe"
+ivi-core@^0.13.0:
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/ivi-core/-/ivi-core-0.13.0.tgz#75ada3ef8b39b65c8828dd2cd8ff437f7f85d65c"
 
-ivi-events@^0.12.0:
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/ivi-events/-/ivi-events-0.12.0.tgz#9350e5417645633cbafa348a7646a92bf639e65a"
+ivi-html@^0.13.0:
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/ivi-html/-/ivi-html-0.13.0.tgz#292d88f8b423b36f4632a9d766a484a9df9a9dda"
 
-ivi-html@^0.12.0:
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/ivi-html/-/ivi-html-0.12.0.tgz#28878da1f9599a44b9443d4fed922445db86de30"
+ivi-scheduler@^0.13.0:
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/ivi-scheduler/-/ivi-scheduler-0.13.0.tgz#960fb04ee71b8914539ba63fe8b2df9e9c0063ab"
 
-ivi-scheduler@^0.12.0:
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/ivi-scheduler/-/ivi-scheduler-0.12.0.tgz#458227f646b425df500b46ab9bcb736a892e769a"
-
-ivi-state@^0.12.0:
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/ivi-state/-/ivi-state-0.12.0.tgz#969f9ab28c5242c906ead0a801032ee227579b31"
+ivi-state@^0.13.0:
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/ivi-state/-/ivi-state-0.13.0.tgz#d8ffe5d6d9cf525048b23adfb00e816570e25c05"
 
 ivi-tslint-rules@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/ivi-tslint-rules/-/ivi-tslint-rules-0.1.4.tgz#6fe9c793f82d07cf71a3c6ad785a519601aba78c"
 
-ivi@^0.12.0:
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/ivi/-/ivi-0.12.0.tgz#60f74665ed8a9418c253bbab1ef433fea16ad7ec"
+ivi@^0.13.0:
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/ivi/-/ivi-0.13.0.tgz#7c1be8d7b1001bc6344f6b711c7a5cce79ef8e4a"
 
 js-tokens@^3.0.0, js-tokens@^3.0.2:
   version "3.0.2"

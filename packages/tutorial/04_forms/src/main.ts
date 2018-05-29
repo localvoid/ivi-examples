@@ -1,5 +1,4 @@
-import { render, Component, statefulComponent, map } from "ivi";
-import { EventFlags, onSubmit, onInput } from "ivi-events";
+import { render, Component, statefulComponent, map, EventFlags, onSubmit, onInput } from "ivi";
 import { div, button, input, form, ul, li } from "ivi-html";
 
 const Form = statefulComponent(class extends Component<{ onSubmit: (entry: string) => void }> {

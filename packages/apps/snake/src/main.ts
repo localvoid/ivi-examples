@@ -1,6 +1,5 @@
-import { render, Component, statefulComponent, KeyCode, map, autofocus } from "ivi";
+import { render, Component, statefulComponent, KeyCode, map, autofocus, onKeyDown, EventFlags } from "ivi";
 import { Box, createBox } from "ivi-state";
-import { onKeyDown, EventFlags } from "ivi-events";
 import { div } from "ivi-html";
 import { Game, CellFlags, LEFT, RIGHT, UP, DOWN } from "./state";
 

@@ -1,5 +1,4 @@
-import { render, Component, statefulComponent } from "ivi";
-import { onClick } from "ivi-events";
+import { render, Component, statefulComponent, onClick } from "ivi";
 import { div } from "ivi-html";
 
 const ClickMe = statefulComponent(class extends Component {
