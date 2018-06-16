@@ -43,14 +43,12 @@ const GameView = statefulComponent(class extends Component<Box<Game>> {
     return div(this.props.value.gameOver ? "SnakeGame gameOver" : "SnakeGame")
       .c(
         autofocus(
-          div("Grid")
-            .a({ "tabIndex": 0 })
-            .s({
+          div("Grid", { "tabIndex": 0 },
+            {
               "width": `${CELL_SIZE * grid.cols}px`,
               "height": `${CELL_SIZE * grid.rows}px`,
-            })
-            .e(this.onKeyDown)
-            .c(map(grid.cells, (c) => div(cellClasses(c)).k(i++))),
+            },
+          ).e(this.onKeyDown).c(map(grid.cells, (c) => div(cellClasses(c)).k(i++))),
         ),
     );
   }

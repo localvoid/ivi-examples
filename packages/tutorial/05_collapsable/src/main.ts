@@ -10,9 +10,7 @@ const Collapsable = statefulComponent(class extends Component<{ child: VNode<any
   });
 
   render() {
-    return div(this.collapsed ? "Collapsable close" : "Collapsable")
-      .e(this.onClick)
-      .c(this.props.child);
+    return div(this.collapsed ? "Collapsable close" : "Collapsable").e(this.onClick).c(this.props.child);
   }
 });
 

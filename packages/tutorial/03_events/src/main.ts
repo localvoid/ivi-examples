@@ -1,5 +1,13 @@
-import { render, Component, statefulComponent, onClick } from "ivi";
+import { render, Component, statefulComponent, onClick, _ } from "ivi";
 import { div } from "ivi-html";
+
+const STYLE = {
+  "display": "inline-block",
+  "border": "1px solid #333",
+  "padding": "20px",
+  "cursor": "pointer",
+  "user-select": "none",
+};
 
 const ClickMe = statefulComponent(class extends Component {
   private counter = 0;
@@ -10,16 +18,9 @@ const ClickMe = statefulComponent(class extends Component {
   });
 
   render() {
-    return div()
-      .e(this.onClick)
-      .s({
-        "display": "inline-block",
-        "border": "1px solid #333",
-        "padding": "20px",
-        "cursor": "pointer",
-        "user-select": "none",
-      })
-      .c(`Click me: ${this.counter}`);
+    return (
+      div(_, _, STYLE).e(this.onClick).c(`Click me: ${this.counter}`)
+    );
   }
 });
 

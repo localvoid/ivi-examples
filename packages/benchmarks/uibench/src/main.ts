@@ -18,8 +18,7 @@ const TableRow = statefulComponent(class extends Component<TableItemState> {
     const p = this.props;
     const id = p["id"];
     let i = 0;
-    return tr(p["active"] ? "TableRow active" : "TableRow")
-      .a({ "data-id": id })
+    return tr(p["active"] ? "TableRow active" : "TableRow", { "data-id": id })
       .c(
         TableCell("#" + id),
         map(p["props"], (item) => TableCell(item).k(i++)),
@@ -40,12 +39,13 @@ const AnimBox = statefulComponent(class extends Component<AnimBoxState> {
   render() {
     const time = this.props["time"];
 
-    return div("AnimBox")
-      .a({ "data-id": this.props["id"] })
-      .s({
+    return div("AnimBox",
+      { "data-id": this.props["id"] },
+      {
         "background": "rgba(0,0,0," + (0.5 + ((time % 10) / 10)) + ")",
         "border-radius": (time % 10) + "px",
-      });
+      },
+    );
   }
 });
 
@@ -93,7 +93,7 @@ const Main = statefulComponent(class extends Component<AppState | undefined> {
   }
 });
 
-uibench.init("ivi", "0.13.0");
+uibench.init("ivi", "0.14.0");
 
 document.addEventListener("DOMContentLoaded", (e) => {
   const container = document.querySelector("#App")!;

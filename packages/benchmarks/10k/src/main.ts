@@ -1,4 +1,4 @@
-import { statelessComponent, render, context, connect, mapRange } from "ivi";
+import { statelessComponent, render, context, connect, mapRange, _ } from "ivi";
 import { span, div } from "ivi-html";
 import { startFPSMonitor, startMemMonitor, initProfiler, startProfile, endProfile } from "perf-monitor";
 
@@ -40,7 +40,7 @@ const Pixel = connect<{ color: string }, number, { data: string[] }>(
     return { color };
   },
   (props) => {
-    return span("pixel").s({ "background": props.color });
+    return span("pixel", _, { "background": props.color });
   },
 );
 

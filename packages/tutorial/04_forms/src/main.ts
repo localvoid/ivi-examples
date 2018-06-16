@@ -1,5 +1,5 @@
-import { render, Component, statefulComponent, map, EventFlags, onSubmit, onInput } from "ivi";
-import { div, button, input, form, ul, li } from "ivi-html";
+import { render, Component, statefulComponent, map, EventFlags, onSubmit, onInput, _ } from "ivi";
+import { div, button, input, form, ul, li, VALUE } from "ivi-html";
 
 const Form = statefulComponent(class extends Component<{ onSubmit: (entry: string) => void }> {
   private entry = "";
@@ -20,9 +20,7 @@ const Form = statefulComponent(class extends Component<{ onSubmit: (entry: strin
 
   render() {
     return form().e(this.formEvents).c(
-      input()
-        .a({ "placeholder": "Entry" })
-        .value(this.entry),
+      input(_, { placeholder: "Entry", value: VALUE(this.entry) }),
       button().c("Submit"),
     );
   }

@@ -1,7 +1,6 @@
 "use strict";
 
 const path = require("path");
-const webpack = require("webpack");
 
 module.exports = {
   entry: "./src/main.ts",
@@ -10,6 +9,7 @@ module.exports = {
     path: path.resolve(process.cwd(), "dist"),
   },
   resolve: {
+    mainFields: ["module", "main"],
     extensions: [".js", ".ts", ".json"],
   },
   module: {

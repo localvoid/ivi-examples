@@ -17,8 +17,7 @@ const TableRow = statelessComponent<TableItemState>((p) => {
   const id = p["id"];
   let i = 0;
 
-  return tr(p["active"] ? "TableRow active" : "TableRow")
-    .a({ "data-id": id })
+  return tr(p["active"] ? "TableRow active" : "TableRow", { "data-id": id })
     .c(
       TableCell("#" + id),
       map(p["props"], (item) => TableCell(item).k(i++)),
@@ -36,12 +35,10 @@ const Table = statelessComponent<TableState>((p) => (
 const AnimBox = statelessComponent<AnimBoxState>((p) => {
   const time = p["time"];
 
-  return div("AnimBox")
-    .a({ "data-id": p["id"] })
-    .s({
-      "background": "rgba(0,0,0," + (0.5 + ((time % 10) / 10)) + ")",
-      "border-radius": (time % 10) + "px",
-    });
+  return div("AnimBox", { "data-id": p["id"] }, {
+    "background": "rgba(0,0,0," + (0.5 + ((time % 10) / 10)) + ")",
+    "border-radius": (time % 10) + "px",
+  });
 });
 
 const Anim = statelessComponent<AnimState>((p) => (
@@ -76,7 +73,7 @@ const Main = statelessComponent<AppState | undefined>((state) => (
   div("Main").c(state ? route(state) : null)
 ));
 
-uibench.init("ivi [fc]", "0.13.0");
+uibench.init("ivi [fc]", "0.14.0");
 
 document.addEventListener("DOMContentLoaded", (e) => {
   const container = document.querySelector("#App")!;
