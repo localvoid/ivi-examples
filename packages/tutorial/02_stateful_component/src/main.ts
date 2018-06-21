@@ -1,4 +1,4 @@
-import { render, Component, statefulComponent } from "ivi";
+import { setupScheduler, invalidateHandler, render, Component, statefulComponent } from "ivi";
 import { div } from "ivi-html";
 
 const ElapsedTime = statefulComponent(class extends Component {
@@ -19,5 +19,7 @@ const ElapsedTime = statefulComponent(class extends Component {
     return div().c(`Elapsed seconds: ${(this.elapsedSeconds / 1000).toFixed(1)}`);
   }
 });
+
+setupScheduler(invalidateHandler);
 
 render(ElapsedTime(), document.getElementById("app")!);

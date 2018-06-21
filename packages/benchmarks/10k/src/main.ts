@@ -1,4 +1,4 @@
-import { statelessComponent, render, context, connect, mapRange, _ } from "ivi";
+import { statelessComponent, render, context, connect, mapRange, _, setupScheduler, invalidateHandler } from "ivi";
 import { span, div } from "ivi-html";
 import { startFPSMonitor, startMemMonitor, initProfiler, startProfile, endProfile } from "perf-monitor";
 
@@ -52,6 +52,8 @@ const PixelImage = statelessComponent<string[]>((colors) => (
     );
   }))
 ));
+
+setupScheduler(invalidateHandler);
 
 document.addEventListener("DOMContentLoaded", () => {
   startFPSMonitor();

@@ -1,4 +1,4 @@
-import { render, Component, statefulComponent, onClick, _ } from "ivi";
+import { setupScheduler, invalidateHandler, render, Component, statefulComponent, onClick, _ } from "ivi";
 import { div } from "ivi-html";
 
 const STYLE = {
@@ -23,5 +23,7 @@ const ClickMe = statefulComponent(class extends Component {
     );
   }
 });
+
+setupScheduler(invalidateHandler);
 
 render(ClickMe(), document.getElementById("app")!);

@@ -1,4 +1,6 @@
-import { render, Component, statefulComponent, map, EventFlags, onSubmit, onInput, _ } from "ivi";
+import {
+  setupScheduler, invalidateHandler, render, Component, statefulComponent, map, EventFlags, onSubmit, onInput, _,
+} from "ivi";
 import { div, button, input, form, ul, li, VALUE } from "ivi-html";
 
 const Form = statefulComponent(class extends Component<{ onSubmit: (entry: string) => void }> {
@@ -42,5 +44,7 @@ function handleSubmit(entry: string): void {
   entries.push(entry);
   update();
 }
+
+setupScheduler(invalidateHandler);
 
 update();

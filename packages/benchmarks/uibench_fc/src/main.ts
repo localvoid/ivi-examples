@@ -1,4 +1,6 @@
-import { Component, VNode, statefulComponent, statelessComponent, render, map, onClick } from "ivi";
+import {
+  Component, VNode, statefulComponent, statelessComponent, render, map, onClick, setupScheduler, invalidateHandler,
+} from "ivi";
 import { td, tr, table, tbody, div, li, ul, pre } from "ivi-html";
 
 const TableCell = statefulComponent(class extends Component<string> {
@@ -73,7 +75,9 @@ const Main = statelessComponent<AppState | undefined>((state) => (
   div("Main").c(state ? route(state) : null)
 ));
 
-uibench.init("ivi [fc]", "0.14.0");
+uibench.init("ivi [fc]", "0.15.0");
+
+setupScheduler(invalidateHandler);
 
 document.addEventListener("DOMContentLoaded", (e) => {
   const container = document.querySelector("#App")!;

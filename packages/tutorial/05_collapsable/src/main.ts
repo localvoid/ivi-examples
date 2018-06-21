@@ -1,4 +1,4 @@
-import { render, Component, statefulComponent, VNode, onClick } from "ivi";
+import { setupScheduler, invalidateHandler, render, Component, statefulComponent, VNode, onClick } from "ivi";
 import { div } from "ivi-html";
 
 const Collapsable = statefulComponent(class extends Component<{ child: VNode<any> }> {
@@ -13,6 +13,8 @@ const Collapsable = statefulComponent(class extends Component<{ child: VNode<any
     return div(this.collapsed ? "Collapsable close" : "Collapsable").e(this.onClick).c(this.props.child);
   }
 });
+
+setupScheduler(invalidateHandler);
 
 render(
   Collapsable({

@@ -1,4 +1,4 @@
-import { statelessComponent, render, update, connect, map } from "ivi";
+import { statelessComponent, render, connect, map, invalidateHandler, setupScheduler, invalidate } from "ivi";
 import { div, tr, td, span, table, tbody } from "ivi-html";
 import { DBList, DB } from "./db";
 import { startFPSMonitor, startMemMonitor, initProfiler, startProfile, endProfile } from "perf-monitor";
@@ -114,6 +114,8 @@ function parseQueryString(a: string[]): { [key: string]: string } {
   return b;
 }
 
+setupScheduler(invalidateHandler);
+
 document.addEventListener("DOMContentLoaded", () => {
   startFPSMonitor();
   startMemMonitor();
@@ -143,7 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
     store.randomUpdate(mutations);
 
     startProfile("view update");
-    update();
+    invalidate();
     endProfile("view update");
 
     setTimeout(tick, 0);

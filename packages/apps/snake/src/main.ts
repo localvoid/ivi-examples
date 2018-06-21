@@ -1,4 +1,5 @@
-import { render, Component, statefulComponent, KeyCode, map, autofocus, onKeyDown, EventFlags } from "ivi";
+import { render, Component, statefulComponent, KeyCode, map, onKeyDown, EventFlags, setupScheduler } from "ivi";
+import { invalidateHandler, AUTOFOCUS } from "ivi-scheduler";
 import { Box, createBox } from "ivi-state";
 import { div } from "ivi-html";
 import { Game, CellFlags, LEFT, RIGHT, UP, DOWN } from "./state";
@@ -42,20 +43,20 @@ const GameView = statefulComponent(class extends Component<Box<Game>> {
 
     return div(this.props.value.gameOver ? "SnakeGame gameOver" : "SnakeGame")
       .c(
-        autofocus(
-          div("Grid", { "tabIndex": 0 },
-            {
-              "width": `${CELL_SIZE * grid.cols}px`,
-              "height": `${CELL_SIZE * grid.rows}px`,
-            },
-          ).e(this.onKeyDown).c(map(grid.cells, (c) => div(cellClasses(c)).k(i++))),
-        ),
+        div("Grid", { "tabIndex": 0, "autofocus": AUTOFOCUS(true) },
+          {
+            "width": `${CELL_SIZE * grid.cols}px`,
+            "height": `${CELL_SIZE * grid.rows}px`,
+          },
+        ).e(this.onKeyDown).c(map(grid.cells, (c) => div(cellClasses(c)).k(i++))),
     );
   }
 });
 
 const container = document.getElementById("app")!;
 const game = new Game();
+
+setupScheduler(invalidateHandler);
 
 function tick() {
   game.updateState();
