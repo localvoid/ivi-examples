@@ -30,26 +30,15 @@ function updateData(data: string[], mutations: number): void {
   }
 }
 
-const Pixel = connect<{ color: string }, number, { data: string[] }>(
-  (prev, props, ctx) => {
-    const color = ctx.data[props];
-    if (prev && prev.color === color) {
-      return prev;
-    }
-
-    return { color };
-  },
-  (props) => {
-    return span("pixel", _, { "background": props.color });
-  },
+const Pixel = connect<string, number, { data: string[] }>(
+  (_prev, props, ctx) => ctx.data[props],
+  (color) => span("pixel", _, { "background": color }),
 );
 
-const PixelImage = statelessComponent<string[]>((colors) => (
+const PixelImage = statelessComponent(() => (
   div("image").c(mapRange(0, 100, (i) => {
     const offset = i * 100;
-    return div("row").k(i).c(
-      mapRange(0, 100, (j) => Pixel(offset + j).k(j)),
-    );
+    return div("row").k(i).c(mapRange(0, 100, (j) => Pixel(offset + j).k(j)));
   }))
 ));
 
@@ -81,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
     data: data,
   };
   const container = document.getElementById("app")!;
-  render(context(ctx, PixelImage(data)), container);
+  render(context(ctx, PixelImage()), container);
 
   function tick() {
     startProfile("data update");
@@ -89,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
     endProfile("data update");
 
     startProfile("view update");
-    render(context(ctx, PixelImage(data)), container);
+    render(context(ctx, PixelImage()), container);
     endProfile("view update");
 
     requestAnimationFrame(tick);

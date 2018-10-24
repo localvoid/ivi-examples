@@ -9,7 +9,7 @@ const TableCell = statefulComponent(class extends Component<string> {
   render() {
     return td("TableCell")
       .e(this.onClick)
-      .c(this.props);
+      .t(this.props);
   }
 });
 
@@ -22,7 +22,7 @@ const TableRow = statefulComponent(class extends Component<TableItemState> {
       .c(
         TableCell("#" + id),
         map(p["props"], (item) => TableCell(item).k(i++)),
-    );
+      );
   }
 });
 
@@ -57,7 +57,7 @@ const Anim = statefulComponent(class extends Component<AnimState> {
 
 const TreeLeaf = statefulComponent(class extends Component<TreeNodeState> {
   render() {
-    return li("TreeLeaf").c(this.props["id"]);
+    return li("TreeLeaf").t(this.props["id"]);
   }
 });
 
@@ -93,7 +93,7 @@ const Main = statefulComponent(class extends Component<AppState | undefined> {
   }
 });
 
-uibench.init("ivi", "0.15.0");
+uibench.init("ivi", "0.16.0");
 
 setupScheduler(invalidateHandler);
 

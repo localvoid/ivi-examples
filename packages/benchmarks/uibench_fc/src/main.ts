@@ -11,7 +11,7 @@ const TableCell = statefulComponent(class extends Component<string> {
   render() {
     return td("TableCell")
       .e(this.onClick)
-      .c(this.props);
+      .t(this.props);
   }
 });
 
@@ -23,7 +23,7 @@ const TableRow = statelessComponent<TableItemState>((p) => {
     .c(
       TableCell("#" + id),
       map(p["props"], (item) => TableCell(item).k(i++)),
-  );
+    );
 });
 
 const Table = statelessComponent<TableState>((p) => (
@@ -48,7 +48,7 @@ const Anim = statelessComponent<AnimState>((p) => (
 ));
 
 const TreeLeaf = statelessComponent<TreeNodeState>((p) => (
-  li("TreeLeaf").c(p["id"])
+  li("TreeLeaf").t(p["id"])
 ));
 
 const TreeNode: any = statelessComponent<TreeNodeState>((p: TreeNodeState) => (
@@ -75,7 +75,7 @@ const Main = statelessComponent<AppState | undefined>((state) => (
   div("Main").c(state ? route(state) : null)
 ));
 
-uibench.init("ivi [fc]", "0.15.0");
+uibench.init("ivi [fc]", "0.16.0");
 
 setupScheduler(invalidateHandler);
 

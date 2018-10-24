@@ -2,38 +2,20 @@
 
 const webpack = require("webpack");
 const merge = require("webpack-merge");
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
+const terserOptions = require("../../../tools/terser-options.json");
 
 module.exports = merge(require("../../../tools/webpack.common"), {
   mode: "production",
   devtool: "hidden-source-map",
   optimization: {
     minimizer: [
-      new UglifyJsPlugin({
+      new TerserPlugin({
         cache: true,
         parallel: true,
         sourceMap: true,
-        uglifyOptions: {
-          parse: {
-            ecma: 8,
-          },
-          compress: {
-            ecma: 5,
-            inline: true,
-            reduce_funcs: false,
-            passes: 3,
-          },
-          output: {
-            ecma: 5,
-            comments: false,
-          },
-          toplevel: true,
-          mangle: {
-            safari10: true,
-          },
-        },
+        terserOptions,
       }),
     ],
   },

@@ -55,7 +55,7 @@ function queryClasses(elapsed: number): string {
 
 const Popover = statelessComponent<string>((query) => (
   div("popover left").c(
-    div("popover-content").c(query),
+    div("popover-content").t(query),
     div("arrow"),
   )
 ));
@@ -74,9 +74,9 @@ const DatabaseList = connect<{ db: DB }, number>(
     const count = db.queries!.length;
 
     return tr().c(
-      td("dbname").c(db.name),
+      td("dbname").t(db.name),
       td("query-count").c(
-        span(counterClasses(count)).c(count),
+        span(counterClasses(count)).t(count),
       ),
       map(topFiveQueries,
         (q, i) => (

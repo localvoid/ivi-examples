@@ -1,6 +1,7 @@
 import replace from "rollup-plugin-replace";
-import nodeResolve from "rollup-plugin-node-resolve-main-fields";
+import nodeResolve from "rollup-plugin-node-resolve";
 import { terser } from "rollup-plugin-terser";
+const terserOptions = require("../../../tools/terser-options.json");
 
 export default {
   input: "build/main.js",
@@ -15,25 +16,7 @@ export default {
         TARGET: JSON.stringify("evergreen"),
       },
     }),
-    nodeResolve({
-      mainFields: ["es2016", "module", "main"],
-    }),
-    terser({
-      parse: {
-        ecma: 8,
-      },
-      compress: {
-        ecma: 5,
-        inline: true,
-        reduce_funcs: false,
-        passes: 5,
-      },
-      output: {
-        ecma: 5,
-        comments: false,
-      },
-      toplevel: true,
-      module: true,
-    })
+    nodeResolve(),
+    terser(terserOptions),
   ],
 };
