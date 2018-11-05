@@ -1,8 +1,8 @@
 {
   "extends": "../../../tools/tsconfig.checks.json",
   "compilerOptions": {
-    "target": "es5",
-    "module": "es2018",
+    "target": "es2018",
+    "module": "es2015",
     "moduleResolution": "node",
     "declaration": false,
     "importHelpers": true,

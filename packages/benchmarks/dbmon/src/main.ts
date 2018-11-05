@@ -1,4 +1,4 @@
-import { statelessComponent, render, connect, map, invalidateHandler, setupScheduler, invalidate } from "ivi";
+import { setupScheduler, BASIC_SCHEDULER, component, useSelect, render, map, update } from "ivi";
 import { div, tr, td, span, table, tbody } from "ivi-html";
 import { DBList, DB } from "./db";
 import { startFPSMonitor, startMemMonitor, initProfiler, startProfile, endProfile } from "perf-monitor";
@@ -53,23 +53,18 @@ function queryClasses(elapsed: number): string {
   return "";
 }
 
-const Popover = statelessComponent<string>((query) => (
+const Popover = component<string>(() => (query) => (
   div("popover left").c(
     div("popover-content").t(query),
     div("arrow"),
   )
 ));
 
-const DatabaseList = connect<{ db: DB }, number>(
-  (prev, props) => {
-    const db = store.dbs[props];
-    if (prev && prev.db === db) {
-      return prev;
-    }
-    return { db };
-  },
-  (props) => {
-    const db = props.db;
+const DatabaseList = component<number>((h) => {
+  const getDB = useSelect<DB, number>(h, (idx) => store.dbs[idx]);
+
+  return (idx) => {
+    const db = getDB(idx);
     const topFiveQueries = db.getTopFiveQueries();
     const count = db.queries!.length;
 
@@ -78,19 +73,17 @@ const DatabaseList = connect<{ db: DB }, number>(
       td("query-count").c(
         span(counterClasses(count)).t(count),
       ),
-      map(topFiveQueries,
-        (q, i) => (
-          td(queryClasses(q.elapsed)).k(i).c(
-            entryFormatElapsed(q.elapsed),
-            Popover(q.query),
-          )
-        ),
-      ),
+      map(topFiveQueries, (q, i) => (
+        td(queryClasses(q.elapsed)).k(i).c(
+          entryFormatElapsed(q.elapsed),
+          Popover(q.query),
+        )
+      )),
     );
-  },
-);
+  };
+});
 
-const Main = statelessComponent<DBList>((props) => (
+const Main = component<DBList>(() => (props) => (
   table("table table-striped latest-data").c(
     tbody().c(
       map(props.dbs, (db, i) => DatabaseList(i).k(db.id)),
@@ -114,7 +107,7 @@ function parseQueryString(a: string[]): { [key: string]: string } {
   return b;
 }
 
-setupScheduler(invalidateHandler);
+setupScheduler(BASIC_SCHEDULER);
 
 document.addEventListener("DOMContentLoaded", () => {
   startFPSMonitor();
@@ -145,7 +138,7 @@ document.addEventListener("DOMContentLoaded", () => {
     store.randomUpdate(mutations);
 
     startProfile("view update");
-    invalidate();
+    update();
     endProfile("view update");
 
     setTimeout(tick, 0);

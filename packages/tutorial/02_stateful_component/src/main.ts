@@ -1,25 +1,21 @@
-import { setupScheduler, invalidateHandler, render, Component, statefulComponent } from "ivi";
+import { setupScheduler, BASIC_SCHEDULER, render, component, invalidate, useEffect } from "ivi";
 import { div } from "ivi-html";
 
-const ElapsedTime = statefulComponent(class extends Component {
-  startTime = Date.now();
-  elapsedSeconds = 0;
+const ElapsedTime = component((c) => {
+  const startTime = Date.now();
+  let elapsedSeconds = 0;
 
-  private updateTime = () => {
-    this.elapsedSeconds = Date.now() - this.startTime;
-    this.invalidate();
-    setTimeout(this.updateTime, 50);
-  }
+  useEffect(c, () => {
+    console.log("AA");
+    const i = setInterval(() => {
+      elapsedSeconds = Date.now() - startTime;
+      invalidate(c);
+    }, 100);
+    return () => clearInterval(i);
+  })();
 
-  attached() {
-    setTimeout(this.updateTime, 50);
-  }
-
-  render() {
-    return div().c(`Elapsed seconds: ${(this.elapsedSeconds / 1000).toFixed(1)}`);
-  }
+  return () => div().c(`Elapsed seconds: ${(elapsedSeconds / 1000).toFixed(1)}`);
 });
 
-setupScheduler(invalidateHandler);
-
+setupScheduler(BASIC_SCHEDULER);
 render(ElapsedTime(), document.getElementById("app")!);

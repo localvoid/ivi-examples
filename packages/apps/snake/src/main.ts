@@ -1,5 +1,5 @@
-import { render, Component, statefulComponent, KeyCode, map, onKeyDown, EventFlags, setupScheduler } from "ivi";
-import { invalidateHandler, AUTOFOCUS } from "ivi-scheduler";
+import { render, component, KeyCode, map, onKeyDown, EventFlags, setupScheduler } from "ivi";
+import { SCHEDULER, AUTOFOCUS } from "ivi-scheduler";
 import { Box, createBox } from "ivi-state";
 import { div } from "ivi-html";
 import { Game, CellFlags, LEFT, RIGHT, UP, DOWN } from "./state";
@@ -18,49 +18,55 @@ function cellClasses(flags: CellFlags): string {
 
 const CELL_SIZE = 30;
 
-const GameView = statefulComponent(class extends Component<Box<Game>> {
-  onKeyDown = onKeyDown((ev) => {
+const GameView = component<Box<Game>>(() => {
+  let game: Game;
+
+  const keyDown = onKeyDown((ev) => {
     switch (ev.native.keyCode) {
       case KeyCode.ArrowLeft:
-        this.props.value.setNewDirection(LEFT);
+        game.setNewDirection(LEFT);
         return EventFlags.PreventDefault;
       case KeyCode.ArrowUp:
-        this.props.value.setNewDirection(UP);
+        game.setNewDirection(UP);
         return EventFlags.PreventDefault;
       case KeyCode.ArrowRight:
-        this.props.value.setNewDirection(RIGHT);
+        game.setNewDirection(RIGHT);
         return EventFlags.PreventDefault;
       case KeyCode.ArrowDown:
-        this.props.value.setNewDirection(DOWN);
+        game.setNewDirection(DOWN);
         return EventFlags.PreventDefault;
     }
     return;
   });
 
-  render() {
-    const { grid } = this.props.value;
-    let i = 0;
+  return (props) => (
+    game = props.value,
 
-    return div(this.props.value.gameOver ? "SnakeGame gameOver" : "SnakeGame")
-      .c(
-        div("Grid", { "tabIndex": 0, "autofocus": AUTOFOCUS(true) },
-          {
-            "width": `${CELL_SIZE * grid.cols}px`,
-            "height": `${CELL_SIZE * grid.rows}px`,
-          },
-        ).e(this.onKeyDown).c(map(grid.cells, (c) => div(cellClasses(c)).k(i++))),
-    );
-  }
+    div(game.gameOver ? "SnakeGame gameOver" : "SnakeGame").c(
+      div("Grid",
+        {
+          "tabIndex": 0,
+          "autofocus": AUTOFOCUS(true),
+        },
+        {
+          "width": `${CELL_SIZE * game.grid.cols}px`,
+          "height": `${CELL_SIZE * game.grid.rows}px`,
+        },
+      ).e(keyDown).c(
+        map(game.grid.cells, (c, i) => div(cellClasses(c)).k(i)),
+      ),
+    )
+  );
 });
 
-const container = document.getElementById("app")!;
-const game = new Game();
+const CONTAINER = document.getElementById("app")!;
+const GAME = new Game();
 
-setupScheduler(invalidateHandler);
+setupScheduler(SCHEDULER);
 
 function tick() {
-  game.updateState();
-  render(GameView(createBox(game)), container);
+  GAME.updateState();
+  render(GameView(createBox(GAME)), CONTAINER);
   setTimeout(tick, 100);
 }
 tick();

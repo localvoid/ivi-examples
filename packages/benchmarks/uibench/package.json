@@ -1,10 +1,10 @@
 {
   "private": true,
-  "name": "uibench",
+  "name": "uibench_fc",
   "version": "1.0.0",
   "scripts": {
     "serve": "../../../node_modules/.bin/webpack-serve --open --config webpack.dev.js",
     "dist": "../../../node_modules/.bin/webpack --config webpack.prod.js",
-    "gh-publish": "mkdir -p ../../../docs/benchmarks/uibench && cp dist/* ../../../docs/benchmarks/uibench/"
+    "gh-publish": "mkdir -p ../../../docs/benchmarks/uibench_fc && cp dist/* ../../../docs/benchmarks/uibench_fc/"
   }
 }

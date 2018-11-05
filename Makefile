@@ -1,4 +1,4 @@
-build: build_snake build_10k build_dbmon build_uibench build_uibench_fc
+build: build_snake build_10k build_dbmon build_uibench
 
 build_snake:
 	cd packages/apps/snake && yarn dist && yarn gh-publish
@@ -11,6 +11,3 @@ build_dbmon:
 
 build_uibench:
 	cd packages/benchmarks/uibench && yarn dist && yarn gh-publish
-
-build_uibench_fc:
-	cd packages/benchmarks/uibench_fc && yarn dist && yarn gh-publish

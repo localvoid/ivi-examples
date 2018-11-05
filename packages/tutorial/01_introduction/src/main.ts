@@ -1,10 +1,7 @@
-import { setupScheduler, invalidateHandler, render, statelessComponent } from "ivi";
+import { setupScheduler, BASIC_SCHEDULER, render, component } from "ivi";
 import { div } from "ivi-html";
 
-const Hello = statelessComponent<string>((text) => (
-  div().c(`Hello ${text}!`)
-));
+const Hello = component<string>(() => (text) => div().c(`Hello ${text}!`));
 
-setupScheduler(invalidateHandler);
-
+setupScheduler(BASIC_SCHEDULER);
 render(Hello("World"), document.getElementById("app")!);

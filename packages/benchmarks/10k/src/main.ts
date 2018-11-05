@@ -1,4 +1,4 @@
-import { statelessComponent, render, context, connect, mapRange, _, setupScheduler, invalidateHandler } from "ivi";
+import { component, render, context, mapRange, _, setupScheduler, BASIC_SCHEDULER, useSelect } from "ivi";
 import { span, div } from "ivi-html";
 import { startFPSMonitor, startMemMonitor, initProfiler, startProfile, endProfile } from "perf-monitor";
 
@@ -30,19 +30,19 @@ function updateData(data: string[], mutations: number): void {
   }
 }
 
-const Pixel = connect<string, number, { data: string[] }>(
-  (_prev, props, ctx) => ctx.data[props],
-  (color) => span("pixel", _, { "background": color }),
-);
+const Pixel = component<number>((c) => {
+  const getColor = useSelect<string, number, { data: string[] }>(c, (i, ctx) => ctx.data[i]);
+  return (i) => span("pixel", _, { "background": getColor(i) });
+});
 
-const PixelImage = statelessComponent(() => (
+const PixelImage = component(() => () => (
   div("image").c(mapRange(0, 100, (i) => {
     const offset = i * 100;
     return div("row").k(i).c(mapRange(0, 100, (j) => Pixel(offset + j).k(j)));
   }))
 ));
 
-setupScheduler(invalidateHandler);
+setupScheduler(BASIC_SCHEDULER);
 
 document.addEventListener("DOMContentLoaded", () => {
   startFPSMonitor();

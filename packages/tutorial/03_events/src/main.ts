@@ -1,4 +1,4 @@
-import { setupScheduler, invalidateHandler, render, Component, statefulComponent, onClick, _ } from "ivi";
+import { setupScheduler, BASIC_SCHEDULER, render, component, invalidate, onClick, _ } from "ivi";
 import { div } from "ivi-html";
 
 const STYLE = {
@@ -9,21 +9,16 @@ const STYLE = {
   "user-select": "none",
 };
 
-const ClickMe = statefulComponent(class extends Component {
-  private counter = 0;
+const ClickMe = component((c) => {
+  let counter = 0;
 
-  private onClick = onClick((ev) => {
-    this.counter++;
-    this.invalidate();
+  const clickEvents = onClick(() => {
+    counter++;
+    invalidate(c);
   });
 
-  render() {
-    return (
-      div(_, _, STYLE).e(this.onClick).c(`Click me: ${this.counter}`)
-    );
-  }
+  return () => div(_, _, STYLE).e(clickEvents).c(`Click me: ${counter}`);
 });
 
-setupScheduler(invalidateHandler);
-
+setupScheduler(BASIC_SCHEDULER);
 render(ClickMe(), document.getElementById("app")!);

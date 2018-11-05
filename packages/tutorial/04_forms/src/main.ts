@@ -1,31 +1,33 @@
 import {
-  setupScheduler, invalidateHandler, render, Component, statefulComponent, map, EventFlags, onSubmit, onInput, _,
+  setupScheduler, BASIC_SCHEDULER, render, component, invalidate, map, EventFlags, onSubmit, onInput, _,
 } from "ivi";
 import { div, button, input, form, ul, li, VALUE } from "ivi-html";
 
-const Form = statefulComponent(class extends Component<{ onSubmit: (entry: string) => void }> {
-  private entry = "";
+const Form = component<{ submit: (entry: string) => void }>((c) => {
+  let _entry = "";
+  let _submit: (entry: string) => void;
 
-  private formEvents = [
-    onSubmit((ev) => {
-      if (this.entry) {
-        this.props.onSubmit(this.entry);
-        this.entry = "";
-        this.invalidate();
+  const formEvents = [
+    onSubmit(() => {
+      if (_entry) {
+        _submit(_entry);
+        _entry = "";
+        invalidate(c);
       }
       return EventFlags.PreventDefault;
     }),
     onInput((ev) => {
-      this.entry = (ev.target as HTMLInputElement).value;
+      _entry = (ev.target as HTMLInputElement).value;
     }),
   ];
 
-  render() {
-    return form().e(this.formEvents).c(
-      input(_, { placeholder: "Entry", value: VALUE(this.entry) }),
+  return ({ submit }) => (
+    _submit = submit,
+    form().e(formEvents).c(
+      input(_, { placeholder: "Entry", value: VALUE(_entry) }),
       button().c("Submit"),
-    );
-  }
+    )
+  );
 });
 
 const entries: string[] = [];
@@ -33,7 +35,7 @@ const entries: string[] = [];
 function update() {
   render(
     div().c(
-      Form({ onSubmit: handleSubmit }),
+      Form({ submit: handleSubmit }),
       ul().c(map(entries, (e, i) => li().k(i).c(e))),
     ),
     document.getElementById("app")!,
@@ -45,6 +47,5 @@ function handleSubmit(entry: string): void {
   update();
 }
 
-setupScheduler(invalidateHandler);
-
+setupScheduler(BASIC_SCHEDULER);
 update();
