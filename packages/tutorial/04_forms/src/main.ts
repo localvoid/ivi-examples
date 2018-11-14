@@ -1,6 +1,4 @@
-import {
-  setupScheduler, BASIC_SCHEDULER, render, component, invalidate, map, EventFlags, onSubmit, onInput, _,
-} from "ivi";
+import { render, component, invalidate, map, EventFlags, onSubmit, onInput, _ } from "ivi";
 import { div, button, input, form, ul, li, VALUE } from "ivi-html";
 
 const Form = component<{ submit: (entry: string) => void }>((c) => {
@@ -47,5 +45,4 @@ function handleSubmit(entry: string): void {
   update();
 }
 
-setupScheduler(BASIC_SCHEDULER);
 update();

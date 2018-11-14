@@ -1,4 +1,4 @@
-import { VNode, component, statelessComponent, render, map, onClick, setupScheduler, BASIC_SCHEDULER } from "ivi";
+import { VNode, component, statelessComponent, withNextFrame, render, map, onClick } from "ivi";
 import { td, tr, table, tbody, div, li, ul, pre } from "ivi-html";
 
 const TableCell = component<string>(() => {
@@ -9,8 +9,7 @@ const TableCell = component<string>(() => {
 });
 const TableRow = statelessComponent<TableItemState>(({ id, active, props }) => (
   tr(active ? "TableRow active" : "TableRow", { "data-id": id }).c(
-    TableCell("#" + id),
-    map(props, (item, i) => TableCell(item).k(i)),
+    TableCell("#" + id), map(props, (item, i) => TableCell(item).k(i)),
   )
 ));
 const Table = statelessComponent<TableState>((p) => (
@@ -31,25 +30,22 @@ const Tree = statelessComponent<TreeState>((p) => div("Tree").c(TreeNode(p.root)
 
 function route(state: AppState): VNode {
   switch (state.location) {
-    case "table":
-      return Table(state.table);
-    case "anim":
-      return Anim(state.anim);
+    case "table": return Table(state.table);
+    case "anim": return Anim(state.anim);
+    default: return Tree(state.tree);
   }
-  return Tree(state.tree);
 }
 
 const Main = statelessComponent<AppState | undefined>((state) => div("Main").c(state ? route(state) : null));
 
-uibench.init("ivi", "0.17.0-alpha.0");
-setupScheduler(BASIC_SCHEDULER);
+uibench.init("ivi", "0.17.0");
 
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.querySelector("#App")!;
   render(Main(), container);
 
   uibench.run(
-    (state) => render(Main(state), container),
+    (state) => withNextFrame(() => { render(Main(state), container); })(),
     (samples) => render(pre().c(JSON.stringify(samples, undefined, 2)), container),
   );
 });

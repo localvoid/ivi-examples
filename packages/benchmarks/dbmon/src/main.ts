@@ -1,4 +1,4 @@
-import { setupScheduler, BASIC_SCHEDULER, component, useSelect, render, map, update } from "ivi";
+import { component, useSelect, render, map, requestDirtyCheck, withNextFrame } from "ivi";
 import { div, tr, td, span, table, tbody } from "ivi-html";
 import { DBList, DB } from "./db";
 import { startFPSMonitor, startMemMonitor, initProfiler, startProfile, endProfile } from "perf-monitor";
@@ -107,8 +107,6 @@ function parseQueryString(a: string[]): { [key: string]: string } {
   return b;
 }
 
-setupScheduler(BASIC_SCHEDULER);
-
 document.addEventListener("DOMContentLoaded", () => {
   startFPSMonitor();
   startMemMonitor();
@@ -138,7 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
     store.randomUpdate(mutations);
 
     startProfile("view update");
-    update();
+    withNextFrame(requestDirtyCheck)();
     endProfile("view update");
 
     setTimeout(tick, 0);

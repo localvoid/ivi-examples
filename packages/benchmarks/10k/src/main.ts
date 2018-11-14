@@ -1,4 +1,4 @@
-import { component, render, context, mapRange, _, setupScheduler, BASIC_SCHEDULER, useSelect } from "ivi";
+import { component, withNextFrame, render, context, mapRange, _, useSelect } from "ivi";
 import { span, div } from "ivi-html";
 import { startFPSMonitor, startMemMonitor, initProfiler, startProfile, endProfile } from "perf-monitor";
 
@@ -42,8 +42,6 @@ const PixelImage = component(() => () => (
   }))
 ));
 
-setupScheduler(BASIC_SCHEDULER);
-
 document.addEventListener("DOMContentLoaded", () => {
   startFPSMonitor();
   startMemMonitor();
@@ -78,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
     endProfile("data update");
 
     startProfile("view update");
-    render(context(ctx, PixelImage()), container);
+    withNextFrame(() => { render(context(ctx, PixelImage()), container); })();
     endProfile("view update");
 
     requestAnimationFrame(tick);

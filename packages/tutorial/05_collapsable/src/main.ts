@@ -1,4 +1,4 @@
-import { setupScheduler, BASIC_SCHEDULER, render, component, invalidate, VNode, onClick } from "ivi";
+import { render, component, invalidate, VNode, onClick } from "ivi";
 import { div } from "ivi-html";
 
 const Collapsable = component<VNode>((c) => {
@@ -11,8 +11,6 @@ const Collapsable = component<VNode>((c) => {
 
   return (child) => div(_collapsed ? "Collapsable close" : "Collapsable").e(clickEvent).c(child);
 });
-
-setupScheduler(BASIC_SCHEDULER);
 
 render(
   Collapsable(div().c("Collapsable content")),

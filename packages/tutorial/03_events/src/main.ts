@@ -1,4 +1,4 @@
-import { setupScheduler, BASIC_SCHEDULER, render, component, invalidate, onClick, _ } from "ivi";
+import { render, component, invalidate, onClick, _ } from "ivi";
 import { div } from "ivi-html";
 
 const STYLE = {
@@ -20,5 +20,4 @@ const ClickMe = component((c) => {
   return () => div(_, _, STYLE).e(clickEvents).c(`Click me: ${counter}`);
 });
 
-setupScheduler(BASIC_SCHEDULER);
 render(ClickMe(), document.getElementById("app")!);

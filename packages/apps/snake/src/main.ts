@@ -1,5 +1,4 @@
-import { render, component, KeyCode, map, onKeyDown, EventFlags, setupScheduler } from "ivi";
-import { SCHEDULER, AUTOFOCUS } from "ivi-scheduler";
+import { render, component, KeyCode, map, onKeyDown, EventFlags, AUTOFOCUS } from "ivi";
 import { Box, createBox } from "ivi-state";
 import { div } from "ivi-html";
 import { Game, CellFlags, LEFT, RIGHT, UP, DOWN } from "./state";
@@ -61,8 +60,6 @@ const GameView = component<Box<Game>>(() => {
 
 const CONTAINER = document.getElementById("app")!;
 const GAME = new Game();
-
-setupScheduler(SCHEDULER);
 
 function tick() {
   GAME.updateState();
