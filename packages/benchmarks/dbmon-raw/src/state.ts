@@ -38,8 +38,11 @@ export interface DB {
 }
 
 let _nextId = 0;
-function createDB(name: string): DB {
-  return { id: _nextId++, name, queries: randomQueries() };
+function createDB(name: string, id?: number): DB {
+  if (id === void 0) {
+    id = _nextId++;
+  }
+  return { id, name, queries: randomQueries() };
 }
 
 export function getTopFiveQueries(db: DB): Query[] {
@@ -63,7 +66,8 @@ export function createState(n: number) {
 export function randomUpdate(state: DB[], r: number) {
   for (let i = 0; i < state.length; i++) {
     if (Math.random() < r) {
-      state[i] = createDB(state[i].name);
+      const { id, name } = state[i];
+      state[i] = createDB(name, id);
     }
   }
 }
