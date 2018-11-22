@@ -1,145 +1,61 @@
-import { component, useSelect, render, map, requestDirtyCheck, withNextFrame } from "ivi";
-import { div, tr, td, span, table, tbody } from "ivi-html";
-import { DBList, DB } from "./db";
-import { startFPSMonitor, startMemMonitor, initProfiler, startProfile, endProfile } from "perf-monitor";
+import {
+  _, withNextFrame, render, requestDirtyCheck, statelessComponent, component, useSelect, TrackByKey, key,
+} from "ivi";
+import { div, span, table, tbody, tr, td } from "ivi-html";
+import { startProfile, endProfile } from "perf-monitor";
+import { queryClassName, countClassName } from "./css";
+import { init, getN, getMutations } from "./init";
+import { DB, entryFormatElapsed, getTopFiveQueries, createState, randomUpdate } from "./state";
 
-let mutations = 0.5;
-let N = 50;
+const state = createState(getN());
 
-const qs = parseQueryString(window.location.search.substr(1).split("&"));
-if (qs["n"] !== undefined) {
-  N = parseInt(qs["n"], 10);
-}
-if (qs["m"] !== undefined) {
-  mutations = parseFloat(qs["m"]);
-}
+const arrow = div("arrow");
 
-const store = new DBList(N);
-
-function entryFormatElapsed(v: number): string {
-  if (v === 0) {
-    return "";
-  }
-
-  if (v > 60) {
-    const minutes = Math.floor(v / 60);
-    const comps = (v % 60).toFixed(2).split(".");
-    const seconds = comps[0];
-    const ms = comps[1];
-    return minutes + ":" + seconds + "." + ms;
-  }
-
-  return v.toFixed(2);
-}
-
-function counterClasses(count: number): string {
-  if (count >= 20) {
-    return "label label-important";
-  } else if (count >= 10) {
-    return "label label-warning";
-  }
-  return "label label-success";
-}
-
-function queryClasses(elapsed: number): string {
-  if (elapsed > 0) {
-    if (elapsed >= 10.0) {
-      return "Query elapsed warn_long";
-    } else if (elapsed >= 1.0) {
-      return "Query elapsed warn";
-    }
-    return "Query elapsed short";
-  }
-  return "";
-}
-
-const Popover = component<string>(() => (query) => (
-  div("popover left").c(
-    div("popover-content").t(query),
-    div("arrow"),
-  )
+const Popover = statelessComponent<string>((query) => (
+  div("popover left", _, [
+    div("popover-content", _, query),
+    arrow,
+  ])
 ));
 
-const DatabaseList = component<number>((h) => {
-  const getDB = useSelect<DB, number>(h, (idx) => store.dbs[idx]);
+const DatabaseList = component<number>((c) => {
+  const getDB = useSelect<DB, number>(c, (idx) => state[idx]);
 
   return (idx) => {
     const db = getDB(idx);
-    const topFiveQueries = db.getTopFiveQueries();
+    const topFiveQueries = getTopFiveQueries(db);
     const count = db.queries!.length;
 
-    return tr().c(
-      td("dbname").t(db.name),
-      td("query-count").c(
-        span(counterClasses(count)).t(count),
-      ),
-      map(topFiveQueries, (q, i) => (
-        td(queryClasses(q.elapsed)).k(i).c(
+    return tr(_, _, [
+      td("dbname", _, db.name),
+      td("query-count", _, span(countClassName(count), _, count)),
+      topFiveQueries.map((q) => (
+        td(queryClassName(q.elapsed), _, [
           entryFormatElapsed(q.elapsed),
           Popover(q.query),
-        )
+        ])
       )),
-    );
+    ]);
   };
 });
 
-const Main = component<DBList>(() => (props) => (
-  table("table table-striped latest-data").c(
-    tbody().c(
-      map(props.dbs, (db, i) => DatabaseList(i).k(db.id)),
-    ),
-  )
-));
+const Main = (dbs: DB[]) => (
+  table("table table-striped latest-data", _, [
+    tbody(_, _, TrackByKey(dbs.map((db, i) => key(db.id, DatabaseList(i))))),
+  ])
+);
 
-function parseQueryString(a: string[]): { [key: string]: string } {
-  if (a.length === 0) {
-    return {};
-  }
-  const b = {} as { [key: string]: string };
-  for (let i = 0; i < a.length; ++i) {
-    const p = a[i].split("=", 2);
-    if (p.length === 1) {
-      b[p[0]] = "";
-    } else {
-      b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
-    }
-  }
-  return b;
-}
+init();
+const container = document.getElementById("app")!;
+withNextFrame(() => { render(Main(state), container); })();
 
-document.addEventListener("DOMContentLoaded", () => {
-  startFPSMonitor();
-  startMemMonitor();
-  initProfiler("view update");
+function tick() {
+  randomUpdate(state, getMutations());
 
-  const sliderContainer = document.createElement("div");
-  sliderContainer.style.display = "flex";
-  const slider = document.createElement("input");
-  slider.type = "range";
-  slider.style.marginBottom = "10px";
-  slider.style.marginTop = "5px";
-  const text = document.createElement("label");
-  text.textContent = "mutations : " + (mutations * 100).toFixed(0) + "%";
+  startProfile("view update");
+  withNextFrame(requestDirtyCheck)();
+  endProfile("view update");
 
-  slider.addEventListener("change", (e) => {
-    mutations = Number.parseFloat((e.target as HTMLInputElement).value) / 100;
-    text.textContent = "mutations : " + (mutations * 100).toFixed(0) + "%";
-  });
-  sliderContainer.appendChild(text);
-  sliderContainer.appendChild(slider);
-  document.body.insertBefore(sliderContainer, document.body.firstChild);
-
-  const container = document.getElementById("app")!;
-  render(Main(store), container);
-
-  function tick() {
-    store.randomUpdate(mutations);
-
-    startProfile("view update");
-    withNextFrame(requestDirtyCheck)();
-    endProfile("view update");
-
-    setTimeout(tick, 0);
-  }
   setTimeout(tick, 0);
-});
+}
+setTimeout(tick, 0);
