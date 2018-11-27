@@ -1,29 +1,34 @@
-import { render, component, invalidate, map, EventFlags, onSubmit, onInput, _ } from "ivi";
+import {
+  render, component, invalidate, EventFlags, onSubmit, onInput, _, Events, TrackByKey, key, UpdateFlags,
+} from "ivi";
 import { div, button, input, form, ul, li, VALUE } from "ivi-html";
 
 const Form = component<{ submit: (entry: string) => void }>((c) => {
   let _entry = "";
   let _submit: (entry: string) => void;
 
-  const formEvents = [
-    onSubmit(() => {
-      if (_entry) {
-        _submit(_entry);
-        _entry = "";
-        invalidate(c);
-      }
-      return EventFlags.PreventDefault;
-    }),
-    onInput((ev) => {
-      _entry = (ev.target as HTMLInputElement).value;
-    }),
-  ];
+  const formEvents = onSubmit(() => {
+    if (_entry) {
+      _submit(_entry);
+      _entry = "";
+      invalidate(c, UpdateFlags.RequestSyncUpdate);
+    }
+    return EventFlags.PreventDefault;
+  });
+
+  const inputEvents = onInput((ev) => {
+    _entry = (ev.native.target as HTMLInputElement).value;
+  });
 
   return ({ submit }) => (
     _submit = submit,
-    form().e(formEvents).c(
-      input(_, { placeholder: "Entry", value: VALUE(_entry) }),
-      button().c("Submit"),
+    Events(formEvents,
+      form(_, _, [
+        Events(inputEvents,
+          input(_, { placeholder: "Entry", value: VALUE(_entry) }),
+        ),
+        button(_, _, "Submit"),
+      ]),
     )
   );
 });
@@ -32,10 +37,10 @@ const entries: string[] = [];
 
 function update() {
   render(
-    div().c(
+    div(_, _, [
       Form({ submit: handleSubmit }),
-      ul().c(map(entries, (e, i) => li().k(i).c(e))),
-    ),
+      ul(_, _, TrackByKey(entries.map((e, i) => key(i, li(_, _, e))))),
+    ]),
     document.getElementById("app")!,
   );
 }

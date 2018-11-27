@@ -1,4 +1,4 @@
-import { component, withNextFrame, render, context, mapRange, _, useSelect } from "ivi";
+import { component, withNextFrame, render, _, useSelect, Context, TrackByKey, key, statelessComponent } from "ivi";
 import { span, div } from "ivi-html";
 import { startFPSMonitor, startMemMonitor, initProfiler, startProfile, endProfile } from "perf-monitor";
 
@@ -32,15 +32,22 @@ function updateData(data: string[], mutations: number): void {
 
 const Pixel = component<number>((c) => {
   const getColor = useSelect<string, number, { data: string[] }>(c, (i, ctx) => ctx.data[i]);
-  return (i) => span("pixel", _, { "background": getColor(i) });
+  return (i) => span("pixel", { style: { background: getColor(i) } });
 });
 
-const PixelImage = component(() => () => (
-  div("image").c(mapRange(0, 100, (i) => {
+const PixelImage = statelessComponent(() => {
+  const rows = [];
+  for (let i = 0; i < 100; i++) {
     const offset = i * 100;
-    return div("row").k(i).c(mapRange(0, 100, (j) => Pixel(offset + j).k(j)));
-  }))
-));
+    const cols = [];
+    for (let j = 0; j < 100; j++) {
+      cols.push(key(j, Pixel(offset + j)));
+    }
+    rows.push(key(i, div("row", _, TrackByKey(cols))));
+  }
+
+  return div("image", _, TrackByKey(rows));
+});
 
 document.addEventListener("DOMContentLoaded", () => {
   startFPSMonitor();
@@ -68,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
     data: data,
   };
   const container = document.getElementById("app")!;
-  render(context(ctx, PixelImage()), container);
+  render(Context(ctx, PixelImage()), container);
 
   function tick() {
     startProfile("data update");
@@ -76,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
     endProfile("data update");
 
     startProfile("view update");
-    withNextFrame(() => { render(context(ctx, PixelImage()), container); })();
+    withNextFrame(() => { render(Context(ctx, PixelImage()), container); })();
     endProfile("view update");
 
     requestAnimationFrame(tick);

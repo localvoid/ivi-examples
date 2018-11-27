@@ -1,9 +1,9 @@
-import { render, component, KeyCode, map, onKeyDown, EventFlags, AUTOFOCUS } from "ivi";
+import { render, component, KeyCode, onKeyDown, EventFlags, AUTOFOCUS, Events, TrackByKey, key, _ } from "ivi";
 import { Box, createBox } from "ivi-state";
 import { div } from "ivi-html";
 import { Game, CellFlags, LEFT, RIGHT, UP, DOWN } from "./state";
 
-function cellClasses(flags: CellFlags): string {
+function cellClassName(flags: CellFlags): string {
   if (flags & CellFlags.Body) {
     if (flags & CellFlags.Head) {
       return "Cell body head";
@@ -41,18 +41,20 @@ const GameView = component<Box<Game>>(() => {
   return (props) => (
     game = props.value,
 
-    div(game.gameOver ? "SnakeGame gameOver" : "SnakeGame").c(
-      div("Grid",
-        {
-          "tabIndex": 0,
-          "autofocus": AUTOFOCUS(true),
-        },
-        {
-          "width": `${CELL_SIZE * game.grid.cols}px`,
-          "height": `${CELL_SIZE * game.grid.rows}px`,
-        },
-      ).e(keyDown).c(
-        map(game.grid.cells, (c, i) => div(cellClasses(c)).k(i)),
+    div(game.gameOver ? "SnakeGame gameOver" : "SnakeGame", _,
+      Events(keyDown,
+        div("Grid",
+          {
+            tabIndex: 0,
+            autofocus: AUTOFOCUS(true),
+            style: {
+              width: `${CELL_SIZE * game.grid.cols}px`,
+              height: `${CELL_SIZE * game.grid.rows}px`,
+            },
+          },
+          TrackByKey(game.grid.cells.map((c, i) => key(i, div(cellClassName(c)))),
+          ),
+        ),
       ),
     )
   );

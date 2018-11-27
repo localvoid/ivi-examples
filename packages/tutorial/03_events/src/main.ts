@@ -1,7 +1,7 @@
-import { render, component, invalidate, onClick, _ } from "ivi";
+import { render, component, invalidate, onClick, _, Events } from "ivi";
 import { div } from "ivi-html";
 
-const STYLE = {
+const style = {
   "display": "inline-block",
   "border": "1px solid #333",
   "padding": "20px",
@@ -17,7 +17,11 @@ const ClickMe = component((c) => {
     invalidate(c);
   });
 
-  return () => div(_, _, STYLE).e(clickEvents).c(`Click me: ${counter}`);
+  return () => (
+    Events(clickEvents,
+      div(_, { style }, `Click me: ${counter}`),
+    )
+  );
 });
 
 render(ClickMe(), document.getElementById("app")!);

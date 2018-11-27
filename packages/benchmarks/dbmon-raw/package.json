@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "dbmon",
+  "name": "dbmon-raw",
   "version": "1.0.0",
   "scripts": {
     "serve": "../../../node_modules/.bin/webpack-serve --open --config webpack.dev.js",

@@ -1,4 +1,4 @@
-import { render, component, invalidate, useEffect } from "ivi";
+import { render, component, invalidate, useEffect, _ } from "ivi";
 import { div } from "ivi-html";
 
 const ElapsedTime = component((c) => {
@@ -13,7 +13,7 @@ const ElapsedTime = component((c) => {
     return () => clearInterval(i);
   })();
 
-  return () => div().c(`Elapsed seconds: ${(elapsedSeconds / 1000).toFixed(1)}`);
+  return () => div(_, _, `Elapsed seconds: ${(elapsedSeconds / 1000).toFixed(1)}`);
 });
 
 render(ElapsedTime(), document.getElementById("app")!);

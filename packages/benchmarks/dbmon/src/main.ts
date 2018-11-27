@@ -7,6 +7,7 @@ import { queryClassName, countClassName } from "./css";
 import { init, getN, getMutations } from "./init";
 import { DB, entryFormatElapsed, getTopFiveQueries, createState, randomUpdate } from "./state";
 
+init();
 const state = createState(getN());
 
 const arrow = div("arrow");
@@ -45,7 +46,6 @@ const Main = (dbs: DB[]) => (
   ])
 );
 
-init();
 const container = document.getElementById("app")!;
 withNextFrame(() => { render(Main(state), container); })();
 

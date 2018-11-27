@@ -1,7 +1,7 @@
-import { render, component, invalidate, VNode, onClick } from "ivi";
+import { render, component, invalidate, OpNode, onClick, Events, _ } from "ivi";
 import { div } from "ivi-html";
 
-const Collapsable = component<VNode>((c) => {
+const Collapsable = component<OpNode>((c) => {
   let _collapsed = false;
 
   const clickEvent = onClick(() => {
@@ -9,10 +9,14 @@ const Collapsable = component<VNode>((c) => {
     invalidate(c);
   });
 
-  return (child) => div(_collapsed ? "Collapsable close" : "Collapsable").e(clickEvent).c(child);
+  return (child) => (
+    Events(clickEvent,
+      div(_collapsed ? "Collapsable close" : "Collapsable", _, child),
+    )
+  );
 });
 
 render(
-  Collapsable(div().c("Collapsable content")),
+  Collapsable(div(_, _, "Collapsable content")),
   document.getElementById("app")!,
 );
