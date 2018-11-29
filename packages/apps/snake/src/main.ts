@@ -1,5 +1,6 @@
-import { render, component, KeyCode, onKeyDown, EventFlags, AUTOFOCUS, Events, TrackByKey, key, _ } from "ivi";
-import { Box, createBox } from "ivi-state";
+import {
+  Box, box, render, component, KeyCode, onKeyDown, EventFlags, AUTOFOCUS, Events, TrackByKey, key, _,
+} from "ivi";
 import { div } from "ivi-html";
 import { Game, CellFlags, LEFT, RIGHT, UP, DOWN } from "./state";
 
@@ -39,7 +40,7 @@ const GameView = component<Box<Game>>(() => {
   });
 
   return (props) => (
-    game = props.value,
+    game = props.v,
 
     div(game.gameOver ? "SnakeGame gameOver" : "SnakeGame", _,
       Events(keyDown,
@@ -65,7 +66,7 @@ const GAME = new Game();
 
 function tick() {
   GAME.updateState();
-  render(GameView(createBox(GAME)), CONTAINER);
+  render(GameView(box(GAME)), CONTAINER);
   setTimeout(tick, 100);
 }
 tick();
