@@ -2405,38 +2405,38 @@ isobject@^3.0.0, isobject@^3.0.1:
   resolved "https://registry.yarnpkg.com/isobject/-/isobject-3.0.1.tgz#4e431e92b11a9731636aa1f9c8d1ccbcfdab78df"
   integrity sha1-TkMekrEalzFjaqH5yNHMvP2reN8=
 
-ivi-html@^0.19.0:
-  version "0.19.0"
-  resolved "https://registry.yarnpkg.com/ivi-html/-/ivi-html-0.19.0.tgz#69a4d0d2d17869eccc39cccca4b043e2c21090c0"
-  integrity sha512-j/Z5+pbFfx3kxhSoMjMlC5jiY8LRrw63KSdKFdJsNZJskpX60pqSy5R5S1vZ3x9FSRUfn0ZcTscD+qFUCo/f1Q==
+ivi-html@^0.20.0:
+  version "0.20.0"
+  resolved "https://registry.yarnpkg.com/ivi-html/-/ivi-html-0.20.0.tgz#654db5d9b077b9085e4641e488ece71babf66a33"
+  integrity sha512-sMyuAoI3tPn0YD7SfJlnINfvFD5EypAt+5hc4hrn6yYoDj4qRCnlvvMQGkKKDYFgiOruzrScO8DyGNsxIh7uwQ==
 
-ivi-scheduler@^0.19.0:
-  version "0.19.0"
-  resolved "https://registry.yarnpkg.com/ivi-scheduler/-/ivi-scheduler-0.19.0.tgz#e303f8b16082a7dedae41a2ace03bd49fee1b8b5"
-  integrity sha512-i0kiH/lavUXNY4pwfuZPePCAU/TI2QVlS2UBr3ZXk+ZRTtmod9PLVPRCskLPDt5BS35y04XBqPRv3O6/JLI+Yg==
+ivi-scheduler@^0.20.0:
+  version "0.20.0"
+  resolved "https://registry.yarnpkg.com/ivi-scheduler/-/ivi-scheduler-0.20.0.tgz#2545015f97288f3d84844a7a76ea6bb633edd399"
+  integrity sha512-a9tyeq4lEytIGdYYcP7+YorQYomU7wvnPHYgwjRsOHuuH8YV3KkOBoZRxEAKYlYIzTNwlfW8c39CYHQsP3LSeg==
 
-ivi-shared@^0.19.0:
-  version "0.19.0"
-  resolved "https://registry.yarnpkg.com/ivi-shared/-/ivi-shared-0.19.0.tgz#1b55f6c12f255443eb49e68416b1495d32156024"
-  integrity sha512-qmwBsgNc42EBomIvCFhqY/0CrwQpKlmKAWLcIoQqR1xSwt4sldtAbJa+ZA3RjM8rLQbnvW1X6QA2jvoKOgU7Yg==
+ivi-shared@^0.20.0:
+  version "0.20.0"
+  resolved "https://registry.yarnpkg.com/ivi-shared/-/ivi-shared-0.20.0.tgz#db5ef6b07f621e4e2904426f17d4ec8d12fc393d"
+  integrity sha512-94KSRo1ZDrOIZQZF9JkgyL35iDJIz8LbXSX4fccr0uoJQQia8axw+7FPKJwo6FGKrvdwyJNLyhaqJwVBtO1jhQ==
 
-ivi-state@^0.19.0:
-  version "0.19.0"
-  resolved "https://registry.yarnpkg.com/ivi-state/-/ivi-state-0.19.0.tgz#40e6d215565cc95bea249e95a8f42fa338198385"
-  integrity sha512-HLHpgh7Mj8KuRhLRSWklfCRY07l0ohK75xOF0t0SuzZEiI4B/OJCj/UgAxZkplO0iiXGN61WwcvSZa+i0EPTkw==
+ivi-state@^0.20.0:
+  version "0.20.0"
+  resolved "https://registry.yarnpkg.com/ivi-state/-/ivi-state-0.20.0.tgz#e65dd6dfc1557e0a7e05b2529d65fd3ea6f996f6"
+  integrity sha512-QtkwyfDAr3FtBSMApjIjbJyXz4PSrEsUseTUhw9PJfuAxl5nJaZ4IMvIxaAlqYh5pimiXN5xBxypFtNDh60Y8A==
 
 ivi-tslint-rules@^0.1.6:
   version "0.1.6"
   resolved "https://registry.yarnpkg.com/ivi-tslint-rules/-/ivi-tslint-rules-0.1.6.tgz#a6d83fe0ae95ce41c0e36708b31d6315d9944d93"
   integrity sha512-+q3efy6i8taONSjRUmnAVmn2vFnq9EQADkRoNjcpgFc/9E5N1Mr7W90IshwNytgND/t8ceGKwsxB9Y8aG7s/xw==
 
-ivi@^0.19.0:
-  version "0.19.0"
-  resolved "https://registry.yarnpkg.com/ivi/-/ivi-0.19.0.tgz#d01439612e810a500745fea1ffdf5e44db23992c"
-  integrity sha512-b5PoOvmecS4e5UrukuUksbwTb8J9Un/jRdmCUFCSVyvM+/yZYBxlNENBnNTg063ltULb9d3On9Ja72pUQVtM3Q==
+ivi@^0.20.0:
+  version "0.20.0"
+  resolved "https://registry.yarnpkg.com/ivi/-/ivi-0.20.0.tgz#03afc1cefa8025afd89a0dd922c4853b0aaf22f5"
+  integrity sha512-obaqpHA61TbHk4oVTB/CW4zWM47cRiIH+MdWzT/fr5El0tGSUh5oMtKJvEzBcJNYf9BoYs2A8h39LhYKObhq8A==
   dependencies:
-    ivi-scheduler "^0.19.0"
-    ivi-shared "^0.19.0"
+    ivi-scheduler "^0.20.0"
+    ivi-shared "^0.20.0"
 
 jest-worker@^23.2.0:
   version "23.2.0"
@@ -3986,10 +3986,10 @@ rollup-pluginutils@^2.0.1:
     estree-walker "^0.5.2"
     micromatch "^2.3.11"
 
-rollup@^0.67.3:
-  version "0.67.3"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-0.67.3.tgz#55475b1b62c43220c3b4bd7edc5846233932f50b"
-  integrity sha512-TyNQCz97rKuVVbsKUTXfwIjV7UljWyTVd7cTMuE+aqlQ7WJslkYF5QaYGjMLR2BlQtUOO5CAxSVnpQ55iYp5jg==
+rollup@^0.67.4:
+  version "0.67.4"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-0.67.4.tgz#8ed6b0993337f84ec8a0387f824fa6c197e833ec"
+  integrity sha512-AVuP73mkb4BBMUmksQ3Jw0jTrBTU1i7rLiUYjFxLZGb3xiFmtVEg40oByphkZAsiL0bJC3hRAJUQos/e5EBd+w==
   dependencies:
     "@types/estree" "0.0.39"
     "@types/node" "*"
@@ -4545,10 +4545,10 @@ trim-newlines@^2.0.0:
   resolved "https://registry.yarnpkg.com/trim-newlines/-/trim-newlines-2.0.0.tgz#b403d0b91be50c331dfc4b82eeceb22c3de16d20"
   integrity sha1-tAPQuRvlDDMd/EuC7s6yLD3hbSA=
 
-ts-loader@^5.3.0:
-  version "5.3.0"
-  resolved "https://registry.yarnpkg.com/ts-loader/-/ts-loader-5.3.0.tgz#4bac24e57bc5189391ab14987d9898ce53ef5cf7"
-  integrity sha512-lGSNs7szRFj/rK9T1EQuayE3QNLg6izDUxt5jpmq0RG1rU2bapAt7E7uLckLCUPeO1jwxCiet2oRaWovc53UAg==
+ts-loader@^5.3.1:
+  version "5.3.1"
+  resolved "https://registry.yarnpkg.com/ts-loader/-/ts-loader-5.3.1.tgz#70614c8ec4354a9c8b89c9f97b2becb7a98a3980"
+  integrity sha512-fDDgpBH3SR8xlt2MasLdz3Yy611PQ/UY/KGyo7TgXhTRU/6sS8uGG0nJYnU1OdFBNKcoYbId1UTNaAOUn+i41g==
   dependencies:
     chalk "^2.3.0"
     enhanced-resolve "^4.0.0"
@@ -4609,10 +4609,10 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@^3.1.6:
-  version "3.1.6"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.1.6.tgz#b6543a83cfc8c2befb3f4c8fba6896f5b0c9be68"
-  integrity sha512-tDMYfVtvpb96msS1lDX9MEdHrW4yOuZ4Kdc4Him9oU796XldPYF/t2+uKoX0BBa0hXXwDlqYQbXY5Rzjzc5hBA==
+typescript@^3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.2.1.tgz#0b7a04b8cf3868188de914d9568bd030f0c56192"
+  integrity sha512-jw7P2z/h6aPT4AENXDGjcfHTu5CSqzsbZc6YlUIebTyBAq8XaKp78x7VcSh30xwSCcsu5irZkYZUSFP1MrAMbg==
 
 uglify-js@3.3.x:
   version "3.3.25"
@@ -4920,10 +4920,10 @@ webpack-sources@^1.3.0:
     source-list-map "^2.0.0"
     source-map "~0.6.1"
 
-webpack@^4.26.1:
-  version "4.26.1"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-4.26.1.tgz#ff3a9283d363c07b3494dfa702d08f4f2ef6cb39"
-  integrity sha512-i2oOvEvuvLLSuSCkdVrknaxAhtUZ9g+nLSoHCWV0gDzqGX2DXaCrMmMUpbRsTSSLrUqAI56PoEiyMUZIZ1msug==
+webpack@^4.27.0:
+  version "4.27.0"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-4.27.0.tgz#1db66f03f0239bf797827f0580f53a41abd4067c"
+  integrity sha512-y77EQNIlsB9fUGgpLv/ZzmH+Yd9DgyIF9omX9RFavR5ZFM6HxFm6sqkbBXYxpjbKej9K6hD+Y8qEVg2rWdI2gg==
   dependencies:
     "@webassemblyjs/ast" "1.7.11"
     "@webassemblyjs/helper-module-context" "1.7.11"
