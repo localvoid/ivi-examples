@@ -21,8 +21,8 @@ module.exports = merge(require("../../../tools/webpack.common"), {
   },
   plugins: [
     new webpack.DefinePlugin({
-      "DEBUG": "false",
-      "TARGET": JSON.stringify("browser"),
+      "__IVI_DEBUG__": "false",
+      "__IVI_TARGET__": JSON.stringify("browser"),
     }),
     new HtmlWebpackPlugin({
       inject: true,

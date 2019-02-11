@@ -14,7 +14,7 @@
     "comments": false
   },
   "toplevel": true,
-  "mangle": {
-    "safari10": true
-  }
+  "mangle": true,
+  "safari10": true,
+  "module": true
 }

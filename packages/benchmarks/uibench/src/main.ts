@@ -9,7 +9,7 @@ const TableCell = statelessComponent<string>((t) => (
 const TableRow = statelessComponent<TableItemState>(({ id, active, props }) => (
   tr(active ? "TableRow active" : "TableRow", { "data-id": id }, [
     TableCell("#" + id),
-    TrackByKey(props.map((item, i) => key(i, TableCell(item)))),
+    props.map((item) => TableCell(item)),
   ])
 ));
 const Table = statelessComponent<TableState>((p) => (
@@ -45,7 +45,7 @@ function route(state: AppState): OpNode {
 
 const Main = statelessComponent<AppState | undefined>((state) => div("Main", _, state ? route(state) : null));
 
-uibench.init("ivi", "0.20.0");
+uibench.init("ivi", "0.21.0");
 
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.querySelector("#App")!;

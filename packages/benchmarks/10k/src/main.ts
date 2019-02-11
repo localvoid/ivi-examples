@@ -1,4 +1,6 @@
-import { component, withNextFrame, render, _, useSelect, Context, TrackByKey, key, statelessComponent } from "ivi";
+import {
+  component, withNextFrame, render, _, useSelect, Context, context, TrackByKey, key, statelessComponent,
+} from "ivi";
 import { span, div } from "ivi-html";
 import { startFPSMonitor, startMemMonitor, initProfiler, startProfile, endProfile } from "perf-monitor";
 
@@ -31,7 +33,7 @@ function updateData(data: string[], mutations: number): void {
 }
 
 const Pixel = component<number>((c) => {
-  const getColor = useSelect<string, number, { data: string[] }>(c, (i, ctx) => ctx.data[i]);
+  const getColor = useSelect<string, number>(c, (i) => context<{ data: string[] }>().data[i]);
   return (i) => span("pixel", { style: { background: getColor(i) } });
 });
 
