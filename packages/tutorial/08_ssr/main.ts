@@ -1,13 +1,13 @@
+(global as any).__IVI_DEBUG__ = true;
+(global as any).__IVI_TARGET__ = "ssr";
+
 import {
-  _, withNextFrame, render, requestDirtyCheck, statelessComponent, component, useSelect, TrackByKey, key,
+  _, statelessComponent, component, useSelect, TrackByKey, key, renderToString,
 } from "ivi";
 import { div, span, table, tbody, tr, td } from "ivi-html";
-import { startProfile, endProfile } from "perf-monitor";
-import { init, getN, getMutations } from "./init";
-import { DB, entryFormatElapsed, getTopFiveQueries, createState, randomUpdate, Query } from "./state";
+import { DB, entryFormatElapsed, getTopFiveQueries, createState, Query } from "./state";
 
-init();
-const state = createState(getN());
+const state = createState(50);
 
 const arrow = div("arrow");
 
@@ -60,16 +60,6 @@ const Main = (dbs: DB[]) => (
   ])
 );
 
-const container = document.getElementById("app")!;
-withNextFrame(() => { render(Main(state), container); })();
-
-function tick() {
-  randomUpdate(state, getMutations());
-
-  startProfile("view update");
-  withNextFrame(requestDirtyCheck)();
-  endProfile("view update");
-
-  setTimeout(tick, 0);
-}
-setTimeout(tick, 0);
+console.log(
+  renderToString(Main(state))
+);

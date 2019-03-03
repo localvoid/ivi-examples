@@ -80,7 +80,7 @@ export function entryFormatElapsed(v: number): string {
   if (v > 60) {
     const minutes = Math.floor(v / 60);
     const comps = (v % 60).toFixed(2).split(".");
-    const seconds = comps[0];
+    const seconds = comps[0].padStart(2, "0");
     const ms = comps[1];
     return minutes + ":" + seconds + "." + ms;
   }
