@@ -12,8 +12,8 @@ export default {
   plugins: [
     replace({
       values: {
-        "__IVI_DEBUG__": false,
-        "__IVI_TARGET__": JSON.stringify("evergreen"),
+        "process.env.NODE_ENV": JSON.stringify("production"),
+        "process.env.IVI_TARGET": JSON.stringify("browser"),
       },
     }),
     nodeResolve(),

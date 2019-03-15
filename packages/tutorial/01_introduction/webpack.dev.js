@@ -10,8 +10,7 @@ module.exports = merge(require("../../../tools/webpack.common"), {
   devtool: "eval-source-map",
   plugins: [
     new webpack.DefinePlugin({
-      "__IVI_DEBUG__": "true",
-      "__IVI_TARGET__": JSON.stringify("browser"),
+      "process.env.IVI_TARGET": JSON.stringify("browser"),
     }),
     new HtmlWebpackPlugin({
       inject: true,

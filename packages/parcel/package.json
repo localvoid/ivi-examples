@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "name": "parcel",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "../../node_modules/.bin/parcel index.html --open",
+    "build": "../../node_modules/.bin/parcel build --experimental-scope-hoisting index.html"
+  }
+}
