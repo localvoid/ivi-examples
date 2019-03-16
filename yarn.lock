@@ -4146,32 +4146,32 @@ isstream@~0.1.2:
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
   integrity sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo=
 
-ivi-html@^0.21.0:
-  version "0.21.0"
-  resolved "https://registry.yarnpkg.com/ivi-html/-/ivi-html-0.21.0.tgz#0884243a961a68e078a59ec2416df49201e1bf02"
-  integrity sha512-OolFYsJfAZikLzkGSjL/itNq+g2PZKt4Q7zCiyg3tnVaFX/tyIxadE1E9P3kTmL3B/dDRP9yDuEyhX8CBwL8LA==
+ivi-html@^0.22.0:
+  version "0.22.0"
+  resolved "https://registry.yarnpkg.com/ivi-html/-/ivi-html-0.22.0.tgz#0a7bb23e0adeaaef6f04f4835434bfc4b7a846e6"
+  integrity sha512-Kian1KgdIcFEzXRFmh72QHfa64KbYnYG41ERVO9y2vJFI5aI02UUuUqqZrDgR0194+CGGwO7SmAw5naLNC3ANA==
 
-ivi-scheduler@^0.21.0:
-  version "0.21.0"
-  resolved "https://registry.yarnpkg.com/ivi-scheduler/-/ivi-scheduler-0.21.0.tgz#1dbdf4a6231c44de150336dd34935c3ee22c63ab"
-  integrity sha512-S7M+g05hxgVmXXOeEkFMx/H3PN8vJxChtUFk1EkTnjpVlcGaAhp2dA0T0u0M7Ua7eDc4t06mL7AC2k1RHFkH1A==
+ivi-scheduler@^0.22.0:
+  version "0.22.0"
+  resolved "https://registry.yarnpkg.com/ivi-scheduler/-/ivi-scheduler-0.22.0.tgz#02eacaeea7cb9ba1f7fcf5e570017ebc543ea266"
+  integrity sha512-O0iEjB5i4EDa7KA38e0s+XHRls1MmKiUloOMb0SnXsb3OoMXkKfUcTor2iwDw8/L6RQDCShyHrCIbPRGDnVeUQ==
 
-ivi-state@^0.21.0:
-  version "0.21.0"
-  resolved "https://registry.yarnpkg.com/ivi-state/-/ivi-state-0.21.0.tgz#9b1ecdf456f69c2d13b2fcc2db1d80c9e104043a"
-  integrity sha512-pvVynqoXtOmJEjg+lBfnEf0QmvH8tal44IRWBDzBlbGuMM7ZJ5ENiiDMQuO+Gk8ytK+zLRt7T9wKStARFG4zaw==
+ivi-state@^0.22.0:
+  version "0.22.0"
+  resolved "https://registry.yarnpkg.com/ivi-state/-/ivi-state-0.22.0.tgz#f82b8f533529027f922c9d1d21be20e50e6f98c9"
+  integrity sha512-EUY4RRss3xXnLqTgY1xx3zhMN031OvmQ2zYS+8VxFLdT8Wg5gnUF+k/HKBzJoq9nV+Nj61ehitAMDIEKbWcclg==
 
 ivi-tslint-rules@^0.1.9:
   version "0.1.9"
   resolved "https://registry.yarnpkg.com/ivi-tslint-rules/-/ivi-tslint-rules-0.1.9.tgz#81d608fe55f7e3937c42e4059e6748c192ab6506"
   integrity sha512-aZ9D57IKcVE2rW6lhsYRtaU1nTBIVJ3mM79ixDsfz1573ehS/bZi9vluet9HEZjLXXs8Vx4MEW5CSaXxiOZbLg==
 
-ivi@^0.21.1:
-  version "0.21.1"
-  resolved "https://registry.yarnpkg.com/ivi/-/ivi-0.21.1.tgz#8565daeef84ab1c22e70fd2bf81fa0416ed4f644"
-  integrity sha512-hrYswxM44MEttVcMWff05oK8Rh5eP7DE/wMeei6def0/csvgJViuUE8fE0hRtsu4jonIkt4sjcxA6o2+DptW2g==
+ivi@^0.22.0:
+  version "0.22.0"
+  resolved "https://registry.yarnpkg.com/ivi/-/ivi-0.22.0.tgz#c25f853ec3336754c2afd6961eb20ce0f749c888"
+  integrity sha512-rKo4ay3BWGt4ZJlSZuNYbaRS6cmpXKDXbSYyWG244TNY0OXJNCto8lMASzRKpbBvE0hh4HJ4/Ax+fqRFRd8c4Q==
   dependencies:
-    ivi-scheduler "^0.21.0"
+    ivi-scheduler "^0.22.0"
 
 jest-worker@^24.0.0:
   version "24.0.0"
