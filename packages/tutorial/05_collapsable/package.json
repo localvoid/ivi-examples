@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "name": "05_collapsable",
   "scripts": {
-    "serve": "../../../node_modules/.bin/webpack-serve --open --config webpack.dev.js",
+    "serve": "../../../node_modules/.bin/webpack-dev-server --open --config webpack.dev.js",
     "dist": "../../../node_modules/.bin/webpack --config webpack.prod.js"
   }
 }

@@ -1,0 +1,21 @@
+{
+  "extends": "../../../tools/tsconfig.checks.json",
+  "compilerOptions": {
+    "outDir": "build",
+    "target": "es2018",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "declaration": false,
+    "importHelpers": true,
+    "noEmitHelpers": true,
+    "removeComments": false,
+    "lib": [
+      "es2015",
+      "es2016",
+      "dom"
+    ]
+  },
+  "include": [
+    "src/*.ts"
+  ],
+}

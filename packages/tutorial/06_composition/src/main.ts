@@ -1,5 +1,5 @@
 import {
-  _, Component, component, Events, onMouseOut, onMouseOver, containsRelatedTarget, invalidate, render,
+  _, Component, component, Events, onMouseOut, onMouseOver, containsDOMElement, invalidate, render,
 } from "ivi";
 import { div } from "ivi-html";
 
@@ -8,14 +8,14 @@ function useHover(c: Component) {
   return {
     state: () => v,
     events: [
-      onMouseOver((ev) => {
-        if (!containsRelatedTarget(ev)) {
+      onMouseOver((ev, currentTarget) => {
+        if (!containsDOMElement(currentTarget, ev.relatedTarget as Element)) {
           v = true;
           invalidate(c);
         }
       }),
-      onMouseOut((ev) => {
-        if (!containsRelatedTarget(ev)) {
+      onMouseOut((ev, currentTarget) => {
+        if (!containsDOMElement(currentTarget, ev.relatedTarget as Element)) {
           v = false;
           invalidate(c);
         }

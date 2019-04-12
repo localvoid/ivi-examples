@@ -3,7 +3,7 @@
   "name": "01_introduction",
   "version": "1.0.0",
   "scripts": {
-    "serve": "../../../node_modules/.bin/webpack-serve --open --config webpack.dev.js",
+    "serve": "../../../node_modules/.bin/webpack-dev-server --open --config webpack.dev.js",
     "dist": "../../../node_modules/.bin/webpack --config webpack.prod.js",
     "dist:rollup": "../../../node_modules/.bin/rollup -c rollup.config.js",
     "compress": "brotli --output=./dist/bundle.js.br ./dist/bundle.js"

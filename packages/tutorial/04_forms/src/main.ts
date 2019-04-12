@@ -1,5 +1,5 @@
 import {
-  render, component, invalidate, EventFlags, onSubmit, onInput, _, Events, TrackByKey, key, UpdateFlags,
+  render, component, invalidate, onSubmit, onInput, _, Events, TrackByKey, key, UpdateFlags,
 } from "ivi";
 import { div, button, input, form, ul, li, VALUE } from "ivi-html";
 
@@ -7,17 +7,17 @@ const Form = component<{ submit: (entry: string) => void }>((c) => {
   let _entry = "";
   let _submit: (entry: string) => void;
 
-  const formEvents = onSubmit(() => {
+  const formEvents = onSubmit((ev) => {
     if (_entry) {
       _submit(_entry);
       _entry = "";
       invalidate(c, UpdateFlags.RequestSyncUpdate);
     }
-    return EventFlags.PreventDefault;
+    ev.preventDefault();
   });
 
   const inputEvents = onInput((ev) => {
-    _entry = (ev.native.target as HTMLInputElement).value;
+    _entry = (ev.target as HTMLInputElement).value;
   });
 
   return ({ submit }) => (

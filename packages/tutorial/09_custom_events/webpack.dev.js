@@ -9,6 +9,7 @@ module.exports = merge(require("../../../tools/webpack.common"), {
   devtool: "eval-source-map",
   devServer: {
     contentBase: "./dist",
+    host: "0.0.0.0",
     port: 9000,
   },
   plugins: [

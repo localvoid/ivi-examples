@@ -1,6 +1,3 @@
-(global as any).__IVI_DEBUG__ = true;
-(global as any).__IVI_TARGET__ = "ssr";
-
 import {
   _, statelessComponent, component, useSelect, TrackByKey, key, renderToString,
 } from "ivi";

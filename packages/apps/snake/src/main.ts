@@ -1,6 +1,4 @@
-import {
-  Box, box, render, component, KeyCode, onKeyDown, EventFlags, AUTOFOCUS, Events, TrackByKey, key, _,
-} from "ivi";
+import { _, Box, box, render, component, KeyCode, onKeyDown, AUTOFOCUS, Events, TrackByKey, key } from "ivi";
 import { div } from "ivi-html";
 import { Game, CellFlags, LEFT, RIGHT, UP, DOWN } from "./state";
 
@@ -22,19 +20,23 @@ const GameView = component<Box<Game>>(() => {
   let game: Game;
 
   const keyDown = onKeyDown((ev) => {
-    switch (ev.native.keyCode) {
+    switch (ev.keyCode) {
       case KeyCode.ArrowLeft:
         game.setNewDirection(LEFT);
-        return EventFlags.PreventDefault;
+        ev.preventDefault();
+        break;
       case KeyCode.ArrowUp:
         game.setNewDirection(UP);
-        return EventFlags.PreventDefault;
+        ev.preventDefault();
+        break;
       case KeyCode.ArrowRight:
         game.setNewDirection(RIGHT);
-        return EventFlags.PreventDefault;
+        ev.preventDefault();
+        break;
       case KeyCode.ArrowDown:
         game.setNewDirection(DOWN);
-        return EventFlags.PreventDefault;
+        ev.preventDefault();
+        break;
     }
     return;
   });
