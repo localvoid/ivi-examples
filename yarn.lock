@@ -707,10 +707,15 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-11.13.4.tgz#f83ec3c3e05b174b7241fadeb6688267fe5b22ca"
   integrity sha512-+rabAZZ3Yn7tF/XPGHupKIL5EcAbrLxnTr/hgQICxbeuAfWtT0UZSfULE+ndusckBItcv4o6ZeOJplQikVcLvQ==
 
-"@types/node@^11.13.5", "@types/node@^11.13.6":
+"@types/node@^11.13.5":
   version "11.13.6"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-11.13.6.tgz#37ec75690830acb0d74ce3c6c43caab787081e85"
   integrity sha512-Xoo/EBzEe8HxTSwaZNLZjaW6M6tA/+GmD3/DZ6uo8qSaolE/9Oarko0oV1fVfrLqOz0tx0nXJB4rdD5c+vixLw==
+
+"@types/node@^11.13.7":
+  version "11.13.7"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-11.13.7.tgz#85dbb71c510442d00c0631f99dae957ce44fd104"
+  integrity sha512-suFHr6hcA9mp8vFrZTgrmqW2ZU3mbWsryQtQlY/QvwTISCw7nw/j+bCQPPohqmskhmqa5wLNuMHTTsc+xf1MQg==
 
 "@types/q@^1.5.1":
   version "1.5.2"
@@ -4017,25 +4022,25 @@ isstream@~0.1.2:
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
   integrity sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo=
 
-ivi-html@^0.24.0:
-  version "0.24.0"
-  resolved "https://registry.yarnpkg.com/ivi-html/-/ivi-html-0.24.0.tgz#6bbcf284bc51a5124c7cd2766ab7c95e6125e485"
-  integrity sha512-FYWA6Adq58pSLh1kvYEJnFWMNhtjoP4JicU9o/ENK5L3Bqfk/1WHjGNXa2+ysjX2BA1rQCATjAABNrYOqxZZSQ==
+ivi-html@^0.25.0:
+  version "0.25.0"
+  resolved "https://registry.yarnpkg.com/ivi-html/-/ivi-html-0.25.0.tgz#fe239a29552adba4a6d8db04efbc4abb9b89dba1"
+  integrity sha512-n4fWf8GH/a6/QLUlCp1qLvkyDFyEhdnscewjggub74m/ybxnjP+1SYuNsliBCDe9JItSWNDmaUdPMJ9BlUC/6g==
 
-ivi-state@^0.24.0:
-  version "0.24.0"
-  resolved "https://registry.yarnpkg.com/ivi-state/-/ivi-state-0.24.0.tgz#8ce88c9e8982adb9f0089ecf08c618a55fd980e0"
-  integrity sha512-+LujfnlnUandO4XHdumxFbHtdM28wGSoDEuSI5AxaPFMj3uLsNNx9jkSm4llK8KWhWw0cL7wCRJD2bw78Puj5g==
+ivi-state@^0.25.0:
+  version "0.25.0"
+  resolved "https://registry.yarnpkg.com/ivi-state/-/ivi-state-0.25.0.tgz#6396d95b7614807850d0fe92bea73755c600302d"
+  integrity sha512-p1NHdwqkCMAzJCNG0711lF47GyjGWtnHXWoROCYG2Cv21FegEOjM4w+RZfj0+Xym4o6kSXIg/1KkYNOch2WFog==
 
 ivi-tslint-rules@^0.1.9:
   version "0.1.9"
   resolved "https://registry.yarnpkg.com/ivi-tslint-rules/-/ivi-tslint-rules-0.1.9.tgz#81d608fe55f7e3937c42e4059e6748c192ab6506"
   integrity sha512-aZ9D57IKcVE2rW6lhsYRtaU1nTBIVJ3mM79ixDsfz1573ehS/bZi9vluet9HEZjLXXs8Vx4MEW5CSaXxiOZbLg==
 
-ivi@^0.24.0:
-  version "0.24.0"
-  resolved "https://registry.yarnpkg.com/ivi/-/ivi-0.24.0.tgz#048075dd5f0b4bea24b220623f222430ad7b4478"
-  integrity sha512-1kWgGKDky7AQTJWAXqGjbMkGeXpl2Qziz1jkiyPR5+m0AnpkMZr3ULAr7Qzxs4LamXAd/w+s/ElRTnyEQqz/vQ==
+ivi@^0.25.0:
+  version "0.25.0"
+  resolved "https://registry.yarnpkg.com/ivi/-/ivi-0.25.0.tgz#04dde150eba027fd33f20f343c7c1f110fb7526b"
+  integrity sha512-YNgcrah+dT/IrnO+otMtAEgsSB+mnhD6W5GDLwWaUC0Lz0Apke+mbiJqtfrWXORDQ6IGPsuQqyABOn1yj99/pg==
 
 jest-worker@^24.0.0:
   version "24.0.0"
@@ -7172,10 +7177,10 @@ trim-right@^1.0.1:
   resolved "https://registry.yarnpkg.com/trim-right/-/trim-right-1.0.1.tgz#cb2e1203067e0c8de1f614094b9fe45704ea6003"
   integrity sha1-yy4SAwZ+DI3h9hQJS5/kVwTqYAM=
 
-ts-loader@^5.3.3:
-  version "5.3.3"
-  resolved "https://registry.yarnpkg.com/ts-loader/-/ts-loader-5.3.3.tgz#8b4af042e773132d86b3c99ef0acf3b4d325f473"
-  integrity sha512-KwF1SplmOJepnoZ4eRIloH/zXL195F51skt7reEsS6jvDqzgc/YSbz9b8E07GxIUwLXdcD4ssrJu6v8CwaTafA==
+ts-loader@^5.4.3:
+  version "5.4.3"
+  resolved "https://registry.yarnpkg.com/ts-loader/-/ts-loader-5.4.3.tgz#837f7f397799a665fc1774303c9fd0930d1c5947"
+  integrity sha512-pHwZFkZioL7Yi2su0bhW2/djxZ+0iGat1cxlAif4Eg9j5znVYuWGtW0YYY/5w8W+IzLcAlD5KwJDrs5unUKIRA==
   dependencies:
     chalk "^2.3.0"
     enhanced-resolve "^4.0.0"
@@ -7256,10 +7261,10 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@^3.4.4:
-  version "3.4.4"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.4.4.tgz#aac4a08abecab8091a75f10842ffa0631818f785"
-  integrity sha512-xt5RsIRCEaf6+j9AyOBgvVuAec0i92rgCaS3S+UVf5Z/vF2Hvtsw08wtUTJqp4djwznoAgjSxeCcU4r+CcDBJA==
+typescript@^3.4.5:
+  version "3.4.5"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.4.5.tgz#2d2618d10bb566572b8d7aad5180d84257d70a99"
+  integrity sha512-YycBxUb49UUhdNMU5aJ7z5Ej2XGmaIBL0x34vZ82fn3hGvD+bgrMrVDpatgz2f7YxUMJxMkbWxJZeAvDxVe7Vw==
 
 uglify-js@3.3.x:
   version "3.3.25"

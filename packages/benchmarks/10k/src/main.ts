@@ -1,5 +1,5 @@
 import {
-  component, withNextFrame, render, _, useSelect, Context, context, TrackByKey, key, statelessComponent,
+  component, withNextFrame, render, _, useSelect, contextValue, TrackByKey, key, statelessComponent,
 } from "ivi";
 import { span, div } from "ivi-html";
 import { startFPSMonitor, startMemMonitor, initProfiler, startProfile, endProfile } from "perf-monitor";
@@ -32,8 +32,10 @@ function updateData(data: string[], mutations: number): void {
   }
 }
 
+const { get: getData, set: Data } = contextValue<string[]>();
+
 const Pixel = component<number>((c) => {
-  const getColor = useSelect<string, number>(c, (i) => context<{ data: string[] }>().data[i]);
+  const getColor = useSelect<string, number>(c, (i) => getData()[i]);
   return (i) => span("pixel", { style: { background: getColor(i) } });
 });
 
@@ -73,11 +75,8 @@ document.addEventListener("DOMContentLoaded", () => {
   document.body.insertBefore(sliderContainer, document.body.firstChild);
 
   const data = generateData();
-  const ctx = {
-    data: data,
-  };
   const container = document.getElementById("app")!;
-  render(Context(ctx, PixelImage()), container);
+  render(Data(data, PixelImage()), container);
 
   function tick() {
     startProfile("data update");
@@ -85,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
     endProfile("data update");
 
     startProfile("view update");
-    withNextFrame(() => { render(Context(ctx, PixelImage()), container); })();
+    withNextFrame(() => { render(Data(data, PixelImage()), container); })();
     endProfile("view update");
 
     requestAnimationFrame(tick);

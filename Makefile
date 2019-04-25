@@ -13,4 +13,4 @@ build_dbmon_raw:
 	cd packages/benchmarks/dbmon-raw && yarn dist && yarn gh-publish
 
 build_uibench:
-	cd packages/benchmarks/uibench && yarn dist && yarn gh-publish
+	cd packages/benchmarks/uibench && yarn dist:rollup && yarn gh-publish

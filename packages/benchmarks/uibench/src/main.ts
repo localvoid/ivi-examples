@@ -45,7 +45,7 @@ function route(state: AppState): OpNode {
 
 const Main = statelessComponent<AppState | undefined>((state) => div("Main", _, state ? route(state) : null));
 
-uibench.init("ivi", "0.24.0");
+uibench.init("ivi", "0.25.0");
 
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.querySelector("#App")!;
