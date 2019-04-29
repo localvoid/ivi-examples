@@ -7,12 +7,12 @@
     "packages/tutorial/*"
   ],
   "dependencies": {
-    "ivi": "^0.25.0",
-    "ivi-html": "^0.25.0",
-    "ivi-state": "^0.25.0"
+    "ivi": "^0.26.0",
+    "ivi-html": "^0.26.0",
+    "ivi-state": "^0.26.0"
   },
   "devDependencies": {
-    "@types/node": "^11.13.7",
+    "@types/node": "^11.13.8",
     "cache-loader": "^3.0.0",
     "html-webpack-plugin": "^3.2.0",
     "ivi-tslint-rules": "^0.1.9",
@@ -24,7 +24,7 @@
     "rollup-plugin-terser": "^4.0.4",
     "source-map-loader": "^0.2.4",
     "terser-webpack-plugin": "^1.2.3",
-    "ts-loader": "^5.4.3",
+    "ts-loader": "^5.4.4",
     "tslib": "^1.9.3",
     "tslint": "^5.16.0",
     "typescript": "^3.4.5",
