@@ -7,9 +7,10 @@
     "packages/tutorial/*"
   ],
   "dependencies": {
-    "ivi": "^0.26.0",
-    "ivi-html": "^0.26.0",
-    "ivi-state": "^0.26.0"
+    "ivi": "^0.27.0",
+    "ivi-html": "^0.27.0",
+    "ivi-portal": "^0.27.0",
+    "ivi-state": "^0.27.0"
   },
   "devDependencies": {
     "@types/node": "^11.13.8",

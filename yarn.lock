@@ -4022,25 +4022,30 @@ isstream@~0.1.2:
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
   integrity sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo=
 
-ivi-html@^0.26.0:
-  version "0.26.0"
-  resolved "https://registry.yarnpkg.com/ivi-html/-/ivi-html-0.26.0.tgz#438da506c6c25b62ee589147a25ae46c98fe4a38"
-  integrity sha512-unNbF+rTKAaUg0gZh5ndemfdJLGr9kNyZopkep2f/fJcTrDUMWGXALUxZfzjjp98z6wAqV8lcJzxRiSvqf0yIQ==
+ivi-html@^0.27.0:
+  version "0.27.0"
+  resolved "https://registry.yarnpkg.com/ivi-html/-/ivi-html-0.27.0.tgz#90d85191be3a295e6511524d2fbef3d59a316b0b"
+  integrity sha512-rcpKRYuFUl3gZShtaYXBUpxNCWVaHW0A0TZpdIiaNsgOk4cxbH8oGAvktZSc6zzS8HOt4WsZ7Z/rR1loUl6OaQ==
 
-ivi-state@^0.26.0:
-  version "0.26.0"
-  resolved "https://registry.yarnpkg.com/ivi-state/-/ivi-state-0.26.0.tgz#1e5c622463aeff74d27694a5838033dcfc8d5ff5"
-  integrity sha512-J6E0g3OGOv9qPfVXmgSW2e5sq1aUkOM5EmyIZiFE4nMeVioDQfK0W+KAl2jWCRozUc9a62C/e9wpKi9hdb2bOw==
+ivi-portal@^0.27.0:
+  version "0.27.0"
+  resolved "https://registry.yarnpkg.com/ivi-portal/-/ivi-portal-0.27.0.tgz#843b2e6b3d293f9f1201f1ba9bd6b7ab3a8aeb5b"
+  integrity sha512-twP6DPz8X0eq1Mb7XezFBfZrtoZMhBf+BHEwOdGFYkmORFf/CAGMLd7RqtwKPNHBr0VW+EC576SBwJ8ziA3s3w==
+
+ivi-state@^0.27.0:
+  version "0.27.0"
+  resolved "https://registry.yarnpkg.com/ivi-state/-/ivi-state-0.27.0.tgz#e5903774f29082c9d0ed093fd57e9c74127a443d"
+  integrity sha512-rtZTFSmHFgz+Sw7PD/fTsU5a5KYzfB2cfJQGcv0y5qsubC32iUJq6IkEfoT20d5xt6UbstTyLVyUjnTUMd2LXQ==
 
 ivi-tslint-rules@^0.1.9:
   version "0.1.9"
   resolved "https://registry.yarnpkg.com/ivi-tslint-rules/-/ivi-tslint-rules-0.1.9.tgz#81d608fe55f7e3937c42e4059e6748c192ab6506"
   integrity sha512-aZ9D57IKcVE2rW6lhsYRtaU1nTBIVJ3mM79ixDsfz1573ehS/bZi9vluet9HEZjLXXs8Vx4MEW5CSaXxiOZbLg==
 
-ivi@^0.26.0:
-  version "0.26.0"
-  resolved "https://registry.yarnpkg.com/ivi/-/ivi-0.26.0.tgz#a845730347755742461833682dc781869fe66023"
-  integrity sha512-/SiMpgvbwNauiHLz8zV5PhHXGhyo285G+IUSiVpfqmTDGtK18yBxFRYIcMtvPKXiknxq5gsc/0FiqtC/0PH/SA==
+ivi@^0.27.0:
+  version "0.27.0"
+  resolved "https://registry.yarnpkg.com/ivi/-/ivi-0.27.0.tgz#f75549e1b4e065539a0cbb73725fb6ef74744c57"
+  integrity sha512-ek+gbv1jmCjo3fX/7MUXJv+58zfvxXoPCekgJElomLNjmE//H/hMUyEwiWy0eWoDdWdjme3zhc0beY7jQne3pQ==
 
 jest-worker@^24.0.0:
   version "24.0.0"
