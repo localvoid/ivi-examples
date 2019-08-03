@@ -1,3 +1,5 @@
+import { observable, Observable, mut } from "ivi";
+
 export interface Query {
   readonly elapsed: number;
   readonly query: string;
@@ -34,15 +36,15 @@ const EMPTY_QUERY = { elapsed: 0, query: "***" };
 export interface DB {
   readonly id: number;
   readonly name: string;
-  readonly queries: Query[];
+  queries: Query[];
 }
 
 let _nextId = 0;
-function createDB(name: string, id?: number): DB {
+function createDB(name: string, id?: number): Observable<DB> {
   if (id === void 0) {
     id = _nextId++;
   }
-  return { id, name, queries: randomQueries() };
+  return observable({ id, name, queries: randomQueries() });
 }
 
 export function getTopFiveQueries(db: DB): Query[] {
@@ -63,11 +65,10 @@ export function createState(n: number) {
   return state;
 }
 
-export function randomUpdate(state: DB[], r: number) {
+export function randomUpdate(state: Observable<DB>[], r: number) {
   for (let i = 0; i < state.length; i++) {
     if (Math.random() < r) {
-      const { id, name } = state[i];
-      state[i] = createDB(name, id);
+      mut(state[i]).queries = randomQueries();
     }
   }
 }

@@ -1,10 +1,10 @@
 {
   "private": true,
-  "name": "10k",
+  "name": "dirtycheck",
   "version": "1.0.0",
   "scripts": {
     "serve": "../../../node_modules/.bin/webpack-dev-server --open --config webpack.dev.js",
     "dist": "../../../node_modules/.bin/webpack --config webpack.prod.js",
-    "gh-publish": "mkdir -p ../../../docs/benchmarks/10k && cp dist/* ../../../docs/benchmarks/10k/"
+    "gh-publish": "mkdir -p ../../../docs/benchmarks/dirtycheck && cp dist/* ../../../docs/benchmarks/dirtycheck/"
   }
 }

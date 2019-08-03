@@ -1,5 +1,5 @@
 import {
-  _, withNextFrame, render, requestDirtyCheck, statelessComponent, component, useSelect, TrackByKey, key,
+  _, withNextFrame, render, requestDirtyCheck, statelessComponent, TrackByKey, key, Observable, watch,
 } from "ivi";
 import { div, span, table, tbody, tr, td } from "ivi-html";
 import { startProfile, endProfile } from "perf-monitor";
@@ -10,6 +10,7 @@ init();
 const state = createState(getN());
 
 const arrow = div("arrow");
+// const W = component<Op>(() => (c) => c);
 
 const Popover = statelessComponent<string>((query) => (
   div("popover left", _, [
@@ -31,32 +32,28 @@ const QueryCell = ({ elapsed, query }: Query) => (
   )
 );
 
-const DatabaseList = component<number>((c) => {
-  const getDB = useSelect<DB, number>(c, (idx) => state[idx]);
+const DatabaseList = statelessComponent<Observable<DB>>((odb) => {
+  const db = watch(odb);
+  const count = db.queries!.length;
 
-  return (idx) => {
-    const db = getDB(idx);
-    const count = db.queries!.length;
-
-    return tr(_, _, [
-      td("dbname", _, db.name),
-      td("query-count", _,
-        span(
-          count >= 20 ? "label label-important" :
-            count >= 10 ? "label label-warning" :
-              "label label-success",
-          _,
-          count,
-        ),
+  return tr(_, _, [
+    td("dbname", _, db.name),
+    td("query-count", _,
+      span(
+        count >= 20 ? "label label-important" :
+          count >= 10 ? "label label-warning" :
+            "label label-success",
+        _,
+        count,
       ),
-      getTopFiveQueries(db).map(QueryCell),
-    ]);
-  };
+    ),
+    getTopFiveQueries(db).map(QueryCell),
+  ]);
 });
 
-const Main = (dbs: DB[]) => (
+const Main = (dbs: Observable<DB>[]) => (
   table("table table-striped latest-data", _, [
-    tbody(_, _, TrackByKey(dbs.map((db, i) => key(db.id, DatabaseList(i))))),
+    tbody(_, _, TrackByKey(dbs.map((db) => key(db.v.id, DatabaseList(db))))),
   ])
 );
 

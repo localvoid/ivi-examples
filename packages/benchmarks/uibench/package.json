@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "uibench_fc",
+  "name": "uibench",
   "version": "1.0.0",
   "scripts": {
     "serve": "../../../node_modules/.bin/webpack-dev-server --open --config webpack.dev.js",
