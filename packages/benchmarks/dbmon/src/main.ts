@@ -10,7 +10,6 @@ init();
 const state = createState(getN());
 
 const arrow = div("arrow");
-// const W = component<Op>(() => (c) => c);
 
 const Popover = statelessComponent<string>((query) => (
   div("popover left", _, [

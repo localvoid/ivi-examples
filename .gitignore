@@ -7,4 +7,5 @@ node_modules
 .vscode
 .npm-debug
 npm-debug.log
+pnpm-debug*
 yarn-error.log

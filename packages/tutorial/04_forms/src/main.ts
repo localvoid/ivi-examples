@@ -1,6 +1,4 @@
-import {
-  render, component, invalidate, onSubmit, onInput, _, Events, TrackByKey, key, UpdateFlags,
-} from "ivi";
+import { render, component, invalidate, onSubmit, onInput, _, Events, TrackByKey, key } from "ivi";
 import { div, button, input, form, ul, li, VALUE } from "ivi-html";
 
 const Form = component<{ submit: (entry: string) => void }>((c) => {
@@ -11,7 +9,7 @@ const Form = component<{ submit: (entry: string) => void }>((c) => {
     if (_entry) {
       _submit(_entry);
       _entry = "";
-      invalidate(c, UpdateFlags.RequestSyncUpdate);
+      invalidate(c);
     }
     ev.preventDefault();
   });

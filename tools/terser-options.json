@@ -5,9 +5,8 @@
   "compress": {
     "ecma": 5,
     "inline": true,
-    "reduce_funcs": false,
-    "passes": 3,
-    "comparisons": false
+    "reduce_vars": true,
+    "passes": 3
   },
   "output": {
     "ecma": 5,
@@ -15,6 +14,5 @@
   },
   "toplevel": true,
   "mangle": true,
-  "safari10": true,
   "module": true
 }

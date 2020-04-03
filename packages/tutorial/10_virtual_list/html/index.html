@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>ivi example 11: Virtual List</title>
+  <style>
+    .virtual-list {
+      width: 400px;
+      height: 400px;
+      overflow: auto;
+      border: 1px solid #333;
+      contain: strict;
+    }
+
+    .virtual-list>div {
+      contain: content;
+    }
+
+    .virtual-list-item {
+      height: 50px;
+      width: 100%;
+      contain: strict;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app"></div>
+</body>
+
+</html>

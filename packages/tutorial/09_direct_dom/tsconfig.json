@@ -3,7 +3,7 @@
   "compilerOptions": {
     "outDir": "build",
     "target": "es2018",
-    "module": "commonjs",
+    "module": "es2015",
     "moduleResolution": "node",
     "declaration": false,
     "importHelpers": true,
@@ -16,6 +16,6 @@
     ]
   },
   "include": [
-    "*.ts"
+    "src/*.ts"
   ],
 }

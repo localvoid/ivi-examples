@@ -6,7 +6,7 @@ export const enum PanAction { Down, Move, Up }
 export type PanEvent = Readonly<ReturnType<typeof createPanEvent>>;
 const createPanEvent = (action: PanAction, x: number, y: number, dx: number, dy: number) => ({ action, x, y, dx, dy });
 
-type PanEventHandler = (event: PanEvent, target?: OpState) => boolean | void;
+type PanEventHandler = (event: PanEvent, target?: OpState) => number | void;
 const dispatchPanEvent = (event: PanEvent, target: DispatchTarget<PanEventHandler>) => target.h.h(event, target.t);
 
 function dispatch(targets: DispatchTarget[], event: PanEvent) {

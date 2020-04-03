@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>ivi example 12: Virtual List Dynamic</title>
+  <style>
+    .virtual-list {
+      width: 400px;
+      height: 400px;
+      overflow: auto;
+      contain: strict;
+      border: 1px solid #333;
+      will-change: scroll-position;
+    }
+
+    .virtual-list>div {
+      contain: content;
+      will-change: contents;
+    }
+
+    .virtual-list-item {
+      contain: content;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app"></div>
+</body>
+
+</html>

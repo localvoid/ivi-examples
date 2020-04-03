@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "09_custom_events",
+  "name": "11_virtual_list_dynamic",
   "version": "1.0.0",
   "scripts": {
     "serve": "../../../node_modules/.bin/webpack-dev-server --open --config webpack.dev.js",

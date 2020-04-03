@@ -1,6 +1,7 @@
 import {
-  _, render, TrackByKey, key, component, onClick, onBlur, invalidate, Events, observable, watch,
-  withNextFrame, requestDirtyCheck, onInput, AUTOFOCUS, Op, Key,
+  _, render, TrackByKey, key, component, observable, watch,
+  withNextFrame, requestDirtyCheck, AUTOFOCUS, Op, Key, invalidate,
+  Events, onClick, onBlur, onInput,
 } from "ivi";
 import { div, input, VALUE } from "ivi-html";
 import { startProfile, endProfile, startFPSMonitor, startMemMonitor, initProfiler } from "perf-monitor";
@@ -11,26 +12,29 @@ const y = observable(1);
 const Field = component((c) => {
   let value = "a";
   let editing = false;
-  const edit = onClick(() => {
-    editing = true;
-    invalidate(c);
-  });
-  const blur = onBlur(() => {
-    editing = false;
-    invalidate(c);
-  });
-  const change = onInput((ev) => {
-    value = (ev.target as HTMLInputElement).value;
-    invalidate(c);
-  });
 
   return () => {
     watch(x);
     watch(y);
-    return [
-      editing ? Events([blur, change], input(_, { value: VALUE(value), autofocus: AUTOFOCUS(true) })) : null,
-      !editing ? Events(edit, div("field", _, value)) : null,
-    ];
+    return (
+      Events([
+        onClick(() => {
+          editing = true;
+          invalidate(c);
+        }),
+        onBlur(() => {
+          editing = false;
+          invalidate(c);
+        }),
+        onInput((ev) => {
+          value = (ev.target as HTMLInputElement).value;
+          invalidate(c);
+        })
+      ], [
+        editing ? input(_, { value: VALUE(value), autofocus: AUTOFOCUS(true) }) : null,
+        !editing ? div("field", _, value) : null,
+      ])
+    );
   };
 });
 
