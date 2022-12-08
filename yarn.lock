@@ -4112,25 +4112,25 @@ isstream@~0.1.2:
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
   integrity sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo=
 
-ivi-html@^0.27.0:
-  version "0.27.0"
-  resolved "https://registry.yarnpkg.com/ivi-html/-/ivi-html-0.27.0.tgz#90d85191be3a295e6511524d2fbef3d59a316b0b"
-  integrity sha512-rcpKRYuFUl3gZShtaYXBUpxNCWVaHW0A0TZpdIiaNsgOk4cxbH8oGAvktZSc6zzS8HOt4WsZ7Z/rR1loUl6OaQ==
+ivi-html@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/ivi-html/-/ivi-html-1.0.0.tgz#2bb2f65d782b9202ae7258025cfcf73ba4a0d747"
+  integrity sha512-FW60bRbK1gbGIaREYiDX6VvaN9xGsNqSzEXGrRbVlR2SJVGqFeSWhZGNPx+SMLHUC/AIg6jfqxghjC8kuqj3Ig==
 
-ivi-portal@^0.27.0:
-  version "0.27.0"
-  resolved "https://registry.yarnpkg.com/ivi-portal/-/ivi-portal-0.27.0.tgz#843b2e6b3d293f9f1201f1ba9bd6b7ab3a8aeb5b"
-  integrity sha512-twP6DPz8X0eq1Mb7XezFBfZrtoZMhBf+BHEwOdGFYkmORFf/CAGMLd7RqtwKPNHBr0VW+EC576SBwJ8ziA3s3w==
+ivi-portal@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/ivi-portal/-/ivi-portal-1.0.0.tgz#81cf9dd8f2966d86aff5d553fbdf2c081c67822a"
+  integrity sha512-b/ga/ZzPkU/8KuMKqdUAyMR+ZeDH+Tpndr0BeZGm5M8KvmN944hiuXMuBAQ4Ul/UOqL/Ju1KMj2iyRrqYbr+WA==
 
-ivi-state@^0.27.0:
-  version "0.27.0"
-  resolved "https://registry.yarnpkg.com/ivi-state/-/ivi-state-0.27.0.tgz#e5903774f29082c9d0ed093fd57e9c74127a443d"
-  integrity sha512-rtZTFSmHFgz+Sw7PD/fTsU5a5KYzfB2cfJQGcv0y5qsubC32iUJq6IkEfoT20d5xt6UbstTyLVyUjnTUMd2LXQ==
+ivi-state@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/ivi-state/-/ivi-state-1.0.0.tgz#aed5ffefd563c77157938e3b805d6ee2d04740d2"
+  integrity sha512-VRnkjJzubrYZZSbJaAZ3FO0gTXP/QjAsTmJpzGCNjMeji+K5CRFt6/RtOBXje2NmiNGHqoY6U3vOAHmZiI4aZw==
 
-ivi@^0.27.0:
-  version "0.27.1"
-  resolved "https://registry.yarnpkg.com/ivi/-/ivi-0.27.1.tgz#74dbf9d358e8859238d321903691531a44aeef4b"
-  integrity sha512-F6Lm+WgYeI1mlqW1TaM4cSMlXpfz8SSsGOJF3T6ieh4wPNG0DWS3UU00qAgoLxMpZxfAj1mwTGYW+Aw4K+UrPA==
+ivi@^1.0.0:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/ivi/-/ivi-1.0.1.tgz#e2ba6124ef24b45b5c40bc0d4686e0dd6a7ead44"
+  integrity sha512-sP/GDPnZcOQD/f3RSRwNUd1Shb/ZQfr0VEIbbiwtor9axn780rgBS5l9uZEILx5TjdH0QMfYmMDKkSNH2THoRw==
 
 jest-worker@^24.9.0:
   version "24.9.0"
@@ -5850,9 +5850,9 @@ qs@6.7.0:
   integrity sha512-VCdBRNFTX1fyE7Nb6FYoURo/SPe62QCaAyzJvUjwRaIsc+NePBEniHlvxFmmX56+HZphIGtV0XeCirBtpDrTyQ==
 
 qs@~6.5.2:
-  version "6.5.2"
-  resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
-  integrity sha512-N5ZAX4/LxJmF+7wN74pUD6qAh9/wnvdQcjq9TZjevvXzSUo7bfmw91saqMjzGS2xq91/odN2dW/WOl7qQHNDGA==
+  version "6.5.3"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.3.tgz#3aeeffc91967ef6e35c0e488ef46fb296ab76aad"
+  integrity sha512-qxXIEh4pCGfHICj1mAJQ2/2XVZkjCDTcEgfoSQxc/fYivUZxTkk7L3bDBJSoNrEzXI17oUO5Dp07ktqE5KzczA==
 
 querystring-es3@^0.2.0:
   version "0.2.1"
