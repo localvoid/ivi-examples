@@ -1,9 +1,0 @@
-{
-  "private": true,
-  "version": "1.0.0",
-  "name": "04_forms",
-  "scripts": {
-    "serve": "../../../node_modules/.bin/webpack-dev-server --open --config webpack.dev.js",
-    "dist": "../../../node_modules/.bin/webpack --config webpack.prod.js"
-  }
-}

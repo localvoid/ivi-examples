@@ -1,9 +1,0 @@
-{
-  "private": true,
-  "name": "09_direct_dom",
-  "version": "1.0.0",
-  "scripts": {
-    "serve": "../../../node_modules/.bin/webpack-dev-server --open --config webpack.dev.js",
-    "dist": "../../../node_modules/.bin/webpack --config webpack.prod.js"
-  }
-}

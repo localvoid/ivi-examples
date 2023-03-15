@@ -1,0 +1,24 @@
+{
+  "private": true,
+  "type": "module",
+  "sideEffects": false,
+  "scripts": {
+    "build": "rollup -c ./rollup.config.mjs",
+    "dev": "rollup -c ./rollup.config.mjs --watch",
+    "serve": "serve -c ../serve.json",
+    "gh-publish": "mkdir -p ../../docs/benchmarks/dbmon && cp dist/* ../../docs/benchmarks/dbmon/"
+  },
+  "dependencies": {
+    "ivi": "^2.0.0",
+    "perf-monitor": "^0.6.0"
+  },
+  "devDependencies": {
+    "tslib": "^2.5.0",
+    "typescript": "^4.9.5",
+    "rollup": "^3.19.0",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-terser": "^0.4.0",
+    "@rollup/plugin-typescript": "^11.0.0",
+    "@ivi/rollup-plugin": "^2.0.0"
+  }
+}
