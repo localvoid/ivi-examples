@@ -170,22 +170,23 @@ const Main = (dbs: DB[]) => htm`
       ${List(dbs, getDBKey, Row)}
 `;
 
-export const Test = (attr: string, child: string) => htm`div :attr=${attr} span ${child}`;
-
 const state = createState(N);
 const root = createRoot(document.getElementById("app")!, null);
 updateRoot(root, Main(state));
 
+const dataUpdateTime = ema();
 const viewUpdateTime = ema();
-document.querySelector<PerfMonitor>("perf-monitor")!.observe(
-  "view update",
-  viewUpdateTime,
-);
+const perfMonitor = document.querySelector<PerfMonitor>("perf-monitor")!;
+perfMonitor.observe("data update", dataUpdateTime);
+perfMonitor.observe("view update", viewUpdateTime);
+
 const perf = performance;
 
 const tick = () => {
-  randomUpdate(state, mutations);
   let t0 = perf.now();
+  randomUpdate(state, mutations);
+  emaPush(dataUpdateTime, perf.now() - t0);
+  t0 = perf.now();
   updateRoot(root, Main(state));
   emaPush(viewUpdateTime, perf.now() - t0);
   requestAnimationFrame(tick);
