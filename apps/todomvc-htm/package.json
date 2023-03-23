@@ -8,11 +8,10 @@
   },
   "dependencies": {
     "ivi": "^3.0.0-beta.1",
-    "@ivi/tpl": "^1.0.0-beta.1",
+    "@ivi/htm": "^1.0.0-beta.1",
     "@ivi/template-compiler": "^3.0.0-beta.1"
   },
   "devDependencies": {
-    "typescript": "^5.0.2",
     "vite": "^4.2.1",
     "@ivi/rollup-plugin": "^3.0.0-beta.1"
   }

@@ -1,12 +1,12 @@
 import { component } from "ivi";
 import { createRoot, updateRoot, forceUpdateRoot } from "ivi/root";
-import { htm } from "ivi/template";
+import { htm } from "@ivi/tpl";
 
 const root = createRoot(document.getElementById("app")!);
 
 const enum Theme {
   Light,
-  Dark
+  Dark,
 }
 
 let theme = Theme.Light;
@@ -32,7 +32,4 @@ const App = component((c) => {
   `;
 });
 
-updateRoot(
-  root,
-  App(),
-);
+updateRoot(root, App());

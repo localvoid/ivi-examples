@@ -7,11 +7,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "ivi": "^2.0.0"
+    "ivi": "^3.0.0-beta.1",
+    "@ivi/tpl": "^1.0.0-beta.1",
+    "@ivi/template-compiler": "^3.0.0-beta.1"
   },
   "devDependencies": {
     "typescript": "^4.9.5",
     "vite": "^4.1.4",
-    "@ivi/rollup-plugin": "^2.0.0"
+    "@ivi/rollup-plugin": "^3.0.0-beta.1"
   }
 }

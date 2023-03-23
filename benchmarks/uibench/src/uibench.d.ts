@@ -1,4 +1,4 @@
-interface HomeState { }
+interface HomeState {}
 
 interface TableItemState {
   id: number;

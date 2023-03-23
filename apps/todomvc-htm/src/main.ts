@@ -1,7 +1,7 @@
 import { component, invalidate, List } from "ivi";
 import { useReducer } from "ivi/state";
 import { shallowEq } from "ivi/equal";
-import { htm } from "@ivi/tpl";
+import { htm } from "@ivi/htm";
 import { createRoot, updateRoot } from "ivi/root";
 import {
   Entry,
@@ -34,12 +34,16 @@ const Header = component<AppDispatch>((c) => {
   return (dispatch: any) => (
     (_dispatch = dispatch),
     /*-c*/ htm`
-    header.header h1 'todos'
-      input.new-todo
-        :placeholder='What needs to be done?'
+    <header class="header">
+      <h1>todos</h1>
+      <input
+        class="new-todo"
+        placeholder="What needs to be done?"
         @keydown=${onKeyDown}
         @input=${onInput}
         *value=${inputValue}
+      >
+    </header>
     `
   );
 });
@@ -105,25 +109,30 @@ const EntryView = component<EntryViewProps>((c) => {
     (_entry = props.entry),
     (_dispatch = props.dispatch),
     htm`
-    li${entryClassName(_editText !== null, _entry.isCompleted)}
-      div.view
-        input.toggle
-          :type='checkbox'
+    <li class=${entryClassName(_editText !== null, _entry.isCompleted)}>
+      <div class="view">
+        <input
+          class="toggle"
+          type="checkbox"
           @change=${onToggleChange}
           *checked=${_entry.isCompleted}
-        label @dblclick=${onLabelDblClick} =${_entry.text}
-        button.destroy @click=${onDestroyClick}
-
+        >
+        <label @dblclick=${onLabelDblClick}>${_entry.text}</label>
+        <button class="destroy" @click=${onDestroyClick}></button>
+      </div>
       ${
         _editText &&
         htm`
-        input.edit
-          @input=${onEditInput}
-          @blur=${finishEdit}
-          @keydown=${onEditKeyDown}
-          *value=${_editText}
-          $${autofocus}`
+          <input class="edit"
+            @input=${onEditInput}
+            @blur=${finishEdit}
+            @keydown=${onEditKeyDown}
+            *value=${_editText}
+            ${autofocus}
+          >
+        `
       }
+    </li>
     `
   );
 }, shallowEq);
@@ -223,40 +232,67 @@ const App = component((c) => {
 
     return [
       Header(dispatch),
-      state.entries.length > 0 &&
-        /*-c*/ htm`
-        section.main
-          input
-            :id='toggle-all'
-            :type='checkbox'
-            @change=${toggleAll}
-            *checked=${isAllCompleted}
-          label :for='toggle-all' 'Mark all as complete'
-          ul.todo-list
-            ${List(visibleEntries, entryKey, (entry) =>
-              EntryView({ dispatch, entry })
-            )}
-        footer.footer
-          ul.filters
-            li a${filterClassName(filter === Filter.All)} :href='#/' 'All'
-            li a${filterClassName(
-              filter === Filter.Active
-            )} :href='#/active' 'Active'
-            li a${filterClassName(
-              filter === Filter.Completed
-            )} :href='#/completed' 'Completed'
-          span.todo-count
-            strong =${activeEntries ? activeEntries : "No"}
-            ${activeEntries === 1 ? " item left" : " items left"}
-          ${
-            completedEntries > 0 &&
-            htm`
-            button.clear-completed
-              @click=${clearCompleted}
-              =${`Clear completed (${completedEntries})`}
-            `
-          }
-        `,
+      state.entries.length
+        ? /*-c*/ htm`
+          <section class="main">
+            <input
+              id="toggle-all"
+              type="checkbox"
+              @change=${toggleAll}
+              *checked=${isAllCompleted}
+            >
+            <label for="toggle-all">Mark all as complete</label>
+            <ul class="todo-list">
+              ${List(visibleEntries, entryKey, (entry) =>
+                EntryView({ dispatch, entry })
+              )}
+            </ul>
+          </section>
+          <footer class="footer">
+            <ul class="filters">
+              <li>
+                <a
+                  class=${filterClassName(filter === Filter.All)}
+                  href="#/"
+                >
+                  All
+                </a>
+              </li>
+              <li>
+                <a
+                  class=${filterClassName(filter === Filter.Active)}
+                  href="#/active"
+                >
+                  Active
+                </a>
+              </li>
+              <li>
+                <a
+                  class=${filterClassName(filter === Filter.Completed)}
+                  href="#/completed"
+                >
+                  Completed
+                </a>
+              </li>
+            </ul>
+            <span class="todo-count">
+              <strong>${activeEntries ? activeEntries : "No"}</strong>
+              ${activeEntries === 1 ? " item left" : " items left"}
+            </span>
+            ${
+              completedEntries > 0 &&
+              htm`
+                <button
+                  class="clear-completed"
+                  @click=${clearCompleted}
+                >
+                  ${`Clear completed (${completedEntries})`}
+                </button>
+              `
+            }
+          </footer>
+        `
+        : null,
     ];
   };
 });

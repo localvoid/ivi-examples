@@ -23,15 +23,10 @@ export default {
     file: "./dist/bundle.js",
     format: "es",
     strict: true,
-    sourcemap: true,
+    sourcemap: false,
   },
   watch: {
     clearScreen: false,
   },
-  plugins: [
-    nodeResolve(),
-    typescript(),
-    ivi(),
-    terser(TERSER_OPTIONS),
-  ],
+  plugins: [nodeResolve(), typescript(), ivi(), terser(TERSER_OPTIONS)],
 };

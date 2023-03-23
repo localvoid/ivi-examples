@@ -9,16 +9,18 @@
     "gh-publish": "mkdir -p ../../docs/benchmarks/dbmon && cp index.html ../../docs/benchmarks/dbmon/ && cp -r dist ../../docs/benchmarks/dbmon/"
   },
   "dependencies": {
-    "ivi": "^2.0.0",
+    "ivi": "^3.0.0-beta.1",
+    "@ivi/tpl": "^1.0.0-beta.1",
+    "@ivi/template-compiler": "^3.0.0-beta.1",
     "perf-monitor": "^0.6.0"
   },
   "devDependencies": {
     "tslib": "^2.5.0",
-    "typescript": "^4.9.5",
-    "rollup": "^3.19.0",
+    "typescript": "^5.0.2",
+    "rollup": "^3.20.0",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@rollup/plugin-terser": "^0.4.0",
     "@rollup/plugin-typescript": "^11.0.0",
-    "@ivi/rollup-plugin": "^2.0.0"
+    "@ivi/rollup-plugin": "^3.0.0-beta.1"
   }
 }

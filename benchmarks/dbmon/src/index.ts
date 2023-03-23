@@ -2,7 +2,7 @@ import type { PerfMonitor } from "perf-monitor/component";
 import { ema, emaPush } from "perf-monitor";
 import { List } from "ivi";
 import { createRoot, updateRoot } from "ivi/root";
-import { htm } from "ivi/template";
+import { htm } from "@ivi/tpl";
 
 let mutations = 0.5;
 let N = 50;
@@ -54,7 +54,7 @@ const randomQuery = () => {
 function randomQueries() {
   const queries = [] as Query[];
 
-  const r = floor((random() * 10) + 1);
+  const r = floor(random() * 10 + 1);
   for (let i = 0; i < r; i++) {
     queries.push(randomQuery());
   }
@@ -64,24 +64,10 @@ function randomQueries() {
 
 const EMPTY_QUERY = { elapsed: 0, query: "***" };
 
-interface DB {
-  readonly id: number;
-  readonly name: string;
-  readonly queries: Query[];
-}
-
-let _nextId = 0;
-const createDB = (name: string, id?: number): DB => {
-  if (id === void 0) {
-    id = _nextId++;
-  }
-  return { id, name, queries: randomQueries() };
-};
-
 const sortByElapsed = (a: Query, b: Query) => a.elapsed - b.elapsed;
 
-const getTopFiveQueries = (db: DB): Query[] => {
-  var qs = db.queries.slice(0, 5);
+const getTopFiveQueries = (queries: Query[]): Query[] => {
+  const qs = queries.slice(0, 5);
   qs.sort(sortByElapsed);
   while (qs.length < 5) {
     qs.push(EMPTY_QUERY);
@@ -89,9 +75,25 @@ const getTopFiveQueries = (db: DB): Query[] => {
   return qs;
 };
 
+interface DB {
+  readonly id: number;
+  readonly name: string;
+  readonly queries: Query[];
+  readonly topFive: Query[];
+}
+
+let _nextId = 0;
+const createDB = (name: string, id?: number): DB => {
+  if (id === void 0) {
+    id = _nextId++;
+  }
+  const queries = randomQueries();
+  return { id, name, queries, topFive: getTopFiveQueries(queries) };
+};
+
 function createState(n: number): DB[] {
-  var state: DB[] = [];
-  for (var i = 0; i < n; i++) {
+  const state: DB[] = [];
+  for (let i = 0; i < n; i++) {
     state.push(createDB("cluster" + (i + 1)));
     state.push(createDB("cluster" + (i + 1) + " slave"));
   }
@@ -120,23 +122,21 @@ const entryFormatElapsed = (v: number): string => {
   return v.toFixed(2);
 };
 
-const queryClassName = (elapsed: number): string => (
-  (elapsed >= 10.0)
+const queryClassName = (elapsed: number): string =>
+  elapsed >= 10.0
     ? "Query elapsed warn_long"
-    : (elapsed >= 1.0)
-      ? "Query elapsed warn"
-      : (elapsed > 0)
-        ? "Query elapsed short"
-        : ""
-);
+    : elapsed >= 1.0
+    ? "Query elapsed warn"
+    : elapsed > 0
+    ? "Query elapsed short"
+    : "";
 
-const countClassName = (count: number): string => (
-  (count >= 20)
+const countClassName = (count: number): string =>
+  count >= 20
     ? "label label-important"
-    : (count >= 10)
-      ? "label label-warning"
-      : "label label-success"
-);
+    : count >= 10
+    ? "label label-warning"
+    : "label label-success";
 
 const Cell = ({ elapsed, query }: Query) => htm`
   td${queryClassName(elapsed)}
@@ -147,18 +147,18 @@ const Cell = ({ elapsed, query }: Query) => htm`
 `;
 
 const Row = (db: DB) => {
-  var topFiveQueries = getTopFiveQueries(db);
-  var count = db.queries.length;
+  const topFive = db.topFive;
+  const count = db.queries.length;
 
   return htm`
     tr
       td.dbname =${db.name}
       td.query-count span${countClassName(count)} =${count}
-      ${Cell(topFiveQueries[0])}
-      ${Cell(topFiveQueries[1])}
-      ${Cell(topFiveQueries[2])}
-      ${Cell(topFiveQueries[3])}
-      ${Cell(topFiveQueries[4])}
+      ${Cell(topFive[0])}
+      ${Cell(topFive[1])}
+      ${Cell(topFive[2])}
+      ${Cell(topFive[3])}
+      ${Cell(topFive[4])}
   `;
 };
 
