@@ -1,7 +1,6 @@
 import type { PerfMonitor } from "perf-monitor/component";
 import { ema, emaPush } from "perf-monitor";
-import { List } from "ivi";
-import { createRoot, updateRoot } from "ivi/root";
+import { createRoot, update, List } from "ivi";
 import { htm } from "@ivi/tpl";
 
 let mutations = 0.5;
@@ -172,7 +171,7 @@ const Main = (dbs: DB[]) => htm`
 
 const state = createState(N);
 const root = createRoot(document.getElementById("app")!, null);
-updateRoot(root, Main(state));
+update(root, Main(state));
 
 const dataUpdateTime = ema();
 const viewUpdateTime = ema();
@@ -187,7 +186,7 @@ const tick = () => {
   randomUpdate(state, mutations);
   emaPush(dataUpdateTime, perf.now() - t0);
   t0 = perf.now();
-  updateRoot(root, Main(state));
+  update(root, Main(state));
   emaPush(viewUpdateTime, perf.now() - t0);
   requestAnimationFrame(tick);
 };

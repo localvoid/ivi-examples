@@ -1,15 +1,20 @@
-import { component, invalidate, List } from "ivi";
-import { useReducer } from "ivi/state";
-import { shallowEq } from "ivi/equal";
-import { htm } from "@ivi/tpl";
-import { createRoot, updateRoot } from "ivi/root";
 import {
-  Entry,
-  AppDispatch,
+  createRoot,
+  update,
+  component,
+  invalidate,
+  shallowEq,
+  useReducer,
+  List,
+} from "ivi";
+import { htm } from "@ivi/tpl";
+import {
+  type Entry,
+  type AppDispatch,
+  type AppState,
+  type AppAction,
   ActionType,
   Filter,
-  AppState,
-  AppAction,
 } from "./types.js";
 
 let nextId = 0;
@@ -261,4 +266,4 @@ const App = component((c) => {
   };
 });
 
-updateRoot(createRoot(document.getElementsByClassName("todoapp")[0]!), App());
+update(createRoot(document.getElementsByClassName("todoapp")[0]!), App());

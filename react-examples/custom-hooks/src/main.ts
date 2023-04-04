@@ -1,8 +1,13 @@
-import { Component, component, useEffect } from "ivi";
+import {
+  type Component,
+  createRoot,
+  update,
+  component,
+  shallowEqArray,
+  useEffect,
+  useState,
+} from "ivi";
 import { htm } from "@ivi/tpl";
-import { shallowEqArray } from "ivi/equal";
-import { createRoot, updateRoot } from "ivi/root";
-import { useState } from "ivi/state";
 
 interface Point {
   x: number;
@@ -76,9 +81,16 @@ const Dot = ({
   opacity: number;
 }) => htm`
   div
-    :style='position:absolute;background-color:pink;border-radius:50%;pointer-events:none;left:-20px;top:-20px;width:40px;height:40px'
+    ~position="absolute"
+    ~background-color="pink"
+    ~border-radius="50%"
+    ~pointer-events="none"
+    ~left="-20px"
+    ~top="-20px"
+    ~width="40px"
+    ~height="40px"
     ~opacity=${opacity}
     ~transform=${`translate(${position.x}px,${position.y}px)`}
 `;
 
-updateRoot(createRoot(document.getElementById("app")!), Canvas());
+update(createRoot(document.getElementById("app")!), Canvas());

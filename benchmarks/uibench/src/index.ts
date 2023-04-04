@@ -1,5 +1,4 @@
-import { component, List, type VAny } from "ivi";
-import { createRoot, updateRoot } from "ivi/root";
+import { createRoot, update, component, List, type VAny } from "ivi";
 import { htm } from "@ivi/tpl";
 
 const tableCellId = (_: any, index: number) => index;
@@ -85,16 +84,16 @@ function Main(state: AppState) {
   `;
 }
 
-uibench.init("ivi", "2.0.0");
+uibench.init("ivi", "3.0.0");
 
 document.addEventListener("DOMContentLoaded", () => {
   var container = document.getElementById("App")!;
   var root = createRoot(container, null);
-  updateRoot(root, null);
+  update(root, null);
 
   uibench.run(
     (next) => {
-      updateRoot(root, Main(next));
+      update(root, Main(next));
     },
     (samples) => {
       container.innerHTML = `<pre>${JSON.stringify(samples, void 0, 2)}</pre>`;

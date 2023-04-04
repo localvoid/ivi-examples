@@ -1,5 +1,4 @@
-import { component, invalidate } from "ivi";
-import { createRoot, updateRoot } from "ivi/root";
+import { createRoot, update, component, invalidate } from "ivi";
 import { svg } from "@ivi/tpl";
 
 const App = component((c) => {
@@ -23,4 +22,4 @@ const App = component((c) => {
   `;
 });
 
-updateRoot(createRoot(document.getElementById("app")!), App());
+update(createRoot(document.getElementById("app")!), App());

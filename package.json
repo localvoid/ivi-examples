@@ -1,3 +1,13 @@
 {
-  "private": true
+  "private": true,
+  "pnpm": {
+    "//overrides": {
+      "ivi": "../../../ivi/packages/ivi",
+      "@ivi/tpl": "../../../ivi/packages/@ivi/tpl",
+      "@ivi/htm": "../../../ivi/packages/@ivi/htm",
+      "@ivi/rollup-plugin": "../../../ivi/packages/@ivi/rollup-plugin",
+      "@ivi/vite-plugin": "../../../ivi/packages/@ivi/vite-plugin",
+      "@ivi/astro": "../../../ivi/packages/@ivi/astro"
+    }
+  }
 }

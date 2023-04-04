@@ -1,5 +1,4 @@
-import { component } from "ivi";
-import { createRoot, updateRoot, forceUpdateRoot } from "ivi/root";
+import { createRoot, update, dirtyCheck, component } from "ivi";
 import { htm } from "@ivi/tpl";
 
 const root = createRoot(document.getElementById("app")!);
@@ -13,7 +12,7 @@ let theme = Theme.Light;
 function setTheme(t: Theme) {
   if (theme !== t) {
     theme = t;
-    forceUpdateRoot(root);
+    dirtyCheck(root, true);
   }
 }
 
@@ -32,4 +31,4 @@ const App = component((c) => {
   `;
 });
 
-updateRoot(root, App());
+update(root, App());
