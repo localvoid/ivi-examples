@@ -7,11 +7,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "ivi": "^3.0.0-beta.2",
-    "@ivi/htm": "^3.0.0-beta.2"
+    "@ivi/htm": "^3.0.0",
+    "ivi": "^3.0.0"
   },
   "devDependencies": {
-    "vite": "^4.2.1",
-    "@ivi/rollup-plugin": "^3.0.0-beta.2"
+    "@ivi/vite-plugin": "^3.0.0",
+    "vite": "^4.2.1"
   }
 }

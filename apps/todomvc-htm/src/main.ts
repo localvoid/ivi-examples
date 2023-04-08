@@ -1,16 +1,18 @@
 import {
   createRoot,
   update,
+  eventDispatcher,
   component,
+  getProps,
   invalidate,
-  shallowEq,
   useReducer,
   List,
+  strictEq,
+  preventUpdates,
 } from "ivi";
 import { htm } from "@ivi/htm";
 import {
   type Entry,
-  type AppDispatch,
   type AppState,
   type AppAction,
   ActionType,
@@ -20,14 +22,14 @@ import {
 let nextId = 0;
 
 const entryKey = (entry: Entry) => entry.id;
+const dispatch = eventDispatcher<AppAction>("dispatch");
 
-const Header = component<AppDispatch>((c) => {
-  let _dispatch: AppDispatch;
+const Header = component((c) => {
   let inputValue = "";
   const onKeyDown = (ev: KeyboardEvent) => {
     if (ev.key === "Enter") {
       ev.preventDefault();
-      _dispatch({ type: ActionType.AddEntry, value: inputValue });
+      dispatch(c, { type: ActionType.AddEntry, value: inputValue });
       inputValue = "";
       invalidate(c);
     }
@@ -36,11 +38,9 @@ const Header = component<AppDispatch>((c) => {
     inputValue = (ev.target as HTMLInputElement).value;
   };
 
-  return (dispatch: any) => (
-    (_dispatch = dispatch),
-    /*-c*/ htm`
+  return () => /* preventClone */ htm`
     <header class="header">
-      <h1>todos</h1>
+      <h1>Todos</h1>
       <input
         class="new-todo"
         placeholder="What needs to be done?"
@@ -49,9 +49,8 @@ const Header = component<AppDispatch>((c) => {
         *value=${inputValue}
       >
     </header>
-    `
-  );
-});
+  `;
+}, preventUpdates);
 
 const entryClassName = (isEditing: boolean, isCompleted: boolean) =>
   isEditing
@@ -70,24 +69,17 @@ const autofocus = (element: HTMLElement) => {
   });
 };
 
-interface EntryViewProps {
-  entry: Entry;
-  dispatch: AppDispatch;
-}
-
-const EntryView = component<EntryViewProps>((c) => {
-  let _dispatch: AppDispatch;
-  let _entry: Entry;
+const EntryView = component<Entry>((c) => {
   let _editText: string | null = null;
 
   const onToggleChange = () => {
-    _dispatch({ type: ActionType.ToggleEntry, id: _entry.id });
+    dispatch(c, { type: ActionType.ToggleEntry, id: getProps(c).id });
   };
   const onDestroyClick = () => {
-    _dispatch({ type: ActionType.RemoveEntry, id: _entry.id });
+    dispatch(c, { type: ActionType.RemoveEntry, id: getProps(c).id });
   };
   const onLabelDblClick = () => {
-    _editText = _entry.text;
+    _editText = getProps(c).text;
     invalidate(c);
   };
   const onEditInput = (ev: InputEvent) => {
@@ -99,9 +91,9 @@ const EntryView = component<EntryViewProps>((c) => {
   };
   const onEditKeyDown = (ev: KeyboardEvent) => {
     if (ev.key === "Enter") {
-      _dispatch({
+      dispatch(c, {
         type: ActionType.EditEntry,
-        id: _entry.id,
+        id: getProps(c).id,
         value: _editText!,
       });
       finishEdit();
@@ -110,19 +102,17 @@ const EntryView = component<EntryViewProps>((c) => {
     }
   };
 
-  return (props) => (
-    (_entry = props.entry),
-    (_dispatch = props.dispatch),
+  return ({ isCompleted, text }) =>
     htm`
-    <li class=${entryClassName(_editText !== null, _entry.isCompleted)}>
+    <li class=${entryClassName(_editText !== null, isCompleted)}>
       <div class="view">
         <input
           class="toggle"
           type="checkbox"
           @change=${onToggleChange}
-          *checked=${_entry.isCompleted}
+          *checked=${isCompleted}
         >
-        <label @dblclick=${onLabelDblClick}>${_entry.text}</label>
+        <label @dblclick=${onLabelDblClick}>${text}</label>
         <button class="destroy" @click=${onDestroyClick}></button>
       </div>
       ${
@@ -138,9 +128,8 @@ const EntryView = component<EntryViewProps>((c) => {
         `
       }
     </li>
-    `
-  );
-}, shallowEq);
+    `;
+}, strictEq);
 
 const App = component((c) => {
   addEventListener("hashchange", () => {
@@ -151,10 +140,10 @@ const App = component((c) => {
     } else if (hash === "#/completed") {
       newState = Filter.Completed;
     }
-    dispatch({ type: ActionType.SetFilter, value: newState });
+    _dispatch({ type: ActionType.SetFilter, value: newState });
   });
 
-  const [_state, dispatch] = useReducer<AppState, AppAction>(
+  const [_state, _dispatch] = useReducer<AppState, AppAction>(
     c,
     { filter: Filter.All, entries: [] },
     (state, action) => {
@@ -213,10 +202,15 @@ const App = component((c) => {
     }
   );
 
-  const toggleAll = () => {
-    dispatch({ type: ActionType.ToggleAll });
+  const onDispatch = (ev: CustomEvent<AppAction>) => {
+    _dispatch(ev.detail);
   };
-  const clearCompleted = () => dispatch({ type: ActionType.RemoveCompleted });
+
+  const toggleAll = () => {
+    _dispatch({ type: ActionType.ToggleAll });
+  };
+
+  const clearCompleted = () => _dispatch({ type: ActionType.RemoveCompleted });
 
   return () => {
     const state = _state();
@@ -235,10 +229,12 @@ const App = component((c) => {
       visibleEntries = entries.filter((e) => e.isCompleted);
     }
 
-    return [
-      Header(dispatch),
-      state.entries.length
-        ? /*-c*/ htm`
+    return /* preventClone */ htm`
+      <section class="todoapp" @dispatch=${onDispatch}>
+        ${Header()}
+        ${
+          state.entries.length > 0 &&
+          /* preventClone */ htm`
           <section class="main">
             <input
               id="toggle-all"
@@ -248,34 +244,27 @@ const App = component((c) => {
             >
             <label for="toggle-all">Mark all as complete</label>
             <ul class="todo-list">
-              ${List(visibleEntries, entryKey, (entry) =>
-                EntryView({ dispatch, entry })
-              )}
+              ${List(visibleEntries, entryKey, EntryView)}
             </ul>
           </section>
           <footer class="footer">
             <ul class="filters">
               <li>
-                <a
-                  class=${filterClassName(filter === Filter.All)}
-                  href="#/"
-                >
+                <a class=${filterClassName(filter === Filter.All)} href="#/">
                   All
                 </a>
               </li>
               <li>
-                <a
-                  class=${filterClassName(filter === Filter.Active)}
-                  href="#/active"
-                >
+                <a class=${filterClassName(
+                  filter === Filter.Active
+                )} href="#/active">
                   Active
                 </a>
               </li>
               <li>
-                <a
-                  class=${filterClassName(filter === Filter.Completed)}
-                  href="#/completed"
-                >
+                <a class=${filterClassName(
+                  filter === Filter.Completed
+                )} href="#/completed">
                   Completed
                 </a>
               </li>
@@ -297,9 +286,10 @@ const App = component((c) => {
             }
           </footer>
         `
-        : null,
-    ];
+        }
+      </section>
+    `;
   };
 });
 
-update(createRoot(document.getElementsByClassName("todoapp")[0]!), App());
+update(createRoot(document.body), App());
