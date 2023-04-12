@@ -7,15 +7,15 @@ importers:
   apps/todomvc:
     dependencies:
       '@ivi/tpl':
-        specifier: ^3.0.0
-        version: 3.0.0(ivi@3.0.0)
+        specifier: ^3.0.1
+        version: 3.0.1(ivi@3.0.1)
       ivi:
-        specifier: ^3.0.0
-        version: 3.0.0
+        specifier: ^3.0.1
+        version: 3.0.1
     devDependencies:
       '@ivi/vite-plugin':
-        specifier: ^3.0.0
-        version: 3.0.0(ivi@3.0.0)
+        specifier: ^3.0.1
+        version: 3.0.1(ivi@3.0.1)
       typescript:
         specifier: ^5.0.4
         version: 5.0.4
@@ -26,15 +26,15 @@ importers:
   apps/todomvc-htm:
     dependencies:
       '@ivi/htm':
-        specifier: ^3.0.0
-        version: 3.0.0(ivi@3.0.0)
+        specifier: ^3.0.1
+        version: 3.0.1(ivi@3.0.1)
       ivi:
-        specifier: ^3.0.0
-        version: 3.0.0
+        specifier: ^3.0.1
+        version: 3.0.1
     devDependencies:
       '@ivi/vite-plugin':
-        specifier: ^3.0.0
-        version: 3.0.0(ivi@3.0.0)
+        specifier: ^3.0.1
+        version: 3.0.1(ivi@3.0.1)
       vite:
         specifier: ^4.2.1
         version: 4.2.1
@@ -42,24 +42,24 @@ importers:
   benchmarks/dbmon:
     dependencies:
       '@ivi/tpl':
-        specifier: ^3.0.0
-        version: 3.0.0(ivi@3.0.0)
+        specifier: ^3.0.1
+        version: 3.0.1(ivi@3.0.1)
       ivi:
-        specifier: ^3.0.0
-        version: 3.0.0
+        specifier: ^3.0.1
+        version: 3.0.1
       perf-monitor:
         specifier: ^0.6.0
         version: 0.6.0
     devDependencies:
       '@ivi/rollup-plugin':
-        specifier: ^3.0.2
-        version: 3.0.2(ivi@3.0.0)(rollup@3.20.2)
+        specifier: ^3.0.3
+        version: 3.0.3(ivi@3.0.1)(rollup@3.20.2)
       '@rollup/plugin-node-resolve':
         specifier: ^15.0.2
         version: 15.0.2(rollup@3.20.2)
       '@rollup/plugin-terser':
-        specifier: ^0.4.0
-        version: 0.4.0(rollup@3.20.2)
+        specifier: ^0.4.1
+        version: 0.4.1(rollup@3.20.2)
       '@rollup/plugin-typescript':
         specifier: ^11.1.0
         version: 11.1.0(rollup@3.20.2)(tslib@2.5.0)(typescript@5.0.4)
@@ -76,21 +76,21 @@ importers:
   benchmarks/uibench:
     dependencies:
       '@ivi/tpl':
-        specifier: ^3.0.0
-        version: 3.0.0(ivi@3.0.0)
+        specifier: ^3.0.1
+        version: 3.0.1(ivi@3.0.1)
       ivi:
-        specifier: ^3.0.0
-        version: 3.0.0
+        specifier: ^3.0.1
+        version: 3.0.1
     devDependencies:
       '@ivi/rollup-plugin':
-        specifier: ^3.0.2
-        version: 3.0.2(ivi@3.0.0)(rollup@3.20.2)
+        specifier: ^3.0.3
+        version: 3.0.3(ivi@3.0.1)(rollup@3.20.2)
       '@rollup/plugin-node-resolve':
         specifier: ^15.0.2
         version: 15.0.2(rollup@3.20.2)
       '@rollup/plugin-terser':
-        specifier: ^0.4.0
-        version: 0.4.0(rollup@3.20.2)
+        specifier: ^0.4.1
+        version: 0.4.1(rollup@3.20.2)
       '@rollup/plugin-typescript':
         specifier: ^11.1.0
         version: 11.1.0(rollup@3.20.2)(tslib@2.5.0)(typescript@5.0.4)
@@ -107,15 +107,15 @@ importers:
   features/force-update:
     dependencies:
       '@ivi/tpl':
-        specifier: ^3.0.0
-        version: 3.0.0(ivi@3.0.0)
+        specifier: ^3.0.1
+        version: 3.0.1(ivi@3.0.1)
       ivi:
-        specifier: ^3.0.0
-        version: 3.0.0
+        specifier: ^3.0.1
+        version: 3.0.1
     devDependencies:
       '@ivi/rollup-plugin':
-        specifier: ^3.0.2
-        version: 3.0.2(ivi@3.0.0)(rollup@3.20.2)
+        specifier: ^3.0.3
+        version: 3.0.3(ivi@3.0.1)(rollup@3.20.2)
       typescript:
         specifier: ^5.0.4
         version: 5.0.4
@@ -126,15 +126,15 @@ importers:
   features/svg:
     dependencies:
       '@ivi/tpl':
-        specifier: ^3.0.0
-        version: 3.0.0(ivi@3.0.0)
+        specifier: ^3.0.1
+        version: 3.0.1(ivi@3.0.1)
       ivi:
-        specifier: ^3.0.0
-        version: 3.0.0
+        specifier: ^3.0.1
+        version: 3.0.1
     devDependencies:
       '@ivi/rollup-plugin':
-        specifier: ^3.0.2
-        version: 3.0.2(ivi@3.0.0)(rollup@3.20.2)
+        specifier: ^3.0.3
+        version: 3.0.3(ivi@3.0.1)(rollup@3.20.2)
       typescript:
         specifier: ^5.0.4
         version: 5.0.4
@@ -145,15 +145,15 @@ importers:
   react-examples/custom-hooks:
     dependencies:
       '@ivi/tpl':
-        specifier: ^3.0.0
-        version: 3.0.0(ivi@3.0.0)
+        specifier: ^3.0.1
+        version: 3.0.1(ivi@3.0.1)
       ivi:
-        specifier: ^3.0.0
-        version: 3.0.0
+        specifier: ^3.0.1
+        version: 3.0.1
     devDependencies:
       '@ivi/rollup-plugin':
-        specifier: ^3.0.2
-        version: 3.0.2(ivi@3.0.0)(rollup@3.20.2)
+        specifier: ^3.0.3
+        version: 3.0.3(ivi@3.0.1)(rollup@3.20.2)
       typescript:
         specifier: ^5.0.4
         version: 5.0.4
@@ -569,30 +569,30 @@ packages:
     dev: true
     optional: true
 
-  /@ivi/babel-plugin@3.0.0(ivi@3.0.0):
-    resolution: {integrity: sha512-53ByeVAt1wlPPQjJEOe81+d6eqZZsBo4zHxeT/QMmTr0kaSjH0kki2Q/Qk2qePBMf0KY3E4bSbJ2LwY5EHsxbw==}
+  /@ivi/babel-plugin@3.0.1(ivi@3.0.1):
+    resolution: {integrity: sha512-IWJLRUV1LmTij8eHpYIzJD9Z9jQAmSgPwTJJXfj6gjjljKJKuQILqGaW2XrjqD8E0j/DV6meng4ZHtPO2X0KGA==}
     peerDependencies:
-      ivi: 3.0.0
+      ivi: ^3.0.1
     dependencies:
       '@babel/helper-module-imports': 7.21.4
       '@babel/helper-plugin-utils': 7.20.2
       '@babel/types': 7.21.4
-      ivi: 3.0.0
+      ivi: 3.0.1
     dev: true
 
-  /@ivi/htm@3.0.0(ivi@3.0.0):
-    resolution: {integrity: sha512-uUO9l0WB5LW8dYivYUKX+8cRohJbXZXndPo2OKkroSurwIBtQZmwYYoPqHtJtaN8tSboPiwncDsYwlUZZphlXg==}
+  /@ivi/htm@3.0.1(ivi@3.0.1):
+    resolution: {integrity: sha512-K6AZA+llkbwDSUs7pXeRvY64UV9wqkxGMqbqMEXBlKAKHwX+u7uloS8103y+p/uPSibepl+iiq3xHXOzED6K9A==}
     peerDependencies:
-      ivi: 3.0.0
+      ivi: ^3.0.1
     dependencies:
-      ivi: 3.0.0
+      ivi: 3.0.1
     dev: false
 
-  /@ivi/rollup-plugin@3.0.2(ivi@3.0.0)(rollup@3.20.2):
-    resolution: {integrity: sha512-qyS/PEe6x963N/+CE7D5KtbZwFCbgkb5Nt2l49fcnxz2KOfLCu7P0qNQudPnLZJ4Vnf5qVSCyozAR8lIwiDoig==}
+  /@ivi/rollup-plugin@3.0.3(ivi@3.0.1)(rollup@3.20.2):
+    resolution: {integrity: sha512-WF2nlmt6cAHb6bDlBU9pXoV+1uCnaS0GCx/7WTN5Vz5c1TwXTkhxjKhX1gvb/2O6O10jyCuHi0eZBluJeo0VmQ==}
     dependencies:
       '@babel/core': 7.21.4
-      '@ivi/babel-plugin': 3.0.0(ivi@3.0.0)
+      '@ivi/babel-plugin': 3.0.1(ivi@3.0.1)
       '@rollup/pluginutils': 5.0.2(rollup@3.20.2)
     transitivePeerDependencies:
       - ivi
@@ -600,33 +600,24 @@ packages:
       - supports-color
     dev: true
 
-  /@ivi/tpl@3.0.0(ivi@3.0.0):
-    resolution: {integrity: sha512-/tyPKVR7CfsxQSD1YEXZ6Qzz5+t6r/qNyEuZq7/4vkWYFCr9pRnMwEltc5zh8goGTHgyNJOzbj9me6pJJ2KV8Q==}
+  /@ivi/tpl@3.0.1(ivi@3.0.1):
+    resolution: {integrity: sha512-O4P6LkKXvkN2L3kVJeh9m7LWRDUtHfvScknMWty8mRbw0IuGFLzd5BFr+lVz2n7BJm3fbWiqN0xiE9gguF7dWA==}
     peerDependencies:
-      ivi: 3.0.0
+      ivi: ^3.0.1
     dependencies:
-      ivi: 3.0.0
+      ivi: 3.0.1
     dev: false
 
-  /@ivi/vite-plugin@3.0.0(ivi@3.0.0):
-    resolution: {integrity: sha512-lWaRLKEmoGHj7h73oihRbV8dV3Crr4NtsaJL8M6+MsMHmc+RAHiK6BGC7+HlLBRY+K1yI1MgHWa/jQGlJgc5OA==}
+  /@ivi/vite-plugin@3.0.1(ivi@3.0.1):
+    resolution: {integrity: sha512-85r3/aymWMAWhDXoVRH4w6jKA3lmuZEZJ1yev+/zLEdk872vnY9fjNhs6pD0ld5yCInb4qNy7WG27wd85Oajwg==}
     dependencies:
       '@babel/core': 7.21.4
-      '@ivi/babel-plugin': 3.0.0(ivi@3.0.0)
+      '@ivi/babel-plugin': 3.0.1(ivi@3.0.1)
       '@rollup/pluginutils': 5.0.2(rollup@3.20.2)
     transitivePeerDependencies:
       - ivi
       - rollup
       - supports-color
-    dev: true
-
-  /@jridgewell/gen-mapping@0.3.2:
-    resolution: {integrity: sha512-mh65xKQAzI6iBcFzwv28KVWSmCkdRBWoOh+bYQGW3+6OZvbbN3TqMGo5hqYxQniRcH9F2VZIoJCm4pa3BPDK/A==}
-    engines: {node: '>=6.0.0'}
-    dependencies:
-      '@jridgewell/set-array': 1.1.2
-      '@jridgewell/sourcemap-codec': 1.4.14
-      '@jridgewell/trace-mapping': 0.3.17
     dev: true
 
   /@jridgewell/gen-mapping@0.3.3:
@@ -648,11 +639,11 @@ packages:
     engines: {node: '>=6.0.0'}
     dev: true
 
-  /@jridgewell/source-map@0.3.2:
-    resolution: {integrity: sha512-m7O9o2uR8k2ObDysZYzdfhb08VuEml5oWGiosa1VdaPZ/A6QyPkAJuwN0Q1lhULOf6B7MtQmHENS743hWtCrgw==}
+  /@jridgewell/source-map@0.3.3:
+    resolution: {integrity: sha512-b+fsZXeLYi9fEULmfBrhxn4IrPlINf8fiNarzTof004v3lFdntdwa9PF7vFJqm3mg7s+ScJMxXaE3Acp1irZcg==}
     dependencies:
-      '@jridgewell/gen-mapping': 0.3.2
-      '@jridgewell/trace-mapping': 0.3.17
+      '@jridgewell/gen-mapping': 0.3.3
+      '@jridgewell/trace-mapping': 0.3.18
     dev: true
 
   /@jridgewell/sourcemap-codec@1.4.14:
@@ -661,13 +652,6 @@ packages:
 
   /@jridgewell/sourcemap-codec@1.4.15:
     resolution: {integrity: sha512-eF2rxCRulEKXHTRiDrDy6erMYWqNw4LPdQ8UQA4huuxaQsVeRPFl2oM8oDGxMFhJUWZf9McpLtJasDDZb/Bpeg==}
-    dev: true
-
-  /@jridgewell/trace-mapping@0.3.17:
-    resolution: {integrity: sha512-MCNzAp77qzKca9+W/+I0+sEpaUnZoeasnghNeVc41VZCEKaCH73Vq3BZZ/SzWIgrqE4H4ceI+p+b6C0mHf9T4g==}
-    dependencies:
-      '@jridgewell/resolve-uri': 3.1.0
-      '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
 
   /@jridgewell/trace-mapping@0.3.18:
@@ -695,8 +679,8 @@ packages:
       rollup: 3.20.2
     dev: true
 
-  /@rollup/plugin-terser@0.4.0(rollup@3.20.2):
-    resolution: {integrity: sha512-Ipcf3LPNerey1q9ZMjiaWHlNPEHNU/B5/uh9zXLltfEQ1lVSLLeZSgAtTPWGyw8Ip1guOeq+mDtdOlEj/wNxQw==}
+  /@rollup/plugin-terser@0.4.1(rollup@3.20.2):
+    resolution: {integrity: sha512-aKS32sw5a7hy+fEXVy+5T95aDIwjpGHCTv833HXVtyKMDoVS7pBr5K3L9hEQoNqbJFjfANPrNpIXlTQ7is00eA==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       rollup: ^2.x || ^3.x
@@ -707,7 +691,7 @@ packages:
       rollup: 3.20.2
       serialize-javascript: 6.0.1
       smob: 0.0.6
-      terser: 5.16.6
+      terser: 5.16.9
     dev: true
 
   /@rollup/plugin-typescript@11.1.0(rollup@3.20.2)(tslib@2.5.0)(typescript@5.0.4):
@@ -771,8 +755,8 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001476
-      electron-to-chromium: 1.4.356
+      caniuse-lite: 1.0.30001477
+      electron-to-chromium: 1.4.357
       node-releases: 2.0.10
       update-browserslist-db: 1.0.10(browserslist@4.21.5)
     dev: true
@@ -786,8 +770,8 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /caniuse-lite@1.0.30001476:
-    resolution: {integrity: sha512-JmpktFppVSvyUN4gsLS0bShY2L9ZUslHLE72vgemBkS43JD2fOvKTKs+GtRwuxrtRGnwJFW0ye7kWRRlLJS9vQ==}
+  /caniuse-lite@1.0.30001477:
+    resolution: {integrity: sha512-lZim4iUHhGcy5p+Ri/G7m84hJwncj+Kz7S5aD4hoQfslKZJgt0tHc/hafVbqHC5bbhHb+mrW2JOUHkI5KH7toQ==}
     dev: true
 
   /chalk@2.4.2:
@@ -834,8 +818,8 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /electron-to-chromium@1.4.356:
-    resolution: {integrity: sha512-nEftV1dRX3omlxAj42FwqRZT0i4xd2dIg39sog/CnCJeCcL1TRd2Uh0i9Oebgv8Ou0vzTPw++xc+Z20jzS2B6A==}
+  /electron-to-chromium@1.4.357:
+    resolution: {integrity: sha512-UTkCbNTAcGXABmEnQrGcW4m3cG6fcyBfD4KDF0iyEAlbrGZiY9dmslyDAGOD1Kr5biN2F743Y30aRCOtau35Vw==}
     dev: true
 
   /esbuild@0.17.15:
@@ -933,8 +917,8 @@ packages:
     resolution: {integrity: sha512-51ypPSPCoTEIN9dy5Oy+h4pShgJmPCygKfyRCISBI+JoWT/2oJvK8QPxmwv7b/p239jXrm9M1mlQbyKJ5A152g==}
     dev: true
 
-  /ivi@3.0.0:
-    resolution: {integrity: sha512-6U9qfGDek6ktMmr/1NNqwOD4moTGfuk39Ixo0hdF/NeP2RYUFHBhsoreZe4Ybxzlau3gGEdCpHIGEJKvxmfheg==}
+  /ivi@3.0.1:
+    resolution: {integrity: sha512-vGDxZyma2CQ0zJozy/drT4ffS5DeOwvJtunw+brwF7wloer5TWy9c9S7soN+/PU17L67K+0xJAFRcOMu+GnCig==}
 
   /js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
@@ -1078,12 +1062,12 @@ packages:
     engines: {node: '>= 0.4'}
     dev: true
 
-  /terser@5.16.6:
-    resolution: {integrity: sha512-IBZ+ZQIA9sMaXmRZCUMDjNH0D5AQQfdn4WUjHL0+1lF4TP1IHRJbrhb6fNaXWikrYQTSkb7SLxkeXAiy1p7mbg==}
+  /terser@5.16.9:
+    resolution: {integrity: sha512-HPa/FdTB9XGI2H1/keLFZHxl6WNvAI4YalHGtDQTlMnJcoqSab1UwL4l1hGEhs6/GmLHBZIg/YgB++jcbzoOEg==}
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
-      '@jridgewell/source-map': 0.3.2
+      '@jridgewell/source-map': 0.3.3
       acorn: 8.8.2
       commander: 2.20.3
       source-map-support: 0.5.21

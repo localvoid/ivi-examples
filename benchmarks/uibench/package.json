@@ -9,13 +9,13 @@
     "gh-publish": "mkdir -p ../../docs/benchmarks/uibench && cp index.html ../../docs/benchmarks/uibench/ && cp -r dist ../../docs/benchmarks/uibench/"
   },
   "dependencies": {
-    "@ivi/tpl": "^3.0.0",
-    "ivi": "^3.0.0"
+    "@ivi/tpl": "^3.0.1",
+    "ivi": "^3.0.1"
   },
   "devDependencies": {
-    "@ivi/rollup-plugin": "^3.0.2",
+    "@ivi/rollup-plugin": "^3.0.3",
     "@rollup/plugin-node-resolve": "^15.0.2",
-    "@rollup/plugin-terser": "^0.4.0",
+    "@rollup/plugin-terser": "^0.4.1",
     "@rollup/plugin-typescript": "^11.1.0",
     "rollup": "^3.20.2",
     "tslib": "^2.5.0",
