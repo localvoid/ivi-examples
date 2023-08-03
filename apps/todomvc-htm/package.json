@@ -12,6 +12,6 @@
   },
   "devDependencies": {
     "@ivi/vite-plugin": "^3.0.1",
-    "vite": "^4.2.1"
+    "vite": "^4.2.3"
   }
 }
