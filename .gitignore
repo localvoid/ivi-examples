@@ -5,11 +5,10 @@ node_modules
 *.tsbuildinfo
 npm-debug.log
 
+.rsync-ignore
 .DS_Store
 .idea
 .vscode
 
 .TODO
 
-# Local Netlify folder
-.netlify

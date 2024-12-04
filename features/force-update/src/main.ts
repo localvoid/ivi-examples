@@ -1,5 +1,4 @@
-import { createRoot, update, dirtyCheck, component } from "ivi";
-import { htm } from "@ivi/tpl";
+import { createRoot, update, dirtyCheck, component, html } from "ivi";
 
 const root = createRoot(document.getElementById("app")!);
 
@@ -16,19 +15,11 @@ function setTheme(t: Theme) {
   }
 }
 
-const App = component((c) => {
-  const toggleTheme = () => {
-    if (theme === Theme.Light) {
-      setTheme(Theme.Dark);
-    } else {
-      setTheme(Theme.Light);
-    }
-  };
-  return () => htm`
-    div
-      div ${theme === Theme.Light ? "Light" : "Dark"}
-      button @click=${toggleTheme} 'Toggle Theme'
-  `;
-});
+const App = component(() => () => html`
+  <div>
+    <div>${theme === Theme.Light ? "Light" : "Dark"}</div>
+    <button @click=${() => setTheme(theme === Theme.Light ? Theme.Dark : Theme.Light)}>Toggle Theme</button>
+  </div>
+`);
 
 update(root, App());

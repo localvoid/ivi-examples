@@ -9,8 +9,8 @@ import {
   List,
   strictEq,
   preventUpdates,
+  html,
 } from "ivi";
-import { htm } from "@ivi/htm";
 import {
   type Entry,
   type AppState,
@@ -38,7 +38,7 @@ const Header = component((c) => {
     inputValue = (ev.target as HTMLInputElement).value;
   };
 
-  return () => /* preventClone */ htm`
+  return () => /* preventClone */ html`
     <header class="header">
       <h1>Todos</h1>
       <input
@@ -58,8 +58,8 @@ const entryClassName = (isEditing: boolean, isCompleted: boolean) =>
       ? "editing completed"
       : "editing"
     : isCompleted
-    ? "completed"
-    : "";
+      ? "completed"
+      : "";
 
 const filterClassName = (selected: boolean) => (selected ? "selected" : "");
 
@@ -103,7 +103,7 @@ const EntryView = component<Entry>((c) => {
   };
 
   return ({ isCompleted, text }) =>
-    htm`
+    html`
     <li class=${entryClassName(_editText !== null, isCompleted)}>
       <div class="view">
         <input
@@ -111,22 +111,19 @@ const EntryView = component<Entry>((c) => {
           type="checkbox"
           @change=${onToggleChange}
           *checked=${isCompleted}
-        >
+        />
         <label @dblclick=${onLabelDblClick}>${text}</label>
         <button class="destroy" @click=${onDestroyClick}></button>
       </div>
-      ${
-        _editText &&
-        htm`
-          <input class="edit"
-            @input=${onEditInput}
-            @blur=${finishEdit}
-            @keydown=${onEditKeyDown}
-            *value=${_editText}
-            ${autofocus}
-          >
-        `
-      }
+      ${_editText && html`
+        <input class="edit"
+          @input=${onEditInput}
+          @blur=${finishEdit}
+          @keydown=${onEditKeyDown}
+          *value=${_editText}
+          ${autofocus}
+        />
+      `}
     </li>
     `;
 }, strictEq);
@@ -187,9 +184,9 @@ const App = component((c) => {
             entries: state.entries.map((e) =>
               e.isCompleted !== areSomeActive
                 ? {
-                    ...e,
-                    isCompleted: areSomeActive,
-                  }
+                  ...e,
+                  isCompleted: areSomeActive,
+                }
                 : e
             ),
           };
@@ -229,12 +226,11 @@ const App = component((c) => {
       visibleEntries = entries.filter((e) => e.isCompleted);
     }
 
-    return /* preventClone */ htm`
+    return /* preventClone */ html`
       <section class="todoapp" @dispatch=${onDispatch}>
         ${Header()}
-        ${
-          state.entries.length > 0 &&
-          /* preventClone */ htm`
+        ${state.entries.length > 0 &&
+          /* preventClone */ html`
           <section class="main">
             <input
               id="toggle-all"
@@ -255,16 +251,12 @@ const App = component((c) => {
                 </a>
               </li>
               <li>
-                <a class=${filterClassName(
-                  filter === Filter.Active
-                )} href="#/active">
+                <a class=${filterClassName(filter === Filter.Active)} href="#/active">
                   Active
                 </a>
               </li>
               <li>
-                <a class=${filterClassName(
-                  filter === Filter.Completed
-                )} href="#/completed">
+                <a class=${filterClassName(filter === Filter.Completed)} href="#/completed">
                   Completed
                 </a>
               </li>
@@ -273,20 +265,17 @@ const App = component((c) => {
               <strong>${activeEntries ? activeEntries : "No"}</strong>
               ${activeEntries === 1 ? " item left" : " items left"}
             </span>
-            ${
-              completedEntries > 0 &&
-              htm`
-                <button
-                  class="clear-completed"
-                  @click=${clearCompleted}
-                >
-                  ${`Clear completed (${completedEntries})`}
-                </button>
-              `
-            }
+            ${completedEntries > 0 && html`
+              <button
+                class="clear-completed"
+                @click=${clearCompleted}
+              >
+                ${`Clear completed (${completedEntries})`}
+              </button>
+            `}
           </footer>
         `
-        }
+      }
       </section>
     `;
   };

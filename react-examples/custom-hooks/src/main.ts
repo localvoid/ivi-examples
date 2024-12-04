@@ -6,8 +6,8 @@ import {
   shallowEqArray,
   useEffect,
   useState,
+  html,
 } from "ivi";
-import { htm } from "@ivi/tpl";
 
 interface Point {
   x: number;
@@ -79,8 +79,8 @@ const Dot = ({
 }: {
   position: Point;
   opacity: number;
-}) => htm`
-  div
+}) => html`
+  <div
     ~position="absolute"
     ~background-color="pink"
     ~border-radius="50%"
@@ -91,6 +91,7 @@ const Dot = ({
     ~height="40px"
     ~opacity=${opacity}
     ~transform=${`translate(${position.x}px,${position.y}px)`}
+  />
 `;
 
 update(createRoot(document.getElementById("app")!), Canvas());

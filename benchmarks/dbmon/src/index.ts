@@ -1,7 +1,6 @@
 import type { PerfMonitor } from "perf-monitor/component";
 import { ema, emaPush } from "perf-monitor";
-import { createRoot, update, List } from "ivi";
-import { htm } from "@ivi/tpl";
+import { createRoot, update, List, html } from "ivi";
 
 let mutations = 0.5;
 let N = 50;
@@ -125,48 +124,53 @@ const queryClassName = (elapsed: number): string =>
   elapsed >= 10.0
     ? "Query elapsed warn_long"
     : elapsed >= 1.0
-    ? "Query elapsed warn"
-    : elapsed > 0
-    ? "Query elapsed short"
-    : "";
+      ? "Query elapsed warn"
+      : elapsed > 0
+        ? "Query elapsed short"
+        : "";
 
 const countClassName = (count: number): string =>
   count >= 20
     ? "label label-important"
     : count >= 10
-    ? "label label-warning"
-    : "label label-success";
+      ? "label label-warning"
+      : "label label-success";
 
-const Cell = ({ elapsed, query }: Query) => htm`
-  td${queryClassName(elapsed)}
+const Cell = ({ elapsed, query }: Query) => html`
+  <td class=${queryClassName(elapsed)}>
     ${entryFormatElapsed(elapsed)}
-    div.popover.left
-      div.popover-content =${query}
-      div.arrow
+    <div class="popover left">
+      <div class="popover-content" .textContent=${query}/>
+      <div class="arrow"/>
+    </div>
+  </td>
 `;
 
 const Row = (db: DB) => {
   const topFive = db.topFive;
   const count = db.queries.length;
 
-  return htm`
-    tr
-      td.dbname =${db.name}
-      td.query-count span${countClassName(count)} =${count}
+  return html`
+    <tr>
+      <td class="dbname" .textContent=${db.name}/>
+      <td class="query-count">
+        <span class=${countClassName(count)} .textContent=${count}/>
+      </td>
       ${Cell(topFive[0])}
       ${Cell(topFive[1])}
       ${Cell(topFive[2])}
       ${Cell(topFive[3])}
       ${Cell(topFive[4])}
+    </tr>
   `;
 };
 
 const getDBKey = (db: DB) => db.id;
 
-const Main = (dbs: DB[]) => htm`
-  table.table.table-striped.latest-data
-    tbody
-      ${List(dbs, getDBKey, Row)}
+const Main = (dbs: DB[]) => html`
+  <table class="table table-striped latest-data">
+    <tbody>${List(dbs, getDBKey, Row)}</tbody>
+  </table>
 `;
 
 const state = createState(N);

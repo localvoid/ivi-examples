@@ -1,90 +1,69 @@
-import { createRoot, update, component, List, type VAny } from "ivi";
-import { htm } from "@ivi/tpl";
+import { createRoot, update, component, List, html, type VAny } from "ivi";
 
 const tableCellId = (_: any, index: number) => index;
 const tableRowId = (row: TableItemState) => row.id;
 const animId = (item: AnimBoxState) => item.id;
 const treeNodeId = (node: TreeNodeState) => node.id;
 
-const TableCell = component(() => {
-  const click = () => {
-    console.log("click");
-  };
-  return (t: string) => htm`
-    td.TableCell
-      @click=${click}
-      =${t}
-  `;
-});
+const TableCell = component(() => (t: string) => html`
+  <td
+    class="TableCell"
+    @click=${() => { console.log("click"); }}
+    .textContent=${t}
+  />
+`);
 
 const TableRow = component(() => (state: TableItemState) => {
-  var id = state.id;
-
-  return htm`
-    tr${state.active ? "TableRow active" : "TableRow"}
-      :data-id=${id}
+  const id = state.id;
+  return html`
+    <tr class=${state.active ? "TableRow active" : "TableRow"}
+      data-id=${id}>
       ${TableCell("#" + id)}
       ${List(state.props, tableCellId, TableCell)}
+    </tr>
   `;
 });
 
-const Table = component(
-  () => (state: TableState) =>
-    htm`
-    table.Table
-      tbody
-        ${List(state.items, tableRowId, TableRow)}
-  `
-);
+const Table = component(() => (state: TableState) => html`
+  <table class="Table">
+    <tbody>${List(state.items, tableRowId, TableRow)}</tbody>
+  </table>
+`);
 
 const AnimBox = component(() => (state: AnimBoxState) => {
   const time = state.time % 10;
-  return htm`
-    div.AnimBox
-      :data-id=${state.id}
+  return html`
+    <div class="AnimBox"
+      data-id=${state.id}
       ~background=${"rgba(0,0,0," + (0.5 + time / 10) + ")"}
       ~border-radius=${time + "px"}
+    />
   `;
 });
 
-const Anim = component(
-  () => (state: AnimState) =>
-    htm`div.Anim ${List(state.items, animId, AnimBox)}`
-);
+const Anim = component(() => (state: AnimState) => html`<div class="Anim">${List(state.items, animId, AnimBox)}</div>`);
 
-const TreeLeaf = component(
-  () => (state: TreeNodeState) => htm`li.TreeLeaf =${state.id}`
-);
-
-const subtree = (state: TreeNodeState): VAny =>
-  state.container === true ? TreeNode(state) : TreeLeaf(state);
-
-const TreeNode = component(
-  () => (state: TreeNodeState) =>
-    htm`ul.TreeNode ${List(state.children, treeNodeId, subtree)}`
-);
-
-const Tree = component(
-  () => (root: TreeNodeState) => htm`div.Tree ${TreeNode(root)}`
-);
+const TreeLeaf = component(() => (state: TreeNodeState) => html`<li class="TreeLeaf" .textContent=${state.id}/>`);
+const subtree = (state: TreeNodeState): VAny => state.container === true ? TreeNode(state) : TreeLeaf(state);
+const TreeNode = component(() => (state: TreeNodeState) => html`<ul class="TreeNode">${List(state.children, treeNodeId, subtree)}</ul>`);
+const Tree = component(() => (root: TreeNodeState) => html`<div class="Tree">${TreeNode(root)}</div>`);
 
 function Main(state: AppState) {
   var location = state.location;
-  return htm`
-    div.Main
-      ${
-        location === "table"
-          ? Table(state.table)
-          : location === "anim"
-          ? Anim(state.anim)
-          : location === "tree"
+  return html`
+    <div class="Main">
+      ${location === "table"
+      ? Table(state.table)
+      : location === "anim"
+        ? Anim(state.anim)
+        : location === "tree"
           ? Tree(state.tree.root)
-          : null
-      }
+          : null}
+    </div>
   `;
 }
 
-uibench.init("ivi", "3.0.1");
+uibench.init("ivi", "4.0.0");
 
 document.addEventListener("DOMContentLoaded", () => {
   var container = document.getElementById("App")!;

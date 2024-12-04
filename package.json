@@ -1,13 +1,18 @@
 {
   "private": true,
-  "pnpm": {
-    "//overrides": {
-      "ivi": "../../../ivi/packages/ivi",
-      "@ivi/tpl": "../../../ivi/packages/@ivi/tpl",
-      "@ivi/htm": "../../../ivi/packages/@ivi/htm",
-      "@ivi/rollup-plugin": "../../../ivi/packages/@ivi/rollup-plugin",
-      "@ivi/vite-plugin": "../../../ivi/packages/@ivi/vite-plugin",
-      "@ivi/astro": "../../../ivi/packages/@ivi/astro"
-    }
+  "scripts": {
+    "clean": "rm -rf ./node_modules ./tsconfig.tsbuildinfo ./dist"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2",
+    "vite": "^6.0.2",
+    "rollup": "^4.28.0",
+    "serve": "^14.2.4",
+    "@rollup/plugin-node-resolve": "^15.3.0",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^12.1.1",
+    "@ivi/rollup-plugin": "^4.0.0",
+    "@ivi/vite-plugin": "^4.0.0",
+    "ivi": "^4.0.0"
   }
 }
