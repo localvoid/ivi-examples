@@ -6,6 +6,6 @@
     "dev": "rollup -c ./rollup.config.mjs --watch",
     "serve": "serve",
     "gh-publish": "mkdir -p ../../docs/benchmarks/uibench && cp index.html ../../docs/benchmarks/uibench/ && cp -r dist ../../docs/benchmarks/uibench/",
-    "clean": "rm -rf ./node_modules ./tsconfig.tsbuildinfo ./dist"
+    "clean": "rm -rf ./node_modules ./tsconfig.tsbuildinfo ./.rollup.cache ./dist"
   }
 }
