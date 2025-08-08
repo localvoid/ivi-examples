@@ -1,9 +1,10 @@
 {
   "private": true,
+  "name": "uibench",
   "type": "module",
   "scripts": {
-    "build": "rollup -c ./rollup.config.mjs",
-    "dev": "rollup -c ./rollup.config.mjs --watch",
+    "build": "rolldown -c ./rolldown.config.js",
+    "dev": "rolldown -c ./rolldown.config.js --watch",
     "serve": "serve",
     "gh-publish": "mkdir -p ../../docs/benchmarks/uibench && cp index.html ../../docs/benchmarks/uibench/ && cp -r dist ../../docs/benchmarks/uibench/",
     "clean": "rm -rf ./node_modules ./tsconfig.tsbuildinfo ./.rollup.cache ./dist"

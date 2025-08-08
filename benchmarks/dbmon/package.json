@@ -1,9 +1,10 @@
 {
   "private": true,
+  "name": "dbmon",
   "type": "module",
   "scripts": {
-    "build": "rollup -c ./rollup.config.mjs",
-    "dev": "rollup -c ./rollup.config.mjs --watch",
+    "build": "rolldown -c ./rolldown.config.js",
+    "dev": "rolldown -c ./rolldown.config.js --watch",
     "serve": "serve -c ../serve.json",
     "gh-publish": "mkdir -p ../../docs/benchmarks/dbmon && cp index.html ../../docs/benchmarks/dbmon/ && cp -r dist ../../docs/benchmarks/dbmon/",
     "clean": "rm -rf ./node_modules ./tsconfig.tsbuildinfo ./.rollup.cache ./dist "

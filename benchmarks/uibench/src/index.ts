@@ -63,7 +63,7 @@ function Main(state: AppState) {
   `;
 }
 
-uibench.init("ivi", "4.0.0");
+uibench.init("ivi", "5.0.0");
 
 document.addEventListener("DOMContentLoaded", () => {
   var container = document.getElementById("App")!;

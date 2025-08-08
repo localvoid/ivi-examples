@@ -47,7 +47,7 @@ const Header = component((c) => {
         @keydown=${onKeyDown}
         @input=${onInput}
         *value=${inputValue}
-      >
+      />
     </header>
   `;
 }, preventUpdates);
@@ -72,19 +72,6 @@ const autofocus = (element: HTMLElement) => {
 const EntryView = component<Entry>((c) => {
   let _editText: string | null = null;
 
-  const onToggleChange = () => {
-    dispatch(c, { type: ActionType.ToggleEntry, id: getProps(c).id });
-  };
-  const onDestroyClick = () => {
-    dispatch(c, { type: ActionType.RemoveEntry, id: getProps(c).id });
-  };
-  const onLabelDblClick = () => {
-    _editText = getProps(c).text;
-    invalidate(c);
-  };
-  const onEditInput = (ev: InputEvent) => {
-    _editText = (ev.target as HTMLInputElement).value;
-  };
   const finishEdit = () => {
     _editText = null;
     invalidate(c);
@@ -109,15 +96,15 @@ const EntryView = component<Entry>((c) => {
         <input
           class="toggle"
           type="checkbox"
-          @change=${onToggleChange}
+          @change=${() => { dispatch(c, { type: ActionType.ToggleEntry, id: getProps(c).id }); }}
           *checked=${isCompleted}
         />
-        <label @dblclick=${onLabelDblClick}>${text}</label>
-        <button class="destroy" @click=${onDestroyClick}></button>
+        <label @dblclick=${() => { _editText = getProps(c).text; invalidate(c); }}>${text}</label>
+        <button class="destroy" @click=${() => { dispatch(c, { type: ActionType.RemoveEntry, id: getProps(c).id }); }}></button>
       </div>
       ${_editText && html`
         <input class="edit"
-          @input=${onEditInput}
+          @input=${(ev: InputEvent) => { _editText = (ev.target as HTMLInputElement).value; }}
           @blur=${finishEdit}
           @keydown=${onEditKeyDown}
           *value=${_editText}
@@ -237,7 +224,7 @@ const App = component((c) => {
               type="checkbox"
               @change=${toggleAll}
               *checked=${isAllCompleted}
-            >
+            />
             <label for="toggle-all">Mark all as complete</label>
             <ul class="todo-list">
               ${List(visibleEntries, entryKey, EntryView)}

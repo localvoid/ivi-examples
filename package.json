@@ -1,18 +1,24 @@
 {
   "private": true,
+  "workspaces": [
+    "apps/*",
+    "benchmarks/*"
+  ],
   "scripts": {
     "clean": "rm -rf ./node_modules ./tsconfig.tsbuildinfo ./dist"
   },
   "devDependencies": {
-    "typescript": "^5.7.2",
-    "vite": "^6.0.2",
-    "rollup": "^4.28.0",
+    "typescript": "^5.9.2",
+    "tslib": "^2.8.1",
+    "vite": "^7.1.0",
+    "rolldown": "^1.0.0-beta.31",
     "serve": "^14.2.4",
-    "@rollup/plugin-node-resolve": "^15.3.0",
-    "@rollup/plugin-terser": "^0.4.4",
-    "@rollup/plugin-typescript": "^12.1.1",
-    "@ivi/rollup-plugin": "^4.0.0",
-    "@ivi/vite-plugin": "^4.0.0",
-    "ivi": "^4.0.0"
+    "oveo": "link:oveo",
+    "@oveo/vite": "link:@oveo/vite",
+    "@oveo/rolldown": "link:@oveo/rolldown",
+    "@ivi/compiler": "link:@ivi/compiler",
+    "@ivi/rolldown": "link:@ivi/rolldown",
+    "@ivi/vite-plugin": "link:@ivi/vite-plugin",
+    "ivi": "link:ivi"
   }
 }

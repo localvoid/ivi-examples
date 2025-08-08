@@ -1,5 +1,6 @@
 {
   "private": true,
+  "name": "todomvc-htm",
   "type": "module",
   "scripts": {
     "dev": "vite",
